@@ -1,24 +1,23 @@
 'use client'
 import React, { useState } from 'react'
 import { Container, Form, Wrapper } from './style';
+import getNotify from '@/hooks/notify';
 function Login() {
+    const { notify } = getNotify()
     const [loginData, setLoginData] = useState({
-
     })
-
     const handleChange = (e) => {
         let { name, value } = e.target;
         setLoginData({ ...loginData, [name]: value })
     }
     const handleSumbit = (e) => {
         e.preventDefault()
-        if (loginData.password.length < 6){
-            alert('parol kamida 6 ta belgidan iborat bolishi kerak')
+        if (loginData.password.length < 6) {
+            notify('err', 'parol kamida 6 ta belgidan iborat bolishi kerak')
         }
-        else{
-           console.log(loginData) 
+        else {
+            console.log(loginData)
         }
-
     }
     return (
         <Wrapper className='bgImg'>
@@ -33,10 +32,8 @@ function Login() {
                     </label>
                     <button>Kirish</button>
                 </Form>
-
             </Container>
         </Wrapper>
     )
 }
-
 export default Login

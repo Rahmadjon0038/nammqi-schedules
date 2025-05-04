@@ -8,6 +8,15 @@ const Container = styled.div`
     background-color: var(--bg);
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
+
+    h1{
+        text-shadow: 0 0 2px white;
+    }
+    h1 span{
+        color: blue;
+        text-shadow: 0 0 2px blue;
+
+    }
 `
 const Nav = styled.nav`
     display: flex;

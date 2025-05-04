@@ -1,6 +1,7 @@
 import { FaRegBuilding } from "react-icons/fa";
 import { FaTable } from "react-icons/fa";
-import { FaChalkboardTeacher } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { FaUsersBetweenLines } from "react-icons/fa6"
 export const sidebarData = [
     {
         id: 1,
@@ -24,15 +25,21 @@ export const sidebarData = [
     },
     {
         id:2,
+        name:'Auditoriyalar',
+        path:'/auditoriyalar',
+        icon:<FaUsersBetweenLines />
+    },
+    {
+        id:3,
         name:"Dars jadvali",
         path:"/darsjadvali",
         icon:<FaTable />
     },
     {
-        id:3,
-        name:"Uqtuvchilar",
-        path:"/tichers",
-        icon:<FaChalkboardTeacher />
+        id:4,
+        name:"Foydalanuvchilar",
+        path:"/users",
+        icon:<FaUsers />
     },    
 ]
 

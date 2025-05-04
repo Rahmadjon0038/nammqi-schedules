@@ -11,7 +11,7 @@ background-size: cover;
 
 export const Container = styled.div`
   width: 50%;
-  background-color:white;
+  background-color:var(--navColor);
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
@@ -20,11 +20,10 @@ export const Container = styled.div`
     height: 100%;
     object-fit: cover;
   }
-  box-shadow: 0 0 10px silver;
   border-radius: 5px;
 `
 export const Form = styled.form`
-  background-color: white;
+  background-color:var(--navColor);
   padding: 30px 20px;
   text-align: center;
   display: flex;
@@ -40,6 +39,8 @@ export const Form = styled.form`
     padding: 15px 20px;
     outline: none;
     border-radius: 5px;
+    background-color:var(--navColor);
+    color: var(--color);
     border: 1px solid var(--borderColor);
   }
   label input:focus{
