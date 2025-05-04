@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const Wrapper = styled.div`
-background-image: url('https://wallpapers.com/images/high/educational-notes-and-ruler-iqo8het00nean5ml.webp');
 background-size: cover;
   display: flex;
   align-items: center;

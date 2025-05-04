@@ -6,14 +6,34 @@
 }
 
 body {
-    background-color: rgb(236, 244, 250);
+    background-color: var(--bg);
+    color: var(--color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 :root {
+    /* Light Mode Variables */
     --bg: white;
     --color: rgb(42, 42, 42);
     --navColor: #ECF4FA;
     --shadow: silver;
     --borderColor: #a6a4a4;
-    --hoverColor:#cee4f5;
+    --hoverColor: #cee4f5;
+
+}
+
+.dark {
+    /* Dark Mode Variables */
+    --bg: #121212;
+    --color: #e0e0e0;
+    --navColor: #1f1f1f;
+    --shadow: #2c2c2c;
+    --borderColor: #444;
+    --hoverColor: #333333;
+}
+
+.bgImg {
+    background-image: url('../assets/login.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }

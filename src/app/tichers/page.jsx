@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Tishers() {
+function Tichers() {
   return (
     <div>
       <h1>Uqituvchilar</h1>
@@ -8,4 +8,4 @@ function Tishers() {
   )
 }
 
-export default Tishers
+export default Tichers

@@ -1,8 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import { Container, Form, Wrapper } from './style';
-import LoginImg from '../../assets/loginBg.jpeg'
-import Image from 'next/image';
 function Login() {
     const [loginData, setLoginData] = useState({
 
@@ -14,11 +12,16 @@ function Login() {
     }
     const handleSumbit = (e) => {
         e.preventDefault()
-        console.log(loginData)
+        if (loginData.password.length < 6){
+            alert('parol kamida 6 ta belgidan iborat bolishi kerak')
+        }
+        else{
+           console.log(loginData) 
+        }
+
     }
     return (
-        <Wrapper>
-
+        <Wrapper className='bgImg'>
             <Container>
                 <Form onSubmit={handleSumbit}>
                     <h1>Tizimga kirish</h1>
@@ -30,7 +33,7 @@ function Login() {
                     </label>
                     <button>Kirish</button>
                 </Form>
-               
+
             </Container>
         </Wrapper>
     )

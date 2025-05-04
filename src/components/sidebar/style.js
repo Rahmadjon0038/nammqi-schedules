@@ -1,12 +1,13 @@
 const { default: styled } = require("styled-components");
 
 const Container = styled.div`
-    border: 2px solid black;
+    border-right: 2px solid var(--borderColor);
     height: 100vh;
     padding: 20px;
     width: 22%;
     background-color: var(--bg);
     position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
 `
 const Nav = styled.nav`
     display: flex;
@@ -15,6 +16,9 @@ const Nav = styled.nav`
     row-gap: 15px;
      
     .link{
+        display: flex;
+        align-items: center;
+        gap: 18px;
         background-color: var(--navColor);
         color: var(--color);
         padding: 10px;
@@ -22,6 +26,7 @@ const Nav = styled.nav`
         border: 1px solid var(--borderColor);
         text-decoration:none;
         padding-left: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
         &:hover{
             background-color: var(--hoverColor);
             transform: translateX(4px);
@@ -34,13 +39,15 @@ const Settings = styled.div`
     position: absolute;
     bottom: 20px;
     width: 84%;
-    
+
 
     span{
         padding:6px;
         background-color: var(--navColor);
         border-radius: 5px;
         cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
     }
     .darkmode{
         display: flex;
@@ -59,6 +66,9 @@ const Settings = styled.div`
         justify-content: center;
         gap: 10px;
         cursor: pointer;
+        color: var(--color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+
         
     }
     .setttingIcon{
@@ -72,6 +82,9 @@ const Settings = styled.div`
         background-color: var(--navColor);
         border: none;
         text-decoration: none;
+        color: var(--color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+
     }
 
     .link{

@@ -1,8 +1,12 @@
+import { FaRegBuilding } from "react-icons/fa";
+import { FaTable } from "react-icons/fa";
+import { FaChalkboardTeacher } from "react-icons/fa";
 export const sidebarData = [
     {
         id: 1,
         name: "Binolar",
         path: "/binolar",
+        icon:<FaRegBuilding/>,
         child: [
             {
                 id:1,
@@ -21,12 +25,14 @@ export const sidebarData = [
     {
         id:2,
         name:"Dars jadvali",
-        path:"/darsjadvali"
+        path:"/darsjadvali",
+        icon:<FaTable />
     },
     {
         id:3,
         name:"Uqtuvchilar",
-        path:"/tichers"
+        path:"/tichers",
+        icon:<FaChalkboardTeacher />
     },    
 ]
 
