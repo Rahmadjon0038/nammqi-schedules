@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import ReactQueryProvider from '@/components/QueryProvider/QueryProvider'
+import { AuthProvider } from '@/context/authContext'
 
 function layout({ children }) {
   useEffect(() => {
@@ -15,13 +16,15 @@ function layout({ children }) {
   return (
     <html lang='en'>
       <body style={{ display: 'flex' }}>
-        <Toaster position="top-right" reverseOrder={false} />
-        <Sidebar />
-        <main style={{ flex: '1', margin: '30px' }}>
-          <ReactQueryProvider >
-            {children}
-          </ReactQueryProvider>
-        </main>
+        <AuthProvider>
+          <Toaster position="top-right" reverseOrder={false} />
+          <Sidebar />
+          <main style={{ flex: '1', margin: '30px' }}>
+            <ReactQueryProvider >
+              {children}
+            </ReactQueryProvider>
+          </main>
+        </AuthProvider>
       </body>
     </html>
   )

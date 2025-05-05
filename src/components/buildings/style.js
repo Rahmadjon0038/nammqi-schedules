@@ -8,7 +8,6 @@ export const Table = styled.table`
     width: 100%;
     tr {
         border: 1px solid var(--hoverColor);
-        
     }
 
     th,td{
