@@ -17,7 +17,7 @@ function layout({ children }) {
       <body style={{ display: 'flex' }}>
         <Toaster position="top-right" reverseOrder={false} />
         <Sidebar />
-        <main style={{ flex: '1' }}>
+        <main style={{ flex: '1', margin: '30px' }}>
           <ReactQueryProvider >
             {children}
           </ReactQueryProvider>

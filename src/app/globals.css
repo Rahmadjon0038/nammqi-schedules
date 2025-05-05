@@ -19,6 +19,7 @@ body {
     --shadow: silver;
     --borderColor: #a6a4a4;
     --hoverColor: #cee4f5;
+    --tableColor:rgb(252, 253, 253);
 
 }
 
@@ -30,6 +31,8 @@ body {
     --shadow: #2c2c2c;
     --borderColor: #444;
     --hoverColor: #333333;
+    --tableColor:#1f1f1f;
+
 }
 
 .bgImg {
