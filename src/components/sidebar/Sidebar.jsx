@@ -24,7 +24,7 @@ function Sidebar() {
       </Nav>
       <Settings>
         <div className='darkmode'>
-          <span onClick={replaseThema}>{dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}</span>
+          <span className='dark_icon' onClick={replaseThema}>{dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}</span>
           <Link className='setttingIcon' href={'/settings'}><button className='setttingIcon'>Sozlamalar<span><CiSettings fontSize={30} color='blue' /></span></button></Link>
         </div>
         <Link href={'login'} className='link'> <button className='login'>Tizimga kirish <span><IoMdLogIn fontSize={30} color='green' /></span></button></Link>

@@ -1,5 +1,4 @@
 const { default: styled } = require("styled-components");
-
 const Container = styled.div`
     border-right: 2px solid var(--borderColor);
     height: 100vh;
@@ -38,18 +37,13 @@ const Nav = styled.nav`
         transition: background-color 0.3s ease, color 0.3s ease;
         &:hover{
             background-color: var(--hoverColor);
-            transform: translateX(4px);
         }
     }
-    
 `
-
 const Settings = styled.div`
     position: absolute;
     bottom: 20px;
     width: 84%;
-
-
     span{
         padding:6px;
         background-color: var(--navColor);
@@ -61,6 +55,11 @@ const Settings = styled.div`
     .darkmode{
         display: flex;
         gap: 10px;
+    }
+    .darkmode .dark_icon{
+        border: 1px solid var(--borderColor);
+        border-radius: 5px;
+
     }
     .login{
         width: 100%;
@@ -77,8 +76,7 @@ const Settings = styled.div`
         cursor: pointer;
         color: var(--color);
         transition: background-color 0.3s ease, color 0.3s ease;
-
-        
+        border: 1px solid var(--borderColor);
     }
     .setttingIcon{
         display: flex;
@@ -93,17 +91,13 @@ const Settings = styled.div`
         text-decoration: none;
         color: var(--color);
         transition: background-color 0.3s ease, color 0.3s ease;
-
+        border: 1px solid var(--borderColor);
+        border-radius: 5px;
     }
-
     .link{
         text-decoration: none;
     }
 `
-
-
-
-
 export {
     Container, Nav, Settings
 };

@@ -30,7 +30,10 @@ function Login() {
                     <label>
                         <input onChange={handleChange} name='password' type="password" required placeholder='parol' />
                     </label>
-                    <button>Kirish</button>
+                    <label>
+                        <input onChange={handleChange} name='password' type="password" required placeholder='parol' />
+                    </label>
+                    <button>Ro'yhatdan o'tish</button>
                 </Form>
             </Container>
         </Wrapper>
