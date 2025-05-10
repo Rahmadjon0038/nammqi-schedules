@@ -2,7 +2,13 @@
 import React, { useState } from 'react'
 import { Container, Form, Wrapper } from './style';
 import getNotify from '@/hooks/notify';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
+import { useAuth } from '@/context/authContext';
+// import { mutation } from '@/hooks/useLogin';
+
 function Login() {
+    const [view, setViews] = useState(true)
     const { notify } = getNotify()
     const [loginData, setLoginData] = useState({
     })
@@ -17,8 +23,14 @@ function Login() {
         }
         else {
             console.log(loginData)
+            // mutation.mutate(loginData)
         }
     }
+
+    if(window.innerWidth < 768){
+        console.log('salom')
+    }
+
     return (
         <Wrapper>
             <Container>
@@ -28,7 +40,8 @@ function Login() {
                         <input onChange={handleChange} name='username' type="text" required placeholder='foydalanuvchi nomi' />
                     </label>
                     <label>
-                        <input onChange={handleChange} name='password' type="password" required placeholder='parol' />
+                        <input onChange={handleChange} name='password' type={view ? "password" : "text"} required placeholder='parol' />
+                        <span onClick={() => setViews(!view)}>{view ? <FaEyeSlash className='viewIcon' /> : <FaEye className='viewIcon' />}</span>
                     </label>
                     <button>Kirish</button>
                 </Form>

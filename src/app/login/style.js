@@ -11,10 +11,11 @@ background-size: cover;
 
 export const Container = styled.div`
   width: 50%;
-  background-color:var(--navColor);
+  background-color:var(--formBgcolor);
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  box-shadow: 0 0 10px var(--shadow);
   .loginImg{
     width: 100%;
     height: 100%;
@@ -23,7 +24,7 @@ export const Container = styled.div`
   border-radius: 5px;
 `
 export const Form = styled.form`
-  background-color:var(--navColor);
+  background-color:var(--formBgcolor);
   padding: 30px 20px;
   text-align: center;
   display: flex;
@@ -55,6 +56,21 @@ export const Form = styled.form`
     outline: none;
     background-color: blue;
     color: white;
-    
+  }
+
+
+
+  label{
+    position: relative;
+
+
+    .viewIcon{
+      position: absolute;
+      font-size: 22px;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
   }
 `

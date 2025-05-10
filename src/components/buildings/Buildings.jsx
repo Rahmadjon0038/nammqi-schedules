@@ -21,7 +21,7 @@ function Buildings() {
                     <th>Ko'rish</th>
                 </tr>
                 {data?.buildings?.map((item, index) => (
-                    <tr index={index}>
+                    <tr key={index} index={index}>
                         <td> <span className="icon"><FaRegCopy className="copy" /> {item?.id.slice(0, 4)} </span></td>
                         <td>{item.name}</td>
                         <td> <span className="icon"><FaLocationDot />{item.address}</span></td>

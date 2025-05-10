@@ -10,6 +10,7 @@ body {
     color: var(--color);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 :root {
     /* Light Mode Variables */
     --bg: white;
@@ -18,22 +19,33 @@ body {
     --shadow: silver;
     --borderColor: #a6a4a4;
     --hoverColor: #cee4f5;
-    --tableColor:rgb(252, 253, 253);
+    --tableColor: rgb(252, 253, 253);
+    --formBgcolor: white;
 
 }
+
 .dark {
     /* Dark Mode Variables */
     --bg: #121212;
     --color: #e0e0e0;
     --navColor: #1f1f1f;
-    --shadow: #2c2c2c;
+    --shadow: #000000;
     --borderColor: #444;
     --hoverColor: #333333;
-    --tableColor:#1f1f1f;
+    --tableColor: #1f1f1f;
+    --formBgcolor: rgb(21, 21, 21);
+
 }
 
 .bgImg {
     background-image: url('../assets/login.png');
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+
+@media(max-width:768px){
+    .mainContainer{
+        margin-left: 70px;
+    }
 }

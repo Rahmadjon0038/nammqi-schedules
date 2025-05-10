@@ -19,14 +19,16 @@ function layout({ children }) {
         <AuthProvider>
           <Toaster position="top-right" reverseOrder={false} />
           <Sidebar />
-          <main style={{ flex: '1', margin: '30px' }}>
-            <ReactQueryProvider >
-              {children}
-            </ReactQueryProvider>
-          </main>
+          <div className='mainContainer' style={{ flex: '1'}}>
+            <main style={{ flex: '1', margin: '30px' }}>
+              <ReactQueryProvider >
+                {children}
+              </ReactQueryProvider>
+            </main>
+          </div>
         </AuthProvider>
       </body>
-    </html>
+    </html >
   )
 }
 

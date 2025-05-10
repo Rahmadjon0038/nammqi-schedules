@@ -51,5 +51,10 @@ export const Table = styled.table`
         &:hover{
             background-color: var(--hoverColor);
         }
+
     }  
+
+    @media(max-width:768px){
+        /* margin-left: 60px; */
+    }
 `
