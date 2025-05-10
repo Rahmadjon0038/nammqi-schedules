@@ -7,8 +7,6 @@ background-size: cover;
   justify-content: center;
   min-height: 100vh;
 `
-
-
 export const Container = styled.div`
   width: 50%;
   background-color:var(--formBgcolor);

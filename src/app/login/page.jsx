@@ -4,12 +4,12 @@ import { Container, Form, Wrapper } from './style';
 import getNotify from '@/hooks/notify';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
-import { useAuth } from '@/context/authContext';
-// import { mutation } from '@/hooks/useLogin';
-
+import { useLogin } from '@/hooks/useLogin';
+import { setCookie } from '@/hooks/cookies';
 function Login() {
     const [view, setViews] = useState(true)
     const { notify } = getNotify()
+    const mutation = useLogin()
     const [loginData, setLoginData] = useState({
     })
     const handleChange = (e) => {
@@ -22,15 +22,17 @@ function Login() {
             notify('err', 'parol kamida 6 ta belgidan iborat bolishi kerak')
         }
         else {
-            console.log(loginData)
-            // mutation.mutate(loginData)
+            mutation.mutate({
+                loginData, getData: (data) => {
+                    console.log(data)
+                    setCookie('token', data.access_token)
+                },
+                onError: (error) => {
+                    console.log(error)
+                }
+            });
         }
     }
-
-    if(window.innerWidth < 768){
-        console.log('salom')
-    }
-
     return (
         <Wrapper>
             <Container>

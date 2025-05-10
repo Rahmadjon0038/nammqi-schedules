@@ -1,48 +1,52 @@
-const { default: styled } = require("styled-components");
 
-const Container = styled.div`
-    border-right: 2px solid var(--borderColor);
-    height: 100vh;
-    padding: 20px;
-    width: 300px;
-    background-color: var(--bg);
-    position: relative;
-    transition: background-color 0.3s ease, color 0.3s ease;
+import styled from 'styled-components'
+import { shouldForwardProp } from 'styled-components'
 
-    h1 {
-        text-shadow: 0 0 2px white;
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'hiddenNav',
+})`
+  border-right: 2px solid var(--borderColor);
+  height: 100vh;
+  padding: 20px;
+  width: 300px;
+  background-color: var(--bg);
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  h1 {
+    text-shadow: 0 0 2px white;
+  }
+
+  h1 span {
+    color: blue;
+    text-shadow: 0 0 2px blue;
+  }
+
+  .meniIcon {
+    font-size: 30px;
+    display: block;
+    margin-left: 2px;
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: ${({ hiddenNav }) => (hiddenNav ? '80px' : '300px')};
+
+    .title {
+      display: none;
     }
 
-    h1 span {
-        color: blue;
-        text-shadow: 0 0 2px blue;
+    .meniIcon {
+      display: block;
+      margin-top: 3px;
     }
-   
-    
-    .meniIcon{
-        font-size: 30px;
-        display: block;
-        margin-left: 2px;
-        display: none;
-    }
-    @media(max-width: 768px) {
-        position: absolute;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        width: ${({ hiddenNav }) => (hiddenNav ? '80px' : '300px')};
-        .title{
-        display: none;
-    }
-
-    .meniIcon{
-        display: block;
-        margin-top: 3px;
-    }
-    }
+  }
 `;
-
 
 const MenuContainer  = styled.div`
     display: flex;

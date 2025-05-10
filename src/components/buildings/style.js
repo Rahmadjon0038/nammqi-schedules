@@ -58,3 +58,43 @@ export const Table = styled.table`
         /* margin-left: 60px; */
     }
 `
+// ------------------- add building -------------------
+
+export const FormWrapper = styled.div`
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+`
+export const Form = styled.form`
+display: flex;
+gap: 10px;
+
+`;
+
+export const Input = styled.input`
+  padding: 14px 18px;
+  border-radius: 5px;
+  font-size: 15px;
+  background-color:var(--navColor);
+  color: var(--color);
+  border: 1px solid var(--borderColor);
+  &:focus {
+    border-color: #3b82f6;
+    outline: none;
+  }
+`;
+
+export const Button = styled.button`
+  background-color: #10b981;
+  color: white;
+  padding: 12px 16px;  
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: #059669;
+  }
+`;
