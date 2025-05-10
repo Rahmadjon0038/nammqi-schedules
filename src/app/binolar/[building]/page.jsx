@@ -16,10 +16,10 @@ import { useAuth } from '@/context/authContext';
 import { useUpdate } from '@/hooks/useUpdateBuilding';
 
 function Page({ params }) {
-    const mutation  = useUpdate()
-    const { building } = params; // `params` ni to'g'ri olish
+    const mutation = useUpdate()
+    const { building } = params;
     const { data, isLoading, error } = useBuilding(building);
-    const { role } = useAuth(); // Bu erda Hooks chaqiriladi
+    const { role } = useAuth();
 
     const [update, setUpdate] = useState({
         name: '',
@@ -32,10 +32,9 @@ function Page({ params }) {
     };
 
     const handleSubmit = (e) => {
-        let id = building
+       
         e.preventDefault();
-        mutation.mutate({
-            update,id, getData: (data) => {
+        mutation.mutate({ update, building, getData: (data) => {
                 console.log(data)
             },
             onError: (error) => {

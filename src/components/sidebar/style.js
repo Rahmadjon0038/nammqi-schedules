@@ -1,10 +1,7 @@
 
 import styled from 'styled-components'
-import { shouldForwardProp } from 'styled-components'
 
-const Container = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'hiddenNav',
-})`
+const Container = styled.div`
   border-right: 2px solid var(--borderColor);
   height: 100vh;
   padding: 20px;
@@ -35,7 +32,7 @@ const Container = styled.div.withConfig({
     top: 0;
     left: 0;
     z-index: 1000;
-    width: ${({ hiddenNav }) => (hiddenNav ? '80px' : '300px')};
+    width: ${({ $hiddenNav }) => ($hiddenNav ? '80px' : '300px')};
 
     .title {
       display: none;

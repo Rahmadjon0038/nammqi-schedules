@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react"
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [role, setRole] = useState('admin'); //default
+    const [role, setRole] = useState('guest'); //default
     return (
         <AuthContext.Provider value={{ role, setRole }}>
             {children}
@@ -10,6 +10,6 @@ export const AuthProvider = ({ children }) => {
     )
 }
 
-export const useAuth = () => {
+export const useAuth = () => {  
     return useContext(AuthContext)
 }

@@ -13,7 +13,7 @@ export const useBuilding = (id) => {
   return useQuery({
     queryKey: ['building', id],
     queryFn: () => fetchBuilding(id),
-    enabled: !!id, // id mavjud bo‘lsa ishga tushadi
+    enabled: !!id, 
     onSuccess: () => {
       console.log('Ma’lumotlar muvaffaqiyatli keldi');
     },

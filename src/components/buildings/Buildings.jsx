@@ -16,7 +16,6 @@ function Buildings() {
 
     const mutation = useAddBuilding()
     const [addBuilding, setAddBuilding] = useState({
-
         name: '',
         address: '',
     })
@@ -24,7 +23,6 @@ function Buildings() {
         let { name, value } = e.target;
         setAddBuilding({ ...addBuilding, [name]: value })
     }
-
     const handleSumbit = (e) => {
         e.preventDefault()
         mutation.mutate({

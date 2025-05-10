@@ -1,12 +1,14 @@
 import { instance } from "@/components/api/api";
 import getNotify from "./notify";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useAddBuilding = () => {
     const { notify } = getNotify();
+    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async ({ addBuilding }) => {
             const res = await instance.post('/api/db/buildings/add', addBuilding);
+            queryClient.invalidateQueries(["buildings"]);
             return res.data;
         },
         onSuccess: (data, { getData }) => {

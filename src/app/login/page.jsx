@@ -6,6 +6,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import { useLogin } from '@/hooks/useLogin';
 import { setCookie } from '@/hooks/cookies';
+import Cookies from 'js-cookie';
 function Login() {
     const [view, setViews] = useState(true)
     const { notify } = getNotify()
@@ -25,7 +26,8 @@ function Login() {
             mutation.mutate({
                 loginData, getData: (data) => {
                     console.log(data)
-                    setCookie('token', data.access_token)
+                    Cookies.set('token',data.access_token)
+                    Cookies.set('refresh_token',data.refresh_token)
                 },
                 onError: (error) => {
                     console.log(error)

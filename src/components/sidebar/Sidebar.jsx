@@ -23,7 +23,7 @@ function Sidebar() {
 
   const [hiddenNav, setHiddenNav] = useState(true)
   return (
-    <Container hiddenNav={hiddenNav}>
+    <Container $hiddenNav={hiddenNav}>
       <MenuContainer >
         <span onClick={() => setHiddenNav(!hiddenNav)} className='meniIcon'><MdMenu /></span>
         <h1 className={hiddenNav ? 'title' : ''}>Schedu<span>le</span></h1>
