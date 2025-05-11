@@ -1,17 +1,41 @@
 'use client'
-import { useAuth } from '@/context/authContext'
 import React from 'react'
+import { useAuth } from '@/context/authContext'
+import {
+  Wrapper,
+  Card,
+  Title,
+  InfoRow,
+  Label,
+  Value
+} from './style'
 
 function Settings() {
-  const { role, setRole } = useAuth();
-  setRole('user')
-  console.log(role,'salom')
-  
+  const { role, setRole, userMedata } = useAuth();
+
   return (
-    <div>
-      <h1>Settings</h1>
-    </div>
+    <Wrapper>
+      <Title>Foydalanuvchi Sozlamalari</Title>
+      <Card>
+        <InfoRow>
+          <Label>Ism:</Label>
+          <Value>{userMedata?.firstname}</Value>
+        </InfoRow>
+        <InfoRow>
+          <Label>Familiya:</Label>
+          <Value>{userMedata?.lastname}</Value>
+        </InfoRow>
+        <InfoRow>
+          <Label>Username:</Label>
+          <Value>{userMedata?.username}</Value>
+        </InfoRow>
+        <InfoRow>
+          <Label>Rol:</Label>
+          <Value>{userMedata?.role}</Value>
+        </InfoRow>
+      </Card>
+    </Wrapper>
   )
 }
 
-export default Settings
+export default Settings;

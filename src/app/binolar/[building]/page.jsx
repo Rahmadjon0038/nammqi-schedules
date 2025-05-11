@@ -14,11 +14,23 @@ import {
 } from './style';
 import { useAuth } from '@/context/authContext';
 import { useUpdate } from '@/hooks/useUpdateBuilding';
+import { useDeleteBuilding } from '@/hooks/useDeleteBuilding';
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-function Page({ params }) {
+function Page() {
+    
     const mutation = useUpdate()
-    const { building } = params;
+    const deleteMutation = useDeleteBuilding();
+
+    // const { building } = params;
+
+    const params = useParams();
+
+    const building = params?.building;
+
     const { data, isLoading, error } = useBuilding(building);
+    
     const { role } = useAuth();
 
     const [update, setUpdate] = useState({
@@ -31,11 +43,14 @@ function Page({ params }) {
         setUpdate({ ...update, [name]: value });
     };
 
+
+    let router = useRouter()
+
     const handleSubmit = (e) => {
-       
+
         e.preventDefault();
-        mutation.mutate({ update, building, getData: (data) => {
-                console.log(data)
+        mutation.mutate({
+            update, building, getData: (data) => {
             },
             onError: (error) => {
                 console.log(error)
@@ -45,6 +60,20 @@ function Page({ params }) {
 
     if (isLoading) return <Wrapper>Yuklanmoqda...</Wrapper>;
     if (error) return <Wrapper>Xatolik yuz berdi!</Wrapper>;
+
+
+    const deleteBuilding = () => {
+        console.log('delete')
+        deleteMutation.mutate({
+            building, getData: (data) => {
+                router.push('/binolar')
+            },
+            onError: (error) => {
+                console.log(error)
+            }
+        },
+        )
+    }
 
     return (
         <>
@@ -72,7 +101,7 @@ function Page({ params }) {
 
             {role === 'admin' && (
                 <DeleteSection>
-                    <DeleteButton>Binoni o‘chirish</DeleteButton>
+                    <DeleteButton onClick={deleteBuilding}>Binoni o‘chirish</DeleteButton>
                 </DeleteSection>
             )}
         </>

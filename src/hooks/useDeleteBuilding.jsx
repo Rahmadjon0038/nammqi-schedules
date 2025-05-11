@@ -3,24 +3,23 @@ import getNotify from "./notify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
-export const useUpdate = () => {
+export const useDeleteBuilding = () => {
     const { notify } = getNotify();
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ update, building }) => {
-         
-            const res = await instance.patch(`/api/db/buildings/${building}`, update);
+        mutationFn: async ({ building }) => {
+
+            const res = await instance.delete(`/api/db/buildings/${building}`);
             queryClient.invalidateQueries(["building", building]);
             return res.data;
         },
         onSuccess: (data, { getData }) => {
-            notify('ok', "Bino muvaffaqiyatli yangilandi");
+            notify('ok', data.message);
             getData(data)
-            
+
         },
         onError: (error, { onError }) => {
-            notify('err', error?.response?.data?.error || 'xatolik');
             onError(error)
         }
     });

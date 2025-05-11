@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Container, Nav, Settings, MenuContainer} from './style.js'
+import { Container, Nav, Settings, MenuContainer } from './style.js'
 import { sidebarData } from '@/utils/sidebarData.jsx'
 import { CiSettings } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
@@ -10,10 +10,13 @@ import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
 import { MdMenu } from "react-icons/md";
 import { useAuth } from '@/context/authContext.jsx'
+import Image from 'next/image.js'
+import profileImg from '../../assets/profile.png'
+import { ProfileBox } from '@/app/settings/style.js'
 
 function Sidebar() {
 
-  const { role, setRole } = useAuth()  //bu rollarni boshqarish uchun
+  const { role, setRole, userMedata } = useAuth()  //bu rollarni boshqarish uchun
 
   const [dark, setDark] = useState(true)
   const replaseThema = () => {
@@ -41,17 +44,36 @@ function Sidebar() {
           <span className='dark_icon' onClick={replaseThema}>
             {dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}
           </span>
-          {role !== 'guest' ? <Link className='setttingIcon' href={'/settings'}>
+          {/* {role !== 'guest' ? <Link className='setttingIcon' href={'/settings'}>
             <button className='setttingIcon'>
-              Sozlamalar<span><CiSettings fontSize={30} color='blue' /></span>
+              Profile<span><CiSettings fontSize={30} color='blue' /></span>
             </button>
-          </Link> : ""}
+          </Link> : ""} */}
         </div>
-        <Link href={'login'} className='link'>
+        {role == 'guest' ? <Link href={'login'} className='link'>
           <button className='login'>
             Tizimga kirish <span><IoMdLogIn fontSize={30} color='green' /></span>
           </button>
-        </Link>
+        </Link> :
+
+
+          <Link className='link' href={'/settings'}>
+
+          <ProfileBox>
+            <Image
+              src={profileImg}
+              width={70}
+              height={70}
+              style={{ borderRadius: '100%', objectFit: 'cover',boxShadow:' 0 4px 12px var(--shadow)'}}
+            />
+            <div>
+              <p>{userMedata?.firstname?.toUpperCase()}</p>
+              <p>{userMedata?.lastname?.toUpperCase()}</p>
+            </div>
+          </ProfileBox>
+          </Link>
+        }
+
       </Settings>
     </Container>
   )
