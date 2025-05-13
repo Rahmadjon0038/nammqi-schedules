@@ -6,10 +6,10 @@ const getUserMe = async () => {
   return res.data;
 };
 
-export const useUser = () => {
-  return useQuery({
-    queryKey: ['user-me'],
+export const useUserMe = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['userme'],
     queryFn: getUserMe,
-    enabled: typeof window !== 'undefined' && !!document.cookie.includes('token'), // token bo‘lsa faqat so‘rov yubor
-  });
-};
+  })
+  return { data, isLoading, error }
+}

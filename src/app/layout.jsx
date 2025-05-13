@@ -16,17 +16,17 @@ function layout({ children }) {
   return (
     <html lang='en'>
       <body style={{ display: 'flex' }}>
-        <AuthProvider>
-          <Toaster position="top-right" reverseOrder={false} />
-          <Sidebar />
-          <div className='mainContainer' style={{ flex: '1'}}>
-            <main style={{ flex: '1', margin: '30px' }}>
-              <ReactQueryProvider >
+        <ReactQueryProvider >
+          <AuthProvider>
+            <Toaster position="top-right" reverseOrder={false} />
+            <Sidebar />
+            <div className='mainContainer' style={{ flex: '1' }}>
+              <main style={{ flex: '1', margin: '30px' }}>
                 {children}
-              </ReactQueryProvider>
-            </main>
-          </div>
-        </AuthProvider>
+              </main>
+            </div>
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html >
   )

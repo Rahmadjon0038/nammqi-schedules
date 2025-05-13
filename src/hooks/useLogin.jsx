@@ -1,21 +1,28 @@
-import { useMutation } from '@tanstack/react-query';
-import getNotify from './notify'; 
-import { instance } from '@/components/api/api';
-import { setCookie } from './cookies';
+'use client'
+
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import Cookies from "js-cookie"
+
+const { instance } = require("@/components/api/api")
+const LoginFunc = async (loginData) => {
+  console.log(loginData, 'logindata')
+  const response = await instance.post('/api/auth/login', loginData)
+  return response.data
+}
 
 export const useLogin = () => {
-  const { notify } = getNotify();
-  return useMutation({
-    mutationFn: async ({ loginData }) => {
-      const res = await instance.post('/api/auth/login', loginData);
-      return res.data;
-    },
-    onSuccess: (data, { getData }) => {
-      notify('ok', 'Tizimga muvaffaqiyatli kirdingiz');
-      getData(data)
+  const queryClient = useQueryClient()
+  const loginMutation = useMutation({
+    mutationFn: LoginFunc,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['user-me'])
+      Cookies.set('token',data?.access_token)
+      Cookies.set('refresh_token',data?.refresh_token)
+
     },
     onError: (error) => {
-      notify('err', error?.response?.data?.message || 'Login xatoligi');
+      console.log(error,'kirib bolmadi')
     }
-  });
-};
+  })
+  return loginMutation
+}

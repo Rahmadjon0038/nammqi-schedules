@@ -1,6 +1,4 @@
-
 import styled from 'styled-components'
-
 const Container = styled.div`
   border-right: 2px solid var(--borderColor);
   height: 100vh;
@@ -137,6 +135,8 @@ const Settings = styled.div`
     }
 `;
 
+
+
 export {
-    Container, Nav, Settings,MenuContainer
+    Container, Nav, Settings,MenuContainer  
 };

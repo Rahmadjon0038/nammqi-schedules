@@ -12,13 +12,13 @@ import { MdMenu } from "react-icons/md";
 import { useAuth } from '@/context/authContext.jsx'
 import Image from 'next/image.js'
 import profileImg from '../../assets/profile.png'
-import { ProfileBox } from '@/app/settings/style.js'
+import Profile from '../profileMenu/Profile.jsx'
 
 function Sidebar() {
 
-  const { role, setRole, userMedata } = useAuth()  //bu rollarni boshqarish uchun
-
+  const { role, userMeData } = useAuth()  //bu rollarni boshqarish uchun
   const [dark, setDark] = useState(true)
+
   const replaseThema = () => {
     setDark(!dark)
     toggleTheme()
@@ -57,21 +57,10 @@ function Sidebar() {
         </Link> :
 
 
-          <Link className='link' href={'/settings'}>
 
-          <ProfileBox>
-            <Image
-              src={profileImg}
-              width={70}
-              height={70}
-              style={{ borderRadius: '100%', objectFit: 'cover',boxShadow:' 0 4px 12px var(--shadow)'}}
-            />
-            <div>
-              <p>{userMedata?.firstname?.toUpperCase()}</p>
-              <p>{userMedata?.lastname?.toUpperCase()}</p>
-            </div>
-          </ProfileBox>
-          </Link>
+
+          
+          <Profile />
         }
 
       </Settings>
