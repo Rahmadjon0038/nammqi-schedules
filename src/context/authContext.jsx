@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [userMeData, setUserMedata] = useState({})
 
   const { data, isLoading, err, refetch} = useUserMe()
+  console.log('context',data)
   useEffect(() => {
     if (data?.role) {
       setUserMedata({ data })

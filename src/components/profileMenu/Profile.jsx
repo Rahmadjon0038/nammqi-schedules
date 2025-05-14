@@ -20,13 +20,8 @@ const Profile = () => {
 
     const updateMutation = useUpdateUser()
     // const mutaionLogout = useLogoutUser()
-    const mutaionLogout2 = useLogoutUser2()
-
 
     const { role, userMeData, refetch } = useAuth()
-    
-
-    // console.log(userMeData)
 
     const [rename, setRename] = useState(true)
     const [userData, setUserdata] = useState({
@@ -41,8 +36,17 @@ const Profile = () => {
     function saveFunction() {
         updateMutation.mutate(userData)
     }
+    // ---------------- LOGOUT ------------------
 
-    // // console.log(mutaionLogout.mutate)
+    const mutaionLogout2 = useLogoutUser2()
+    const logOut = () => {
+        mutaionLogout2.mutate({
+            onSuccess: (data) => {
+                console.log(data,'user logout')
+                refetch()
+            }
+        })
+    }
 
     return (
         <ProfileBox>
@@ -63,8 +67,7 @@ const Profile = () => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={null}
-                className="my-custom-modal"
-            >
+                className="my-custom-modal">
                 <ModalContent>
                     {/* <img src="/avatar.png" alt="Profil rasmi" /> */}
                     <h2>Mening Profilim</h2>
@@ -72,13 +75,7 @@ const Profile = () => {
                     <p>Familiya: {userMeData?.data?.firstname}</p>
                     <p>Role: {userMeData?.data?.firstname}</p>
                     <div>
-                        <button onClick={() => mutaionLogout2.mutate({
-                            onSuccess: (data) => {
-                                console.log('logout data',data)
-                                refetch()
-                            },
-                          
-                        })}>Accountdan chiqish</button>
+                        <button onClick={logOut}>Accountdan chiqish</button>
                     </div>
                 </ModalContent>
 

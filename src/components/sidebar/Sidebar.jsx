@@ -5,7 +5,6 @@ import { Container, Nav, Settings, MenuContainer } from './style.js'
 import { sidebarData } from '@/utils/sidebarData.jsx'
 import { CiSettings } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
-import { IoMdLogIn } from "react-icons/io";
 import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
 import { MdMenu } from "react-icons/md";
@@ -13,6 +12,7 @@ import { useAuth } from '@/context/authContext.jsx'
 import Image from 'next/image.js'
 import profileImg from '../../assets/profile.png'
 import Profile from '../profileMenu/Profile.jsx'
+import Login from '../login/Login.jsx'
 
 function Sidebar() {
 
@@ -50,11 +50,7 @@ function Sidebar() {
             </button>
           </Link> : ""} */}
         </div>
-        {role == 'guest' ? <Link href={'login'} className='link'>
-          <button className='login'>
-            Tizimga kirish <span><IoMdLogIn fontSize={30} color='green' /></span>
-          </button>
-        </Link> :
+        {role == 'guest' ? <Login/> :
 
 
           <Profile />

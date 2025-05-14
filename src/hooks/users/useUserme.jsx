@@ -8,12 +8,9 @@ const getUserMe = async () => {
 };
 
 export const useUserMe = () => {
-  const token = Cookies.get('token')
-  console.log(token)
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['userme'],
     queryFn: getUserMe,
-    enabled: !!token
   })
   return { data, isLoading, error, refetch }
 }

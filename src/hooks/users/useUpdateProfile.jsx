@@ -34,7 +34,6 @@ export const useLogoutUser2 = () => {
     const mutaionLogout2 = useMutation({
         mutationFn: logoutuser,
         onSuccess: (data, vars) => {
-            console.log(data)
             Cookies.remove('token')
             Cookies.remove('refresh_token')
             if (vars?.onSuccess) {
