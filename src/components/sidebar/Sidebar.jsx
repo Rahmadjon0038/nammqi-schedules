@@ -57,9 +57,6 @@ function Sidebar() {
         </Link> :
 
 
-
-
-          
           <Profile />
         }
 

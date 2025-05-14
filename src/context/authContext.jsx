@@ -7,15 +7,20 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState('guest');
   const [userMeData, setUserMedata] = useState({})
-  const { data, isLoading, err } = useUserMe()
 
+  const { data, isLoading, err, refetch} = useUserMe()
   useEffect(() => {
-    setUserMedata({ data })
-    setRole(data?.role)
+    if (data?.role) {
+      setUserMedata({ data })
+      setRole(data?.role)
+    }
+    else {
+      setRole('guest')
+    }
   }, [isLoading, data])
 
   return (
-    <AuthContext.Provider value={{ role, setRole, userMeData, setUserMedata }}>
+    <AuthContext.Provider value={{ role, setRole, userMeData, setUserMedata, refetch}}>
       {children}
     </AuthContext.Provider>
   );

@@ -4,12 +4,14 @@ import { Container, Form, Wrapper } from './style';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import getNotify from '@/hooks/notify';
 import { useLogin } from '@/hooks/useLogin';
+import { useAuth } from '@/context/authContext';
 
 function Login() {
   const [view, setView] = useState(true);
   const [loginData, setLoginData] = useState({});
   const { notify } = getNotify()
   const loginMutation = useLogin()
+  const { refetch } = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +23,12 @@ function Login() {
     if (loginData.password.length < 6) {
       return notify('err', 'Parol kamida 6 ta belgidan iborat bo‘lishi kerak');
     }
-    loginMutation.mutate(loginData)
+    loginMutation.mutate({
+      loginData, onSuccess: (data) => {
+        refetch()
+        'malumot yangilandi'
+      }
+    })
   };
 
   return (
