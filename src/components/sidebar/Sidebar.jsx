@@ -18,6 +18,7 @@ function Sidebar() {
 
   const { role, userMeData } = useAuth()  //bu rollarni boshqarish uchun
   const [dark, setDark] = useState(true)
+  console.log('sidebar', role)
 
   const replaseThema = () => {
     setDark(!dark)

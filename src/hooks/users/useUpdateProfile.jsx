@@ -1,7 +1,8 @@
 import { instance } from "@/components/api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Cookies from "js-cookie"
-
+import getNotify from "../notify"
+const {notify} = getNotify()
 const updateData = async (profileData) => {
     console.log(profileData, 'userdata')
     const response = await instance.patch('/api/user/profile', profileData)
@@ -14,7 +15,8 @@ export const useUpdateUser = () => {
         mutationFn: updateData,
         onSuccess: (data) => {
             queryclient.invalidateQueries(['userme'])
-            console.log('mofaqiyatli yangilandi')
+            notify('ok', data.message)
+
         },
         onError: (error) => {
             console.log(error);
@@ -23,32 +25,43 @@ export const useUpdateUser = () => {
     return updateMutation
 }
 
+
 // ----------------- Logout -------
 
 const logoutuser = async () => {
     const response = await instance.post('/api/auth/logout')
     return response.data
 }
+
 export const useLogoutUser2 = () => {
-    const qyericlient =  useQueryClient() 
-    const mutaionLogout2 = useMutation({
+    const queryClient = useQueryClient();
+
+    const mutationLogout2 = useMutation({
         mutationFn: logoutuser,
         onSuccess: (data, vars) => {
-            Cookies.remove('token')
-            Cookies.remove('refresh_token')
+            Cookies.remove('token');
+            Cookies.remove('refresh_token');
+
+            // User me query keshdan o'chiriladi
+            queryClient.removeQueries(['userme']);
+
             if (vars?.onSuccess) {
-                vars.onSuccess(data)
+                vars.onSuccess(data);
             }
-            qyericlient.invalidateQueries(['userme'])
         },
-        onError: (error,vars) => {
-            console.log(error)
-            Cookies.remove('token')
-            Cookies.remove('refresh_token')
+        onError: (error, vars) => {
+            console.log(error);
+            Cookies.remove('token');
+            Cookies.remove('refresh_token');
+
+            // Shuningdek errorda ham keshni tozalash
+            queryClient.removeQueries(['userme']);
+
             if (vars?.onSuccess) {
-                vars.onSuccess()
+                vars.onSuccess();
             }
-        }
-    })
-    return mutaionLogout2
-}
+        },
+    });
+
+    return mutationLogout2;
+};

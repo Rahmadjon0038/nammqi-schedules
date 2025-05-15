@@ -4,12 +4,18 @@ import { ProfileBox, ModalContent, CustomModal } from './style';
 import profilImg from '../../assets/profile.png'
 import Image from 'next/image';
 import { useAuth } from '@/context/authContext';
-import { MdDriveFileRenameOutline } from "react-icons/md";
+import { FaPen } from "react-icons/fa";
+import { LuSave } from "react-icons/lu";
 import { useLogoutUser2, useUpdateUser } from '@/hooks/users/useUpdateProfile';
+import getNotify from '@/hooks/notify';
+
 const Profile = () => {
+    const [rename, setRename] = useState(true) // RENAME ICON TOGGLE
+    const { notify } = getNotify() //NOTIFICATION
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
+        setRename(true)
     };
     const handleOk = () => {
         setIsModalOpen(false);
@@ -23,7 +29,6 @@ const Profile = () => {
 
     const { role, userMeData, refetch } = useAuth()
 
-    const [rename, setRename] = useState(true)
     const [userData, setUserdata] = useState({
         firstname: "" || undefined,
         lastname: "" || undefined,
@@ -34,19 +39,45 @@ const Profile = () => {
     }
 
     function saveFunction() {
-        updateMutation.mutate(userData)
+        const updatedFields = {};
+        if (userData.firstname && userData.firstname.trim() !== "") {
+            updatedFields.firstname = userData.firstname;
+        }
+        if (userData.lastname && userData.lastname.trim() !== "") {
+            updatedFields.lastname = userData.lastname;
+        }
+    
+        if (Object.keys(updatedFields).length === 0) {
+            notify('err', "Hech qanday o'zgarish kiritilmadi!", "warning");
+            return;
+        }
+    
+        updateMutation.mutate(updatedFields, {
+            onSuccess: () => {
+                notify("Profil muvaffaqiyatli yangilandi!", "success");
+                setRename(true); // Yana faqat o'qish rejimiga qaytish
+                setUserdata({ firstname: "", lastname: "" }); // formani tozalash
+                refetch(); // yangi malumotlarni olish
+            },
+            onError: () => {
+                notify("Yangilashda xatolik yuz berdi", "error");
+            }
+        });
     }
+    
     // ---------------- LOGOUT ------------------
 
     const mutaionLogout2 = useLogoutUser2()
     const logOut = () => {
+
         mutaionLogout2.mutate({
-            onSuccess: (data) => {
-                console.log(data,'user logout')
+            onSuccess: () => {
                 refetch()
             }
         })
     }
+
+
 
     return (
         <ProfileBox>
@@ -58,9 +89,10 @@ const Profile = () => {
                 alt='rasm bor'
             />
             <div>
-                <p>{userMeData?.data?.lastname.toLowerCase()}</p>
-                <p>{userMeData?.data?.firstname}</p>
+                <p>{userMeData?.lastname.toLowerCase()}</p>
+                <p>{userMeData?.firstname}</p>
             </div>
+
             <CustomModal
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={isModalOpen}
@@ -70,10 +102,10 @@ const Profile = () => {
                 className="my-custom-modal">
                 <ModalContent>
                     {/* <img src="/avatar.png" alt="Profil rasmi" /> */}
-                    <h2>Mening Profilim</h2>
-                    <p>Ism: {rename ? userMeData?.data?.lastname.toLowerCase() : <input name='firstname' onChange={onchange} type='text' placeholder='yangi ism' />} {rename ? <MdDriveFileRenameOutline onClick={() => setRename(!rename)} className='renameIcon' /> : <button onClick={saveFunction}>saqlash</button>} <button onClick={() => setRename(true)}>x</button> </p>
-                    <p>Familiya: {userMeData?.data?.firstname}</p>
-                    <p>Role: {userMeData?.data?.firstname}</p>
+                    <h2>Mening Profilim {rename ? <FaPen onClick={() => setRename(!rename)} className='renameIcon' /> : <LuSave onClick={saveFunction} className='renameIcon' />}</h2>
+                    <p>Ism: {rename ? userMeData?.lastname.toLowerCase() : <input name='lastname' onChange={onchange} type='text' placeholder='yangi ism' />} </p>
+                    <p>Familiya: {rename ? userMeData?.firstname : <input name='firstname' onChange={onchange} type='text' placeholder='Yangi familiya' />}</p>
+                    <p>Role: {userMeData?.role}</p>
                     <div>
                         <button onClick={logOut}>Accountdan chiqish</button>
                     </div>

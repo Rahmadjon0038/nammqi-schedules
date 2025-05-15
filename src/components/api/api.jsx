@@ -17,8 +17,8 @@ export function logout() {
   }
 }
 
-
-const BASE_URL = "http://37.27.215.130:5545";
+// http://37.27.215.130:5545
+const BASE_URL = "http://localhost:5545";
 
 let isRefreshing = false;
 let failedQueue = [];

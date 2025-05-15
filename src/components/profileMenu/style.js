@@ -21,13 +21,33 @@ export const ModalContent = styled.div`
     h2{
         text-align: center;
         font-size: 30px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+      
+      .renameIcon{
+        margin-left: 20px;
+        font-size: 24px;
+      }
     }
     p{
         font-size: 22px;
+        /* display: flex; */
+        align-items: center;
+        /* justify-content: space-between; */
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 20px;
+        margin-top: 10px;
+
+
+        input{
+          background-color: var(--navColor);
+        border: 1px solid var(--borderColor);
+        color: var(--color);
+        padding: 10px;
+        outline: none;
+        width: 60%;
+        }
     }
     .renameIcon{
         cursor: pointer;
@@ -53,3 +73,4 @@ export const CustomModal = styled(Modal)`
     color: var(--color);
   }
 `;
+

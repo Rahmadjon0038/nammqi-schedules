@@ -9,17 +9,15 @@ export const AuthProvider = ({ children }) => {
   const [userMeData, setUserMedata] = useState({})
 
   const { data, isLoading, err, refetch} = useUserMe()
-  console.log('context',data)
   useEffect(() => {
     if (data?.role) {
-      setUserMedata({ data })
-      setRole(data?.role)
-    }
-    else {
+      setUserMedata(data)  // to'g'ri yozuv shu
+      setRole(data.role)
+    } else {
+      setUserMedata({})
       setRole('guest')
     }
-  }, [isLoading, data])
-
+  }, [data])
   return (
     <AuthContext.Provider value={{ role, setRole, userMeData, setUserMedata, refetch}}>
       {children}

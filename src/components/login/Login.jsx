@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IoMdLogIn } from "react-icons/io";
 import { CustomModal, ModalContent } from './style';
 import { useLogin } from '@/hooks/useLogin';
+import { useAuth } from '@/context/authContext';
 
 function Login() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,11 +26,17 @@ function Login() {
     const { name, value } = e.target;
     setLogindata({ ...loginData, [name]: value })
   }
+
+  const { refetch } = useAuth()
+
   function handleSumbit(e) {
     e.preventDefault()
-    loginMutation.mutate({ loginData })
-    console.log(loginData)
-
+    loginMutation.mutate({
+      ...loginData,
+      onSuccess: () => {
+        refetch()
+      }
+    })
   }
 
   return (

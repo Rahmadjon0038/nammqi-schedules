@@ -6,7 +6,6 @@ import { instance } from '@/components/api/api'; // to‘g‘ri yo‘l bo‘lsin
 
 const fetchBuildings = async () => {
   const response = await instance.get('/api/db/buildings/all');
-  
   return response.data;
 };
 
@@ -14,7 +13,8 @@ export const useBuildings = () => {
   return useQuery({
     queryKey: ['buildings'],
     queryFn: fetchBuildings,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data)
       console.log('Muvaffaqiyatli yuklandi');
     },
     onError: () => {
