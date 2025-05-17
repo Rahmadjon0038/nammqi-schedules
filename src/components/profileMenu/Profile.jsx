@@ -1,21 +1,23 @@
 'use client'
 import React, { useState } from 'react';
-import { ProfileBox, ModalContent, CustomModal } from './style';
+import { ProfileBox, ModalContent, CustomModal, Logoutbtn, ComparePass, Input, ComparePasswrap } from './style';
 import profilImg from '../../assets/profile.png'
 import Image from 'next/image';
 import { useAuth } from '@/context/authContext';
 import { FaPen } from "react-icons/fa";
 import { LuSave } from "react-icons/lu";
-import { useLogoutUser2, useUpdateUser } from '@/hooks/users/useUpdateProfile';
+import { useComparePass, useLogoutUser2, useUpdateUser } from '@/hooks/users/useUpdateProfile';
 import getNotify from '@/hooks/notify';
 
 const Profile = () => {
     const [rename, setRename] = useState(true) // RENAME ICON TOGGLE
     const { notify } = getNotify() //NOTIFICATION
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [compare, setCompare] = useState(false)
     const showModal = () => {
         setIsModalOpen(true);
         setRename(true)
+        setCompare(false)
     };
     const handleOk = () => {
         setIsModalOpen(false);
@@ -46,12 +48,12 @@ const Profile = () => {
         if (userData.lastname && userData.lastname.trim() !== "") {
             updatedFields.lastname = userData.lastname;
         }
-    
+
         if (Object.keys(updatedFields).length === 0) {
             notify('err', "Hech qanday o'zgarish kiritilmadi!", "warning");
             return;
         }
-    
+
         updateMutation.mutate(updatedFields, {
             onSuccess: () => {
                 notify("Profil muvaffaqiyatli yangilandi!", "success");
@@ -64,17 +66,30 @@ const Profile = () => {
             }
         });
     }
-    
+
     // ---------------- LOGOUT ------------------
 
     const mutaionLogout2 = useLogoutUser2()
     const logOut = () => {
-
         mutaionLogout2.mutate({
             onSuccess: () => {
                 refetch()
             }
         })
+    }
+
+    // ---------------------compare password ------------------------------
+    const comparemutation = useComparePass();
+    const [mypass, setPassword] = useState('');
+
+    function passFunk() {
+        let respass = mypass.trim()
+        if (respass.length == 0) {
+            console.log('bosh bolmasligi kerak')
+        }
+        else {
+            comparemutation.mutate(respass)
+        }
     }
 
 
@@ -106,11 +121,17 @@ const Profile = () => {
                     <p>Ism: {rename ? userMeData?.lastname.toLowerCase() : <input name='lastname' onChange={onchange} type='text' placeholder='yangi ism' />} </p>
                     <p>Familiya: {rename ? userMeData?.firstname : <input name='firstname' onChange={onchange} type='text' placeholder='Yangi familiya' />}</p>
                     <p>Role: {userMeData?.role}</p>
+                    <ComparePasswrap>
+                        {compare ? <ComparePass onClick={passFunk} >Yuborish</ComparePass> : <ComparePass onClick={() => setCompare(!compare)}>Parolni tekshirish</ComparePass>}
+                        {compare && <Input type="text" value={mypass} required onChange={(e) => setPassword(e.target.value)} placeholder='parolingizni kiritng' />}
+                    </ComparePasswrap>
                     <div>
-                        <button onClick={logOut}>Accountdan chiqish</button>
+                        <Logoutbtn onClick={logOut}>Accountdan chiqish</Logoutbtn>
                     </div>
-                </ModalContent>
 
+                    
+
+                </ModalContent>
             </CustomModal>
         </ProfileBox>
     );

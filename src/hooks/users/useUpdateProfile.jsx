@@ -2,7 +2,7 @@ import { instance } from "@/components/api/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Cookies from "js-cookie"
 import getNotify from "../notify"
-const {notify} = getNotify()
+const { notify } = getNotify()
 const updateData = async (profileData) => {
     console.log(profileData, 'userdata')
     const response = await instance.patch('/api/user/profile', profileData)
@@ -65,3 +65,28 @@ export const useLogoutUser2 = () => {
 
     return mutationLogout2;
 };
+
+// --------------------- compare password -----------------------
+
+const comparepassword = async (password) => {
+    const response = await instance.post('/api/user/compare-password', { password })
+    return response.data
+}
+
+export const useComparePass = () => {
+    const comparemutation = useMutation({
+        mutationFn: comparepassword,
+        onSuccess: (data) => {
+            if (data.response) {
+                notify('ok', 'Parol tasdiqlandi')
+            }
+            else{
+                notify('err', 'Parol mos kelmadi')
+            }
+        },
+        onError: (error) => [
+            console.log(error)
+        ]
+    })
+    return comparemutation
+}

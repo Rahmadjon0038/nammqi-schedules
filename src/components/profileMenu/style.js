@@ -38,8 +38,6 @@ export const ModalContent = styled.div`
         justify-content: space-between;
         gap: 20px;
         margin-top: 10px;
-
-
         input{
           background-color: var(--navColor);
         border: 1px solid var(--borderColor);
@@ -74,3 +72,44 @@ export const CustomModal = styled(Modal)`
   }
 `;
 
+export const Logoutbtn = styled.button`
+  padding: 10px 30px;
+  border: none;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  &:active{
+    transform: scale(0.95);
+  }
+`
+export const ComparePasswrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0;
+`
+export const ComparePass = styled.button`
+  padding: 10px 30px;
+  border: none;
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+   &:active{
+    transform: scale(0.95);
+  }
+`
+
+export const Input = styled.input`
+  background-color: var(--navColor);
+  border: 1px solid var(--borderColor);
+  color: var(--color);
+  padding: 10px;
+  outline: none;
+  width: 60%;
+
+  &:invalid{
+    border: 1px solid red;
+  }
+`
