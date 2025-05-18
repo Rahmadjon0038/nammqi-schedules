@@ -4,10 +4,13 @@ import Cookies from "js-cookie"
 import getNotify from "./notify"
 const { notify } = getNotify()
 const { instance } = require("@/components/api/api")
+
+
 const LoginFunc = async (loginData) => {
   const response = await instance.post('/api/auth/login', loginData)
   return response.data
 }
+
 export const useLogin = () => {
   const queryClient = useQueryClient()
   const loginMutation = useMutation({
@@ -22,7 +25,7 @@ export const useLogin = () => {
       }
     },
     onError: (error) => {
-      notify('err', error.response.data.error)
+      notify('err',error.response.data.error)
     }
   })
   return loginMutation

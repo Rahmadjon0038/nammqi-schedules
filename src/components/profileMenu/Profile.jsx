@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { ProfileBox, ModalContent, CustomModal, Logoutbtn, ComparePass, Input, ComparePasswrap } from './style';
+import { ProfileBox, ModalContent, CustomModal, Logoutbtn, ComparePass, Input, ComparePasswrap, ChangPass } from './style';
 import profilImg from '../../assets/profile.png'
 import Image from 'next/image';
 import { useAuth } from '@/context/authContext';
@@ -8,8 +8,10 @@ import { FaPen } from "react-icons/fa";
 import { LuSave } from "react-icons/lu";
 import { useComparePass, useLogoutUser2, useUpdateUser } from '@/hooks/users/useUpdateProfile';
 import getNotify from '@/hooks/notify';
+import { HoverMenu } from '../profileHovermenu/style';
+import Hovermenu from '../profileHovermenu/Menu';
 
-const Profile = () => {
+const ProfileSettings = () => {
     const [rename, setRename] = useState(true) // RENAME ICON TOGGLE
     const { notify } = getNotify() //NOTIFICATION
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +28,6 @@ const Profile = () => {
         setIsModalOpen(false);
     };
 
-    const updateMutation = useUpdateUser()
     // const mutaionLogout = useLogoutUser()
 
     const { role, userMeData, refetch } = useAuth()
@@ -69,14 +70,7 @@ const Profile = () => {
 
     // ---------------- LOGOUT ------------------
 
-    const mutaionLogout2 = useLogoutUser2()
-    const logOut = () => {
-        mutaionLogout2.mutate({
-            onSuccess: () => {
-                refetch()
-            }
-        })
-    }
+   
 
     // ---------------------compare password ------------------------------
     const comparemutation = useComparePass();
@@ -96,7 +90,7 @@ const Profile = () => {
 
     return (
         <ProfileBox>
-            <Image onClick={showModal}
+            <Image id='image' onClick={() => setHoverMenu(!hovermenu)}
                 src={profilImg}
                 width={70}
                 height={70}
@@ -104,11 +98,11 @@ const Profile = () => {
                 alt='rasm bor'
             />
             <div>
-                <p>{userMeData?.lastname.toLowerCase()}</p>
-                <p>{userMeData?.firstname}</p>
+
             </div>
 
-            <CustomModal
+
+            {/* <CustomModal
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={isModalOpen}
                 onOk={handleOk}
@@ -116,7 +110,6 @@ const Profile = () => {
                 footer={null}
                 className="my-custom-modal">
                 <ModalContent>
-                    {/* <img src="/avatar.png" alt="Profil rasmi" /> */}
                     <h2>Mening Profilim {rename ? <FaPen onClick={() => setRename(!rename)} className='renameIcon' /> : <LuSave onClick={saveFunction} className='renameIcon' />}</h2>
                     <p>Ism: {rename ? userMeData?.lastname.toLowerCase() : <input name='lastname' onChange={onchange} type='text' placeholder='yangi ism' />} </p>
                     <p>Familiya: {rename ? userMeData?.firstname : <input name='firstname' onChange={onchange} type='text' placeholder='Yangi familiya' />}</p>
@@ -126,14 +119,18 @@ const Profile = () => {
                         {compare && <Input type="text" value={mypass} required onChange={(e) => setPassword(e.target.value)} placeholder='parolingizni kiritng' />}
                     </ComparePasswrap>
                     <div>
+                        <ChangPass>Parolni yangilash</ChangPass> <br /> <br />
+                        {<Input type="text" value={mypass} required onChange={(e) => setPassword(e.target.value)} placeholder='parolingizni kiritng' />} <br /><br />
+                        {<Input type="text" value={mypass} required onChange={(e) => setPassword(e.target.value)} placeholder='parolingizni kiritng' />}
+
+                    </div>
+                    <div>
                         <Logoutbtn onClick={logOut}>Accountdan chiqish</Logoutbtn>
                     </div>
 
-                    
-
                 </ModalContent>
-            </CustomModal>
+            </CustomModal> */}
         </ProfileBox>
     );
 };
-export default Profile;
+export default ProfileSettings;

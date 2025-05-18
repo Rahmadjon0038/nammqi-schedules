@@ -1,10 +1,9 @@
 import { instance } from "@/components/api/api"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Cookies from "js-cookie"
 import getNotify from "../notify"
 const { notify } = getNotify()
 const updateData = async (profileData) => {
-    console.log(profileData, 'userdata')
     const response = await instance.patch('/api/user/profile', profileData)
     return response.data
 }
@@ -44,7 +43,7 @@ export const useLogoutUser2 = () => {
 
             // User me query keshdan o'chiriladi
             queryClient.removeQueries(['userme']);
-
+            notify('ok','logut')
             if (vars?.onSuccess) {
                 vars.onSuccess(data);
             }
@@ -80,7 +79,7 @@ export const useComparePass = () => {
             if (data.response) {
                 notify('ok', 'Parol tasdiqlandi')
             }
-            else{
+            else {
                 notify('err', 'Parol mos kelmadi')
             }
         },
@@ -89,4 +88,24 @@ export const useComparePass = () => {
         ]
     })
     return comparemutation
+}
+
+
+// -------------------------- Users table get ---------------------------
+
+
+
+const usersget = async () => {
+    const response = await instance.get('/api/admin/users')
+    return response.data
+}
+
+
+export const useGetusersData = () => {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['userstable'],
+        queryFn: usersget,
+    })
+
+    return { data, error, isLoading };
 }

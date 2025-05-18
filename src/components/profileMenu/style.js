@@ -15,7 +15,6 @@ export const ProfileBox = styled.div`
     .my-custom-modal{
         background-color: red;
     }
-
 `
 export const ModalContent = styled.div`
     h2{
@@ -52,14 +51,18 @@ export const ModalContent = styled.div`
         font-size: 24px;
     }
 `
-
 export const CustomModal = styled(Modal)`
+    left: -100px;
+    top: 40px;
   .ant-modal-content {
     border-radius: 20px;
     background-color: var(--formBgcolor);
     border: 1px solid var(--borderColor);
     color: var(--color);
     padding: 24px;
+    width: 800px;
+    max-width: 800px;
+    min-width: 500px;
   }
   .ant-modal-title {
     display: none;
@@ -70,7 +73,7 @@ export const CustomModal = styled(Modal)`
   .ant-modal-close:hover{
     color: var(--color);
   }
-`;
+  `;
 
 export const Logoutbtn = styled.button`
   padding: 10px 30px;
@@ -111,5 +114,17 @@ export const Input = styled.input`
 
   &:invalid{
     border: 1px solid red;
+  }
+`
+
+export const ChangPass = styled.button`
+  padding: 10px 30px;
+  border: none;
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  &:active{
+    transform: scale(0.95);
   }
 `

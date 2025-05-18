@@ -13,12 +13,15 @@ import Image from 'next/image.js'
 import profileImg from '../../assets/profile.png'
 import Profile from '../profileMenu/Profile.jsx'
 import Login from '../login/Login.jsx'
+import profilImg from '../../assets/profile.png'
+import Hovermenu from '../profileHovermenu/Menu.jsx'
+
 
 function Sidebar() {
 
   const { role, userMeData } = useAuth()  //bu rollarni boshqarish uchun
   const [dark, setDark] = useState(true)
-  console.log('sidebar', role)
+  const [hovermenu, setHoverMenu] = useState(false)
 
   const replaseThema = () => {
     setDark(!dark)
@@ -51,10 +54,18 @@ function Sidebar() {
             </button>
           </Link> : ""} */}
         </div>
-        {role == 'guest' ? <Login/> :
-
-
-          <Profile />
+        {role == 'guest' ? <Login /> :
+          <>
+            <Image id='image' onClick={() => setHoverMenu(!hovermenu)}
+              src={profilImg}
+              width={70}
+              height={70}
+              style={{ objectFit: 'cover', borderRadius: '100%' }}
+              alt='rasm bor'
+            />
+            {hovermenu && <Hovermenu />}
+          </>
+          // <Profile />
         }
 
       </Settings>
