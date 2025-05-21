@@ -21,8 +21,8 @@ function layout({ children }) {
           <AuthProvider>
             <Toaster position="top-right" reverseOrder={false} />
             <Sidebar />
-            <div className='mainContainer' style={{ flex: '1' }}>
-              <main style={{ flex: '1', margin: '30px' }}>
+            <div className='mainContainer' style={{ flex: '1',height:'100vh',overflow:'auto'  }}>
+              <main style={{ flex: '1', margin: '30px'}}>
                 {children}
               </main>
             </div>

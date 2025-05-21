@@ -88,10 +88,17 @@ const Settings = styled.div`
     .darkmode {
         display: flex;
         gap: 10px;
+        margin-bottom: 20px;
+        position: fixed;
+        right: 30px;
+        bottom: 10px;
+        background-color: var(--navColor);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--borderColor);
     }
 
     .darkmode .dark_icon {
-        border: 1px solid var(--borderColor);
         border-radius: 5px;
     }
 

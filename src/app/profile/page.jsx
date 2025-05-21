@@ -56,6 +56,7 @@ function Proflie() {
                 setSaved(true)
                 setUserdata({ firstname: "", lastname: "" });
                 refetch();
+
             },
             onError: () => {
                 notify("Yangilashda xatolik yuz berdi", "error");
@@ -77,6 +78,7 @@ function Proflie() {
         }
         else {
             comparemutation.mutate(respass)
+            setConfarimPass('')
         }
     }
 
@@ -94,8 +96,7 @@ function Proflie() {
     const changePassoword = () => {
         passowordChangeMutation.mutate(changePassdata)
 
-        // changePassdata.oldPassword = ''
-        // changePassdata.newPassword = ''
+        setChangePassdata({ oldPassword: "", newPassword: "" })
     }
 
 
@@ -151,7 +152,7 @@ function Proflie() {
             <UserBox>
                 <h2>Prolni tekshirish</h2>
                 <Confarimpass>
-                    <CustomInput onChange={(e) => setConfarimPass(e.target.value)} className='confirpasword' type="text" placeholder="Parolingizni kiriting" />
+                    <CustomInput onChange={(e) => setConfarimPass(e.target.value)} value={confarimpass} className='confirpasword' type="text" placeholder="Parolingizni kiriting" />
                     <CustomButton onClick={passFunk}>Tekshirish</CustomButton>
                 </Confarimpass>
             </UserBox>
