@@ -14,8 +14,8 @@ import Hovermenu from '../profileHovermenu/Menu';
 const ProfileSettings = () => {
     const [rename, setRename] = useState(true) // RENAME ICON TOGGLE
     const { notify } = getNotify() //NOTIFICATION
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [compare, setCompare] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
         setRename(true)
@@ -73,18 +73,7 @@ const ProfileSettings = () => {
    
 
     // ---------------------compare password ------------------------------
-    const comparemutation = useComparePass();
-    const [mypass, setPassword] = useState('');
-
-    function passFunk() {
-        let respass = mypass.trim()
-        if (respass.length == 0) {
-            console.log('bosh bolmasligi kerak')
-        }
-        else {
-            comparemutation.mutate(respass)
-        }
-    }
+   
 
 
 

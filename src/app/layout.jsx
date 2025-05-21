@@ -13,6 +13,7 @@ function layout({ children }) {
       document.documentElement.classList.add('dark')
     }
   }, [])
+
   return (
     <html lang='en'>
       <body style={{ display: 'flex' }}>

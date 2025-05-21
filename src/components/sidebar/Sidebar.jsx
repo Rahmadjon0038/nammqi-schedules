@@ -10,15 +10,12 @@ import { toggleTheme } from '../darkmode.jsx'
 import { MdMenu } from "react-icons/md";
 import { useAuth } from '@/context/authContext.jsx'
 import Image from 'next/image.js'
-import profileImg from '../../assets/profile.png'
-import Profile from '../profileMenu/Profile.jsx'
 import Login from '../login/Login.jsx'
 import profilImg from '../../assets/profile.png'
 import Hovermenu from '../profileHovermenu/Menu.jsx'
 
 
 function Sidebar() {
-
   const { role, userMeData } = useAuth()  //bu rollarni boshqarish uchun
   const [dark, setDark] = useState(true)
   const [hovermenu, setHoverMenu] = useState(false)

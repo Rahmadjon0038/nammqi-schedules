@@ -14,8 +14,6 @@ export const useUpdateUser = () => {
         mutationFn: updateData,
         onSuccess: (data) => {
             queryclient.invalidateQueries(['userme'])
-            notify('ok', data.message)
-
         },
         onError: (error) => {
             console.log(error);
@@ -43,7 +41,7 @@ export const useLogoutUser2 = () => {
 
             // User me query keshdan o'chiriladi
             queryClient.removeQueries(['userme']);
-            notify('ok','logut')
+            notify('ok', 'logut')
             if (vars?.onSuccess) {
                 vars.onSuccess(data);
             }
@@ -90,11 +88,31 @@ export const useComparePass = () => {
     return comparemutation
 }
 
+// -------------------------- change password ---------------------------
+
+const userschangePassword = async (changepassData) => {
+    const response = await instance.patch('/api/user/password/change', changepassData)
+    return response.data
+}
+
+export const usePasswordchange = () => {
+    const passowordChangeMutation = useMutation({
+        mutationFn: userschangePassword,
+        onSuccess: (data) => {
+            notify('ok', 'parol mofaqqiyatli almashtirildi')
+        },
+        onError: (error) => {
+            notify('err', error?.response?.data?.error)
+        }
+    })
+
+    return passowordChangeMutation
+}
+
+
+
 
 // -------------------------- Users table get ---------------------------
-
-
-
 const usersget = async () => {
     const response = await instance.get('/api/admin/users')
     return response.data
