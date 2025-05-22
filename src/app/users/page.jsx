@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { CustomFilter, Table } from './style';
 import Loader from '@/components/loader/Loader';
 import { CustomInput, CustomButton } from '../profile/style';
-
+import { Button, Dropdown, Space } from 'antd';
+import { IoFilter } from "react-icons/io5";
 function Users() {
   const [inputValue, setInputValue] = useState('');
   const [search, setSearch] = useState('');
@@ -31,6 +32,30 @@ function Users() {
     return <Loader />;
   }
 
+  const items = [
+    {
+      key: '1',
+      label: (
+        <p onClick={() => handleFilter('lastname')}>Ismi</p>
+
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <p onClick={() => handleFilter('firstname')}>Familiyasi</p>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <p onClick={() => handleFilter('username')}>Foydalanuvchi nomi</p>
+      ),
+    },
+
+
+  ]
+
   return (
     <>
       <CustomFilter>
@@ -40,11 +65,14 @@ function Users() {
           value={inputValue}
           onChange={inputChange}
         />
-        <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-          <CustomButton onClick={() => handleFilter('firstname')}>Ismi</CustomButton>
-          <CustomButton onClick={() => handleFilter('lastname')}>Familiya</CustomButton>
-          <CustomButton onClick={() => handleFilter('username')}>Foydalanuvchi nomi</CustomButton>
-        </div>
+        <Dropdown
+          className="custom-dropdown"
+          menu={{ items }}
+          placement="top"
+          overlayClassName="custom-menu"
+        >
+          <Button className='customBtn'><IoFilter/></Button>
+        </Dropdown>
       </CustomFilter>
 
       <Table>

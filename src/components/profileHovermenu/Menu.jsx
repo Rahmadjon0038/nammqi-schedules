@@ -26,9 +26,9 @@ function Hovermenu() {
         <HoverMenuBox>
             <div className='imagebox'>
                 <Image className='image' src={profilimg} alt='logo' />
-                <div>
-                    <h3>{userMeData?.lastname.toLowerCase()}</h3>
-                    <h3>{userMeData?.firstname}</h3>
+                <div className='username'>
+                    <h4>{userMeData?.lastname.toLowerCase()}</h4>
+                    <h4>{userMeData?.firstname}</h4>
                 </div>
             </div>
             <Link className='link' href={'/profile'}><button><CiSettings size={22}/> Sozlamalar</button></Link>

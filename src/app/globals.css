@@ -1,14 +1,14 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg);
-    color: var(--color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--bg);
+  color: var(--color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::-webkit-scrollbar {
@@ -26,41 +26,63 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 :root {
-    /* Light Mode Variables */
-    --bg: white;
-    --color: rgb(42, 42, 42);
-    --navColor: #ECF4FA;
-    --shadow: silver;
-    --borderColor: #a6a4a4;
-    --hoverColor: #cee4f5;
-    --tableColor: rgb(252, 253, 253);
-    --formBgcolor: white;
+  /* Light Mode Variables */
+  --bg: white;
+  --color: rgb(42, 42, 42);
+  --navColor: #ECF4FA;
+  --shadow: silver;
+  --borderColor: #a6a4a4;
+  --hoverColor: #cee4f5;
+  --tableColor: rgb(252, 253, 253);
+  --formBgcolor: white;
 
 }
 
 .dark {
-    /* Dark Mode Variables */
-    --bg: #121212;
-    --color: #e0e0e0;
-    --navColor: #1f1f1f;
-    --shadow: #000000;
-    --borderColor: #444;
-    --hoverColor: #333333;
-    --tableColor: #1f1f1f;
-    --formBgcolor: rgb(21, 21, 21);
+  /* Dark Mode Variables */
+  --bg: #121212;
+  --color: #e0e0e0;
+  --navColor: #1f1f1f;
+  --shadow: #000000;
+  --borderColor: #444;
+  --hoverColor: #333333;
+  --tableColor: #1f1f1f;
+  --formBgcolor: rgb(21, 21, 21);
 
 }
 
 .bgImg {
-    background-image: url('../assets/login.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url('../assets/login.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
+@media(max-width:768px) {
+  .mainContainer {
+    margin-left: 70px;
+  }
+}
 
-@media(max-width:768px){
-    .mainContainer{
-        margin-left: 70px;
-    }
+.custom-menu {
+  background-color: var(--navColor) !important;
+  border-radius: 10px !important;
+  padding: 8px !important;
+  box-shadow: 0 4px 20px var(--shadow) !important;
+}
+
+/* Bu menyudagi har bir item uchun */
+.custom-menu .ant-dropdown-menu {
+  background-color: transparent !important;
+}
+
+.custom-menu .ant-dropdown-menu-item {
+  color: var(--color) !important;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.custom-menu .ant-dropdown-menu-item:hover {
+  background-color: var(--hoverColor) !important;
 }

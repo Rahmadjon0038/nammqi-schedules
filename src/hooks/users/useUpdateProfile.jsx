@@ -2,6 +2,7 @@ import { instance } from "@/components/api/api"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Cookies from "js-cookie"
 import getNotify from "../notify"
+import { useAuth } from "@/context/authContext"
 const { notify } = getNotify()
 const updateData = async (profileData) => {
     const response = await instance.patch('/api/user/profile', profileData)
@@ -110,12 +111,61 @@ export const usePasswordchange = () => {
 }
 
 
+//  -------------------------- delete account --------------------------
+
+const deleteAccount = async () => {
+    const response = await instance.delete('/api/user/me')
+    return response.data
+}
+
+// export const useDeleteaccount = () => {
+//     const queryclient = useQueryClient()
+
+//     const deleteaccountmutation = useMutation({
+//         mutationFn: deleteAccount,
+//         onSuccess: (data, vars) => {
+//             queryclient.invalidateQueries(['userme'])
+//             Cookies.remove('token');
+//             Cookies.remove('refresh_token');
+//             if (vars.onSuccess) {
+//                 vars.onSuccess(data)
+//             }
+//         },
+//         onError: (err) => {
+//             console.log(err)
+//         }
+//     })
+//     return deleteaccountmutation
+// }
 
 
+export const useDeleteaccount = () => {
+    const queryClient = useQueryClient();
+    const { setUserMedata, setRole } = useAuth(); 
+    const deleteaccountmutation = useMutation({
+        mutationFn: deleteAccount,
+        onSuccess: (data, vars) => {
+            Cookies.remove('token');
+            Cookies.remove('refresh_token');
+            queryClient.invalidateQueries(['userme']);
+            queryClient.removeQueries(['userme']); 
+            setUserMedata({});
+            setRole('guest');
+            if (vars.onSuccess) {
+                vars.onSuccess(data);
+            }
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+
+    return deleteaccountmutation;
+};
 // -------------------------- Users table get ---------------------------
 const usersget = async ({ queryKey }) => {
     const [_key, fiil] = queryKey;
-    
+
     const response = await instance.get(`/api/admin/users?${fiil.daraja}=${fiil?.search}`);
     return response.data;
 };

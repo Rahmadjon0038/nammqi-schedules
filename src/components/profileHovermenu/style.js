@@ -37,6 +37,11 @@ export const HoverMenuBox = styled.div`
             background-color: var(--navColor);
         }
     }
+
+
+    .username h4{
+        white-space: nowrap;
+    }
     
 
 `

@@ -4,12 +4,14 @@ import React, { useState } from 'react'
 import profilimg from '../../assets/profile.png'
 import { useAuth } from '@/context/authContext'
 import { SaveBtn, UserBox, Wrapper, CustomInput, CustomButton, Confarimpass, DeleteAccount, Msg } from './style'
-import { useComparePass, usePasswordchange, useUpdateUser } from '@/hooks/users/useUpdateProfile'
+import { useComparePass, useDeleteaccount, useLogoutUser2, usePasswordchange, useUpdateUser } from '@/hooks/users/useUpdateProfile'
 import getNotify from '@/hooks/notify'
 import { CustomModal, ModalContent } from '@/components/login/style'
 import { FaRegCheckCircle } from "react-icons/fa";
+import { useRouter } from 'next/navigation'
 function Proflie() {
 
+    const router = useRouter()
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -99,9 +101,22 @@ function Proflie() {
 
 
     // ---------------------------------- DELETEACCIUNT -------------------------------
+
+
+
+  const deleteaccountmutation = useDeleteaccount();
+
     const deleteAccount = () => {
-        notify('ok', 'delete account')
-    }
+        deleteaccountmutation.mutate({
+            onSuccess: (data) => {
+                notify("ok", data.message);
+                router.push('/');
+            },
+            onError: (err) => {
+                notify("err", "Akauntni o‘chirishda xatolik yuz berdi");
+            }
+        });
+    };
 
     return (
         < Wrapper >
@@ -154,7 +169,6 @@ function Proflie() {
                     <CustomButton onClick={passFunk}>Tekshirish</CustomButton>
                 </Confarimpass>
             </UserBox>
-
             <UserBox>
                 <h2>Prolni Almashtirish</h2>
                 <Confarimpass>

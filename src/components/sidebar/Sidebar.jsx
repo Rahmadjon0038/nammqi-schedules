@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React, { useState, useRef, useEffect } from 'react'
 import { Container, Nav, Settings, MenuContainer } from './style.js'
 import { sidebarData } from '@/utils/sidebarData.jsx'
-import { CiSettings } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
@@ -13,36 +12,30 @@ import Image from 'next/image.js'
 import Login from '../login/Login.jsx'
 import profilImg from '../../assets/profile.png'
 import Hovermenu from '../profileHovermenu/Menu.jsx'
-import { useRegister } from '@/hooks/useLogin.jsx'
+import { FaRegBuilding, FaTable, FaUsers } from 'react-icons/fa'
+import { FaUsersBetweenLines } from 'react-icons/fa6'
 
 function Sidebar() {
   const { role, userMeData } = useAuth();
   const [dark, setDark] = useState(true);
   const [hovermenu, setHoverMenu] = useState(false);
   const [hiddenNav, setHiddenNav] = useState(true);
-
   const menuRef = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setHoverMenu(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
   const replaseThema = () => {
     setDark(!dark);
     toggleTheme();
   };
-
-
-  
   return (
     <Container $hiddenNav={hiddenNav}>
       <MenuContainer>
@@ -51,12 +44,25 @@ function Sidebar() {
       </MenuContainer>
 
       <Nav>
-        {sidebarData?.map((item) => (
-          <Link key={item?.id} className='link' href={item?.path}>
-            {item?.icon}
-            <span className={hiddenNav ? 'name' : ''}>{item?.name}</span>
-          </Link>
-        ))}
+        <Link className='link' href={'/binolar'}>
+          <FaRegBuilding />
+          <span className={hiddenNav ? 'name' : ''}>Binolar</span>
+        </Link>
+
+        <Link className='link' href={'/auditoriyalar'}>
+          <FaUsersBetweenLines />
+          <span className={hiddenNav ? 'name' : ''}>Auditoriyalar</span>
+        </Link>
+
+        <Link className='link' href={'/darsjadvali'}>
+          <FaTable />
+          <span className={hiddenNav ? 'name' : ''}>Dars jadvali</span>
+        </Link>
+
+        {role == 'admin' && <Link className='link' href={'/users'}>
+          <FaUsers />
+          <span className={hiddenNav ? 'name' : ''}>Foydalanuvchilar</span>
+        </Link>}
       </Nav>
 
       <Settings>
