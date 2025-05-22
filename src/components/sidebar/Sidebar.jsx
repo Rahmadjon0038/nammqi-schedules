@@ -13,6 +13,7 @@ import Image from 'next/image.js'
 import Login from '../login/Login.jsx'
 import profilImg from '../../assets/profile.png'
 import Hovermenu from '../profileHovermenu/Menu.jsx'
+import { useRegister } from '@/hooks/useLogin.jsx'
 
 function Sidebar() {
   const { role, userMeData } = useAuth();
@@ -40,6 +41,8 @@ function Sidebar() {
     toggleTheme();
   };
 
+
+  
   return (
     <Container $hiddenNav={hiddenNav}>
       <MenuContainer>

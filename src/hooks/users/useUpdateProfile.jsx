@@ -113,17 +113,18 @@ export const usePasswordchange = () => {
 
 
 // -------------------------- Users table get ---------------------------
-const usersget = async () => {
-    const response = await instance.get('/api/admin/users')
-    return response.data
-}
+const usersget = async ({ queryKey }) => {
+    const [_key, fiil] = queryKey;
+    
+    const response = await instance.get(`/api/admin/users?${fiil.daraja}=${fiil?.search}`);
+    return response.data;
+};
 
-
-export const useGetusersData = () => {
+export const useGetusersData = (key) => {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['userstable'],
+        queryKey: ['userstable', key], // key bu yerda masalan "rahmadjon"
         queryFn: usersget,
-    })
+    });
 
     return { data, error, isLoading };
-}
+};

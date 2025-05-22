@@ -14,7 +14,6 @@ export const useBuildings = () => {
     queryKey: ['buildings'],
     queryFn: fetchBuildings,
     onSuccess: (data) => {
-      console.log(data)
       console.log('Muvaffaqiyatli yuklandi');
     },
     onError: () => {

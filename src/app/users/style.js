@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const CustomFilter = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+`
+
 export const Table = styled.table`
     border-collapse:collapse;
     width: 100%;

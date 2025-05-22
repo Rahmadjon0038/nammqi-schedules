@@ -47,8 +47,6 @@ function Proflie() {
             updatedFields.lastname = userData.lastname;
         }
 
-
-
         updateMutation.mutate(updatedFields, {
             onSuccess: () => {
                 setRenameLast(false);

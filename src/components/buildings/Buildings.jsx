@@ -8,11 +8,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
 import { useAddBuilding } from "@/hooks/addBildings";
+import Loader from "../loader/Loader";
 
 function Buildings() {
 
     const { data, isLoading } = useBuildings()
     const { role, setRole } = useAuth()
+
 
     const mutation = useAddBuilding()
     const [addBuilding, setAddBuilding] = useState({
@@ -43,7 +45,7 @@ function Buildings() {
                 <Form onSubmit={handleSumbit} >
                     <Input required onChange={addBuldingChange} name="name" type="text" placeholder="Bino nomini kiriting" />
                     <Input required onChange={addBuldingChange} name="address" type="text" placeholder="Bino addresini kiriting" />
-                    <Button>Saqlash</Button>
+                    <Button>Qo'shish</Button>
                 </Form>
             </FormWrapper>}
             <Table>
@@ -57,7 +59,7 @@ function Buildings() {
                 </thead>
                 {data?.buildings?.map((item, index) => (
                     <tbody key={index}>
-                        <tr  index={index}>
+                        <tr index={index}>
                             <td> <span className="icon"><FaRegCopy className="copy" /> {item?.id.slice(0, 4)} </span></td>
                             <td>{item.name}</td>
                             <td> <span className="icon"><FaLocationDot />{item.address}</span></td>

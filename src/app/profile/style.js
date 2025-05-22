@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
 export const UserBox = styled.div`
     border-top: 1px solid var(--borderColor);
     padding: 20px 0px;
-    max-width: 80%;
+    /* max-width: 80%; */
    
     
     .changeBox{
