@@ -1,7 +1,7 @@
 'use client';
 import { useGetusersData } from '@/hooks/users/useUpdateProfile';
 import React, { useState } from 'react';
-import { CustomFilter, Table } from './style';
+import { CustomFilter, StychkiTable, Table } from './style';
 import Loader from '@/components/loader/Loader';
 import { CustomInput, CustomButton } from '../profile/style';
 import { Button, Dropdown, Space } from 'antd';
@@ -71,40 +71,41 @@ function Users() {
           placement="top"
           overlayClassName="custom-menu"
         >
-          <Button className='customBtn'><IoFilter/></Button>
+          <Button className='customBtn'><IoFilter /></Button>
         </Dropdown>
       </CustomFilter>
-
-      <Table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>ismi</th>
-            <th>familiyasi</th>
-            <th>username</th>
-            <th>role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.users?.length > 0 ? (
-            data.users.map((item) => (
-              <tr key={item?.id}>
-                <td>{item?.id?.length > 4 ? item.id.slice(0, 4) + '...' : item.id}</td>
-                <td>{item?.lastname}</td>
-                <td>{item?.firstname}</td>
-                <td>{item?.username}</td>
-                <td>{item?.role}</td>
-              </tr>
-            ))
-          ) : (
+      <StychkiTable>
+        <Table>
+          <thead>
             <tr>
-              <td colSpan="5" style={{ textAlign: 'center' }}>
-                Foydalanuvchilar topilmadi
-              </td>
+              <th>id</th>
+              <th>ismi</th>
+              <th>familiyasi</th>
+              <th>username</th>
+              <th>role</th>
             </tr>
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {data?.users?.length > 0 ? (
+              data.users.map((item) => (
+                <tr key={item?.id}>
+                  <td>{item?.id?.length > 4 ? item.id.slice(0, 4) + '...' : item.id}</td>
+                  <td>{item?.lastname}</td>
+                  <td>{item?.firstname}</td>
+                  <td>{item?.username}</td>
+                  <td>{item?.role}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: 'center' }}>
+                  Foydalanuvchilar topilmadi
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </StychkiTable>
     </>
   );
 }

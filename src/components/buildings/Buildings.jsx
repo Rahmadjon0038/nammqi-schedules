@@ -1,7 +1,7 @@
 'use client'
 import { useBuildings } from "@/hooks/useBuildings"
 import { FaEye } from "react-icons/fa";
-import { Table, TableContainer, Form, Input, Button, FormWrapper } from "./style";
+import { Table, TableContainer, Form, Input, Button, FormWrapper, StychkiTable } from "./style";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaRegCopy } from "react-icons/fa";
 import { useState } from "react";
@@ -30,6 +30,11 @@ function Buildings() {
         mutation.mutate({
             addBuilding, getData: (data) => {
                 // console.log(data)
+                setAddBuilding({
+                    name: '',
+                    address: '',
+                })
+
             },
             onError: (error) => {
                 // console.log(error)
@@ -37,17 +42,28 @@ function Buildings() {
         })
     }
 
+    const copytext = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log("Copied:", text);
+        }).catch((err) => {
+            console.error("Copy failed:", err);
+        });
+    };
 
 
     return (
         <TableContainer>
+
             {role == 'admin' && <FormWrapper>
                 <Form onSubmit={handleSumbit} >
-                    <Input required onChange={addBuldingChange} name="name" type="text" placeholder="Bino nomini kiriting" />
-                    <Input required onChange={addBuldingChange} name="address" type="text" placeholder="Bino addresini kiriting" />
+                    <Input required onChange={addBuldingChange} value={addBuilding.name} name="name" type="text" placeholder="Bino nomini kiriting" />
+                    <Input required onChange={addBuldingChange} value={addBuilding.address}  name="address" type="text" placeholder="Bino addresini kiriting" />
                     <Button>Qo'shish</Button>
                 </Form>
             </FormWrapper>}
+           
+           <StychkiTable>
+             
             <Table>
                 <thead>
                     <tr>
@@ -59,15 +75,28 @@ function Buildings() {
                 </thead>
                 {data?.buildings?.map((item, index) => (
                     <tbody key={index}>
-                        <tr index={index}>
-                            <td> <span className="icon"><FaRegCopy className="copy" /> {item?.id.slice(0, 4)} </span></td>
+                        <tr>
+                            <td>
+                                <span className="icon">
+                                    <FaRegCopy onClick={() => copytext(item.id)} className="copy" />
+                                    <span id="copybox">{item?.id}</span>
+                                </span>
+                            </td>
                             <td>{item.name}</td>
-                            <td> <span className="icon"><FaLocationDot />{item.address}</span></td>
-                            <td className="nmap"><Link href={`/binolar/${item?.id}`}><span><FaEye /></span></Link></td>
+                            <td>
+                                <span className="icon">
+                                    <FaLocationDot />{item.address}
+                                </span>
+                            </td>
+                            <td className="nmap">
+                                <Link href={`/binolar/${item?.id}`}><span><FaEye /></span></Link>
+                            </td>
                         </tr>
                     </tbody>
                 ))}
+
             </Table>
+           </StychkiTable>
         </TableContainer >
     )
 }

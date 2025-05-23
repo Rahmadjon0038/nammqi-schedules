@@ -19,10 +19,16 @@ export const CustomFilter = styled.div`
         /* border: none !important; */
         padding:18px;
         box-shadow: none !important;
+          @media (max-width:600px){
+        padding: 8px;
+    }
     }
    
 `
-
+export const StychkiTable = styled.div`
+    width: 100%;
+    overflow: auto;
+`
 
 export const Table = styled.table`
     border-collapse:collapse;
@@ -40,4 +46,11 @@ export const Table = styled.table`
         background-color: var(--navColor);
     }
 
+
+  @media(max-width:600px){
+         th,td{
+            font-size: 14px;
+            padding: 10px;
+         }
+    }
 `

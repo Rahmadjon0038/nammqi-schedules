@@ -9,10 +9,13 @@ body {
   background-color: var(--bg);
   color: var(--color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 3px;
 }
 
 ::-webkit-scrollbar-track {

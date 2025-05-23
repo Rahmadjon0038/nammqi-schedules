@@ -24,6 +24,7 @@ const Container = styled.div`
     display: none;
   }
 
+  transition: 0.1s;
   @media (max-width: 768px) {
     position: absolute;
     height: 100%;
@@ -43,7 +44,7 @@ const Container = styled.div`
   }
 `;
 
-const MenuContainer  = styled.div`
+const MenuContainer = styled.div`
     display: flex;
     gap: 20px;
 `
@@ -120,30 +121,26 @@ const Settings = styled.div`
         border: 1px solid var(--borderColor);
     }
 
-    .setttingIcon {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        justify-content: center;
-        gap: 10px;
-        cursor: pointer;
-        width: 100%;
-        background-color: var(--navColor);
-        border: none;
-        text-decoration: none;
-        color: var(--color);
-        transition: background-color 0.3s ease, color 0.3s ease;
-        border: 1px solid var(--borderColor);
-        border-radius: 5px;
-    }
+   
 
     .link {
         text-decoration: none;
+    }
+
+    #image{
+      width: 70px;
+      height: 70px;
+    }
+     @media(max-width:768px){
+      #image{
+        width: 44px;
+        height: 44px;
+      }
     }
 `;
 
 
 
 export {
-    Container, Nav, Settings,MenuContainer  
+  Container, Nav, Settings, MenuContainer
 };

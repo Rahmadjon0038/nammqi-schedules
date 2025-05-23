@@ -18,6 +18,9 @@ export const HoverMenuBox = styled.div`
         height: 44px;
         border-radius: 50%;
         object-fit: cover;
+
+
+        
     }
     .link{
         text-decoration: none;
@@ -37,6 +40,7 @@ export const HoverMenuBox = styled.div`
             background-color: var(--navColor);
         }
     }
+   
 
 
     .username h4{

@@ -80,8 +80,6 @@ function Sidebar() {
               id='image'
               onClick={() => setHoverMenu(!hovermenu)}
               src={profilImg}
-              width={70}
-              height={70}
               style={{ objectFit: 'cover', borderRadius: '100%', cursor: 'pointer' }}
               alt='profile image'
             />

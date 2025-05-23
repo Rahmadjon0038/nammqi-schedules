@@ -69,6 +69,7 @@ export const CustomButton = styled.button`
     &:active{
       transform: scale(0.97);
     }
+    
 `
 export const SaveBtn = styled.button`
     background-color: green;
@@ -82,6 +83,10 @@ export const CustomInput = styled.input`
     border-radius: 5px;
     outline: none;
     width: 300px;
+
+    @media (max-width:600px){
+        padding: 8px;
+    }
 `
 
 export const Confarimpass = styled.div`
