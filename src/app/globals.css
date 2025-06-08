@@ -32,14 +32,16 @@ body {
 
 :root {
   /* Light Mode Variables */
-  --bg: white;
+  --bg: rgb(238, 253, 255);
   --color: rgb(42, 42, 42);
-  --navColor: #ECF4FA;
+  --navColor: #ffffff;
   --shadow: silver;
   --borderColor: #a6a4a4;
   --hoverColor: #cee4f5;
   --tableColor: rgb(252, 253, 253);
   --formBgcolor: white;
+  --gradientleft: rgb(180, 211, 240);
+  --gradientright: rgb(253, 247, 225);
 
 }
 
@@ -53,7 +55,8 @@ body {
   --hoverColor: #333333;
   --tableColor: #1f1f1f;
   --formBgcolor: rgb(21, 21, 21);
-
+   --gradientleft: rgb(34, 34, 34);
+  --gradientright: rgb(38, 38, 37);
 }
 
 .bgImg {

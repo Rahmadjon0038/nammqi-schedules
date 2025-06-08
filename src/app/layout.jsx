@@ -16,7 +16,7 @@ function layout({ children }) {
 
   return (
     <html lang='en'>
-      <body style={{ display: 'flex' }}>
+      <body>
         <ReactQueryProvider >
           <AuthProvider>
             <Toaster position="top-right" reverseOrder={false} />

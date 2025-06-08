@@ -69,7 +69,7 @@ function Buildings() {
                     <tr>
                         <th>id</th>
                         <th>Nomi</th>
-                        <th> Joylashuvi</th>
+                        <th>Joylashuvi</th>
                         <th>Ko'rish</th>
                     </tr>
                 </thead>
