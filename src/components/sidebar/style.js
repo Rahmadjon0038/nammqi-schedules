@@ -52,7 +52,6 @@ const Settings = styled.div`
     }
     .login {
         padding: 0 20px;
-        margin-top: 20px;
         background-color: var(--navColor);
         border-radius: 5px;
         border: none;

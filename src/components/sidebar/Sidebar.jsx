@@ -32,7 +32,7 @@ function Navbar() {
     <Container $hiddenNav={hiddenNav}>
       <h1 className={hiddenNav ? 'title' : ''}>Schedu<span>le</span></h1>
       <Nav>
-        <Link className='link' href={'/binolar'}>
+        <Link className='link' href={'/buildings'}>
           <span className={hiddenNav ? 'name' : ''}>Binolar</span>
         </Link>
         {/* <div>
@@ -42,20 +42,20 @@ function Navbar() {
             </div>
           ))}
         </div> */}
-        <Link className='link' href={'/darsjadvali'}>
+        <Link className='link' href={'/schedule'}>
           <span className={hiddenNav ? 'name' : ''}>Dars jadvali</span>
         </Link>
 
         {role == 'admin' && <Link className='link' href={'/users'}>
           <span className={hiddenNav ? 'name' : ''}>Foydalanuvchilar</span>
         </Link>}
+
       <Settings>
 
         {role === 'guest' ? (
           <Login />
         ) : (
           <div className='info' ref={menuRef} style={{ position: 'relative' }}>
-      
             <UserProfile/>
           </div>
         )}

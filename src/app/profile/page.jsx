@@ -164,10 +164,12 @@ function Proflie() {
             </UserBox>
             <UserBox>
                 <h2>Prolni tekshirish</h2>
+
                 <Confarimpass>
                     <CustomInput onChange={(e) => setConfarimPass(e.target.value)} value={confarimpass} className='confirpasword' type="text" placeholder="Parolingizni kiriting" />
                     <CustomButton onClick={passFunk}>Tekshirish</CustomButton>
                 </Confarimpass>
+                
             </UserBox>
             <UserBox>
                 <h2>Prolni Almashtirish</h2>

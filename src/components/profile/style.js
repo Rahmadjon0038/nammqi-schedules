@@ -69,7 +69,7 @@ export const UserInfoContainer = styled.div`
 
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-  gap: 100px;
+  gap: 50px;
 
   .userInput{
     background-color: var(--navColor);
@@ -96,10 +96,11 @@ export const CustomInput = styled.input`
   width: 100%;
     padding: 14px;
     border: none;
-    background-color: rgb(229, 229, 229);
+    color: var(--color);
+    background-color: var(--navColor);
     outline: none;
     border-radius: 4px;
-    border: 1px solid rgb(44, 111, 236);
+    border: 1px solid var(--borderColor);
 `
 
 
@@ -131,4 +132,28 @@ export const File = styled.div`
     color:rgb(71, 69, 69);
     
   }
+`
+
+export const ConfarimpassTitle = styled.p`
+  margin: 16px 0;
+`
+export const CustomButton = styled.button`
+    padding: 12px 30px;
+    background-color: var(--navColor);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--color);
+    cursor: pointer;
+    border: 1px solid var(--borderColor);
+    margin-right: 10px;
+    &:active{
+      transform: scale(0.97);
+    }
+`
+
+export const ReplacePass = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `

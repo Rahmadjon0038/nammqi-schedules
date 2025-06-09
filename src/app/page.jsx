@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Binolar from './binolar/page'
+import Binolar from './buildings/page'
 
 function Home() {
   

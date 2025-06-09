@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, CreateAt, CustomInput, File, Glass, ImgContainer, Logoutbtn, ModalContent, UserInfo, UserInfoContainer } from './style'
+import { Confarimpass, ConfarimpassTitle, Container, CreateAt, CustomButton, CustomInput, File, Glass, ImgContainer, Logoutbtn, ModalContent, ReplacePass, UserInfo, UserInfoContainer } from './style'
 import { FaAngleDown } from "react-icons/fa";
 import { Box, Modal } from '@mui/material';
 import Cookies from 'js-cookie'
@@ -7,7 +7,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import avatar from '../../assets/user.png'
 import Image from 'next/image';
 import { useAuth } from '@/context/authContext';
-import { useUpdateUser } from '@/hooks/users/useUpdateProfile';
+import { useComparePass, usePasswordchange, useUpdateUser } from '@/hooks/users/useUpdateProfile';
 function UserProfile() {
     const updateMuattion = useUpdateUser();
     const [edit, setEdit] = useState(true)
@@ -52,6 +52,34 @@ function UserProfile() {
         updateMuattion.mutate(userUpdate)
     }
 
+    const comparemutation = useComparePass();
+    const [confarimpass, setConfarimPass] = useState('')
+    function passFunk() {
+        let respass = confarimpass.trim()
+        if (respass.length == 0) {
+        }
+        else {
+            comparemutation.mutate(respass)
+            setConfarimPass('')
+        }
+    }
+
+      const passowordChangeMutation = usePasswordchange()
+        const [changePassdata, setChangePassdata] = useState({
+            oldPassword: "",
+            newPassword: ""
+        })
+        const onchagePass = (e) => {
+            let { name, value } = e.target
+            setChangePassdata({ ...changePassdata, [name]: value })
+        }
+        const changePassoword = () => {
+            passowordChangeMutation.mutate(changePassdata)
+    
+            setChangePassdata({ oldPassword: "", newPassword: "" })
+        }
+    
+
     const logout = () => {
         Cookies.remove('role')
         Cookies.remove('token');
@@ -59,6 +87,7 @@ function UserProfile() {
         setRole('guest')
     }
 
+    console.log(userMeData)
     return (
         <Container>
             <ImgContainer onClick={handleOpen}>
@@ -79,7 +108,7 @@ function UserProfile() {
                             <div className='info'>
                                 <Image className='img' src={avatar} alt="avatar" />
                                 <div className="infotext">
-                                    <h2>Rahmadjon abdullayev</h2>
+                                    <h2>{userMeData?.firstname} {userMeData?.lastname}</h2>
                                 </div>
                             </div>
                             {edit ? < button onClick={() => setEdit(!edit)}>Yangilash</button> : <button onClick={saveUpdate}>Saqlash</button>}
@@ -99,12 +128,21 @@ function UserProfile() {
                                         {edit ? <p>{userMeData?.lastname}</p> : <CustomInput name='lastname' onChange={onchange} type="text" defaultValue={userMeData?.lastname} />}
                                     </div>
                                 </div>
+                                <div>
+                                    <ConfarimpassTitle>Parolni Almashtirish</ConfarimpassTitle>
+                                    <ReplacePass>
+                                        <CustomInput onChange={onchagePass} name='oldPassword' value={changePassdata?.oldPassword} className='confirpasword' type="text" placeholder="Eski parol" />
+                                        <CustomInput onChange={onchagePass} name='newPassword' value={changePassdata?.newPassword} className='confirpasword' type="text" placeholder="Yangi parol" />
+                                        <CustomButton onClick={changePassoword}>Yuborish</CustomButton>
+                                    </ReplacePass>
+                                </div>
                             </UserInfo>
                             <UserInfo>
                                 <div className='userInfo'>
                                     <p className='title'>Foydalanuvchi nomi</p>
                                     <div className='userInput'>
-                                        {edit ? <p>{userMeData?.username}</p> : <CustomInput name='username' onChange={onchange} type="text" defaultValue={userMeData?.username} />}
+                                        <p>{userMeData?.username}</p>
+                                        {/* {edit ?  : <CustomInput name='username' onChange={onchange} type="text" defaultValue={userMeData?.username} />} */}
                                     </div>
                                 </div>
                                 <div className='userInfo'>
@@ -113,8 +151,22 @@ function UserProfile() {
                                         <p>{userMeData?.role}</p>
                                     </div>
                                 </div>
+
+                                <div>
+                                    <ConfarimpassTitle>Parolni tekshirish</ConfarimpassTitle>
+                                    <ReplacePass>
+                                        <CustomInput onChange={(e) => setConfarimPass(e.target.value)} value={confarimpass} className='confirpasword' type="text" placeholder="Parolingizni kiriting" />
+                                        <CustomButton onClick={passFunk}>Tekshirish</CustomButton>
+                                    </ReplacePass>
+                                </div>
                             </UserInfo>
+
+
                         </UserInfoContainer>
+
+
+
+
                         <Logoutbtn onClick={logout}>Accountdan Chiqish</Logoutbtn>
                     </ModalContent>
                 </Box>
