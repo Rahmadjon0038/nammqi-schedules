@@ -1,9 +1,8 @@
 'use client';
 import { useGetusersData } from '@/hooks/users/useUpdateProfile';
 import React, { useState } from 'react';
-import { CustomFilter, StychkiTable, Table } from './style';
+import { CustomFilter, CustomInput, StychkiTable, Table } from './style';
 import Loader from '@/components/loader/Loader';
-import { CustomInput, CustomButton } from '../profile/style';
 import { Button, Dropdown, Space } from 'antd';
 import { IoFilter } from "react-icons/io5";
 function Users() {

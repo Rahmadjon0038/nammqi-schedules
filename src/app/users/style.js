@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CustomFilter = styled.div`
+
     display: flex;
     align-items: center;
     justify-content: end;
@@ -53,4 +54,13 @@ export const Table = styled.table`
             padding: 10px;
          }
     }
+`
+export const CustomInput = styled.input`
+    padding: 10px;
+    border: none;
+    color: var(--color);
+    background-color: var(--navColor);
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid var(--borderColor);
 `

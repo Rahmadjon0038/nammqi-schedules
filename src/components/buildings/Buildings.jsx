@@ -29,7 +29,6 @@ function Buildings() {
         e.preventDefault()
         mutation.mutate({
             addBuilding, getData: (data) => {
-                // console.log(data)
                 setAddBuilding({
                     name: '',
                     address: '',
@@ -37,7 +36,6 @@ function Buildings() {
 
             },
             onError: (error) => {
-                // console.log(error)
             }
         })
     }
@@ -89,7 +87,7 @@ function Buildings() {
                                 </span>
                             </td>
                             <td className="nmap">
-                                <Link href={`/binolar/${item?.id}`}><span><FaEye /></span></Link>
+                                <Link href={`/buildings/${item?.id}`}><span><FaEye /></span></Link>
                             </td>
                         </tr>
                     </tbody>

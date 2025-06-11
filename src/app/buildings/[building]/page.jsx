@@ -66,7 +66,7 @@ function Page() {
         console.log('delete')
         deleteMutation.mutate({
             building, getData: (data) => {
-                router.push('/binolar')
+                router.push('/buildings')
             },
             onError: (error) => {
                 console.log(error)

@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import React, { useState, useRef } from 'react'
-import { Container, Nav, Settings} from './style.js'
+import { Container, Nav, Settings } from './style.js'
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
@@ -9,11 +9,10 @@ import { MdMenu } from "react-icons/md";
 import { useAuth } from '@/context/authContext.jsx'
 import Image from 'next/image.js'
 import Login from '../login/Login.jsx'
-import profilImg from '../../assets/profile.png'
-import Hovermenu from '../profileHovermenu/Menu.jsx'
 import { useBuildings } from '@/hooks/useBuildings.jsx'
 import { IoIosArrowDown } from "react-icons/io";
 import UserProfile from '../profile/UserProfile.jsx';
+import BuildinsSelect from '../buildigsSelect/BuildingsSelect.jsx';
 
 function Navbar() {
   const { role, userMeData } = useAuth();
@@ -32,9 +31,12 @@ function Navbar() {
     <Container $hiddenNav={hiddenNav}>
       <h1 className={hiddenNav ? 'title' : ''}>Schedu<span>le</span></h1>
       <Nav>
-        <Link className='link' href={'/buildings'}>
-          <span className={hiddenNav ? 'name' : ''}>Binolar</span>
-        </Link>
+        <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+          <Link className='link' href={'/buildings'}>
+            <span className={hiddenNav ? 'name' : ''}>Binolar </span>
+          </Link>
+          <BuildinsSelect />
+        </div>
         {/* <div>
           {data?.buildings?.map((item) => (
             <div key={item.id}>
@@ -50,19 +52,19 @@ function Navbar() {
           <span className={hiddenNav ? 'name' : ''}>Foydalanuvchilar</span>
         </Link>}
 
-      <Settings>
+        <Settings>
 
-        {role === 'guest' ? (
-          <Login />
-        ) : (
-          <div className='info' ref={menuRef} style={{ position: 'relative' }}>
-            <UserProfile/>
-          </div>
-        )}
-      </Settings>
-          <span className='dark_icon' onClick={replaseThema}>
-            {dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}
-          </span>
+          {role === 'guest' ? (
+            <Login />
+          ) : (
+            <div className='info' ref={menuRef} style={{ position: 'relative' }}>
+              <UserProfile />
+            </div>
+          )}
+        </Settings>
+        <span className='dark_icon' onClick={replaseThema}>
+          {dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}
+        </span>
       </Nav>
 
     </Container>
