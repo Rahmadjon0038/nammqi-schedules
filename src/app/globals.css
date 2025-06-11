@@ -32,9 +32,9 @@ body {
 
 :root {
   /* Light Mode Variables */
-  --bg: rgb(238, 253, 255);
+  --bg: rgb(255, 255, 255);
   --color: rgb(42, 42, 42);
-  --navColor: #ffffff;
+  --navColor: #f1f8f3;
   --shadow: silver;
   --borderColor: #a6a4a4;
   --hoverColor: #cee4f5;

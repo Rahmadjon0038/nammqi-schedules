@@ -105,7 +105,7 @@ export const CustomInput = styled.input`
 
 
 export const Logoutbtn = styled.button`
-  padding: 8px 20px;
+  padding: 10px 20px;
   color: white;
   background:red;
   border: none;
@@ -157,3 +157,62 @@ export const ReplacePass = styled.div`
   align-items: center;
   gap: 5px;
 `
+
+export const DeleteAccount = styled.button`
+   padding: 10px 60px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-left: 30px;
+    cursor: pointer;
+    &:active{
+      transform: scale(0.97);
+    }
+`
+import { Modal } from 'antd';
+
+export const DeleteCustomModal = styled(Modal)`
+  z-index: 1000;
+  .ant-modal-content {
+    border-radius: 20px;
+    /* background-color: var(--formBgcolor); */
+    /* border: 1px solid var(--borderColor); */
+    width: 100%;
+    background-color: aliceblue;
+    color: var(--color);
+    padding: 24px 40px;
+  }
+  .ant-modal-title {
+    display: none;
+  }
+  .ant-modal-close{
+    color: var(--color);
+  }
+  .ant-modal-close:hover{
+    color: var(--color);
+  }
+`;
+
+export const DeleteModalcontent = styled.div`
+  z-index: 1000;
+`
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
+export const ModalBox = styled.div`
+  background: var(--navColor);
+  padding: 30px;
+  border-radius: 12px;
+  width: 500px;
+  text-align: center;
+`;

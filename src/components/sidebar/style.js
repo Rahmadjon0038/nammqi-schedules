@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 const Container = styled.div`
-  padding: 10px;
   background-color: var(--navColor);
   position: relative;
   transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 40px;
+  padding: 20px 40px;
   box-shadow: 0 0 4px var(--shadow);
   h1 {
     text-shadow: 0 0 2px white;
