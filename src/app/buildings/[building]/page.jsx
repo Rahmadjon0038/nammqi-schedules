@@ -17,20 +17,15 @@ import { useUpdate } from '@/hooks/useUpdateBuilding';
 import { useDeleteBuilding } from '@/hooks/useDeleteBuilding';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
-
+import Auditorium from '@/components/auditorium/Auditorium';
 function Page() {
-    
     const mutation = useUpdate()
     const deleteMutation = useDeleteBuilding();
-
-    // const { building } = params;
-
     const params = useParams();
 
     const building = params?.building;
 
     const { data, isLoading, error } = useBuilding(building);
-    
     const { role } = useAuth();
 
     const [update, setUpdate] = useState({
@@ -43,9 +38,7 @@ function Page() {
         setUpdate({ ...update, [name]: value });
     };
 
-
     let router = useRouter()
-
     const handleSubmit = (e) => {
 
         e.preventDefault();
@@ -57,11 +50,8 @@ function Page() {
             }
         })
     };
-
     if (isLoading) return <Wrapper>Yuklanmoqda...</Wrapper>;
     if (error) return <Wrapper>Xatolik yuz berdi!</Wrapper>;
-
-
     const deleteBuilding = () => {
         console.log('delete')
         deleteMutation.mutate({
@@ -74,7 +64,6 @@ function Page() {
         },
         )
     }
-
     return (
         <>
             <Wrapper>
@@ -104,6 +93,10 @@ function Page() {
                     <DeleteButton onClick={deleteBuilding}>Binoni o‘chirish</DeleteButton>
                 </DeleteSection>
             )}
+
+
+            <Auditorium building={building} />
+
         </>
     );
 }

@@ -1,6 +1,7 @@
 const { default: styled } = require("styled-components");
 export const TableContainer = styled.div`
     width: 100%;
+    padding-top: 100px;
     `
 export const StychkiTable = styled.div`
     width: 100%;

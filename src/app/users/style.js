@@ -7,6 +7,7 @@ export const CustomFilter = styled.div`
     justify-content: end;
     gap: 20px;
     margin-bottom: 10px;
+    margin-top: 120px;
 
     .custom-dropdown{
         background-color: var(--navColor);

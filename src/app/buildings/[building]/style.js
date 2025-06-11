@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
   gap: 20px;
+  padding-top: 100px;
 `;
 
 export const Title = styled.h1`

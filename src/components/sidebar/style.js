@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 const Container = styled.div`
   background-color: var(--navColor);
-  position: relative;
+  position: fixed;
+  width: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;

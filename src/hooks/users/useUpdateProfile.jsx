@@ -144,14 +144,14 @@ const deleteAccount = async () => {
 
 export const useDeleteaccount = () => {
     const queryClient = useQueryClient();
-    const { setUserMedata, setRole } = useAuth(); 
+    const { setUserMedata, setRole } = useAuth();
     const deleteaccountmutation = useMutation({
         mutationFn: deleteAccount,
         onSuccess: (data, vars) => {
             Cookies.remove('token');
             Cookies.remove('refresh_token');
             queryClient.invalidateQueries(['userme']);
-            queryClient.removeQueries(['userme']); 
+            queryClient.removeQueries(['userme']);
             setUserMedata({});
             setRole('guest');
             if (vars.onSuccess) {
@@ -181,3 +181,20 @@ export const useGetusersData = (key) => {
 
     return { data, error, isLoading };
 };
+
+
+
+const getAuditorium = async ({ queryKey }) => {
+    const [, id] = queryKey;
+    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}`)
+    return response.data
+}
+
+export const useGetAuditorium = (id) => {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['auditorium', id],
+        queryFn: getAuditorium,
+        enabled: !!id
+    })
+    return { data, isLoading, error }
+}

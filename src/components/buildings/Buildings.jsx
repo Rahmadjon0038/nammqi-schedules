@@ -51,7 +51,6 @@ function Buildings() {
 
     return (
         <TableContainer>
-
             {role == 'admin' && <FormWrapper>
                 <Form onSubmit={handleSumbit} >
                     <Input required onChange={addBuldingChange} value={addBuilding.name} name="name" type="text" placeholder="Bino nomini kiriting" />
