@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
   Container, ImgContainer, UserInfoContainer, UserInfo,
   CustomInput, CustomButton, ReplacePass, ConfarimpassTitle,
-  Logoutbtn, DeleteAccount, ModalContent, Glass,Overlay,ModalBox
+  Logoutbtn, DeleteAccount, ModalContent, Glass, Overlay, ModalBox
 } from './style';
 import { FaAngleDown } from "react-icons/fa";
 import { Box, Modal } from '@mui/material';
@@ -21,8 +21,8 @@ function UserProfile() {
   const [edit, setEdit] = useState(true)
   const [open, setOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { role, setRole, userMeData } = useAuth()
+  const router = useRouter();
 
   const style = {
     position: 'absolute',
@@ -78,14 +78,13 @@ function UserProfile() {
     passowordChangeMutation.mutate(changePassdata)
     setChangePassdata({ oldPassword: "", newPassword: "" })
   }
-
   const logout = () => {
     Cookies.remove('role')
     Cookies.remove('token');
     Cookies.remove('refresh_token')
     setRole('guest')
+    router.push('/')
   }
-  const router = useRouter();
 
   const deleteaccountmutation = useDeleteaccount();
 
@@ -95,6 +94,8 @@ function UserProfile() {
     router.push('/')
 
   };
+
+  // 93 670 88 69
 
   return (
     <Container>

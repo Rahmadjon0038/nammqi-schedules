@@ -5,7 +5,7 @@ const Load = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 140px;
     .loader{
     width:70px;
     height: 70px;

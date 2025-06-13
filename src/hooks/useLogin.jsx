@@ -23,7 +23,11 @@ export const useLogin = () => {
       }
     },
     onError: (error) => {
-      notify('err', error.response.data.error)
+      if (error.response?.status === 401) {
+        notify('err', 'Login yoki parol noto‘g‘ri');
+      } else {
+        notify('err', error.response?.data?.error || 'Parol xato');
+      }
     }
   })
   return loginMutation

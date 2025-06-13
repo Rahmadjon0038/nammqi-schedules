@@ -1,8 +1,10 @@
+'use client'
 import React, { useState } from 'react'
 import { IoMdLogIn } from "react-icons/io";
 import { CustomModal, ModalContent } from './style';
 import { useLogin } from '@/hooks/useLogin';
 import { useAuth } from '@/context/authContext';
+import { useRouter } from 'next/navigation';
 
 function Login() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +30,6 @@ function Login() {
   }
 
   const { refetch } = useAuth()
-
   function handleSumbit(e) {
     e.preventDefault()
     loginMutation.mutate({

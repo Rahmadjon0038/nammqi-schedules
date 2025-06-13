@@ -5,22 +5,19 @@ import { Container, Nav, Settings } from './style.js'
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
-import { MdMenu } from "react-icons/md";
 import { useAuth } from '@/context/authContext.jsx'
-import Image from 'next/image.js'
 import Login from '../login/Login.jsx'
-import { useBuildings } from '@/hooks/useBuildings.jsx'
-import { IoIosArrowDown } from "react-icons/io";
 import UserProfile from '../profile/UserProfile.jsx';
 import BuildinsSelect from '../buildigsSelect/BuildingsSelect.jsx';
+import { useRouter } from 'next/navigation.js';
 
 function Navbar() {
   const { role, userMeData } = useAuth();
   const [dark, setDark] = useState(true);
-  const [hovermenu, setHoverMenu] = useState(false);
   const [hiddenNav, setHiddenNav] = useState(true);
   const menuRef = useRef(null);
-  const { data, isLoading } = useBuildings()
+  const router = useRouter()
+
 
   const replaseThema = () => {
     setDark(!dark);
@@ -29,7 +26,7 @@ function Navbar() {
 
   return (
     <Container $hiddenNav={hiddenNav}>
-      <h1 className={hiddenNav ? 'title' : ''}>Schedu<span>le</span></h1>
+      <h1 onClick={()=>router.push('/')} >Schedu<span>le</span></h1>
       <Nav>
         <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
           <Link className='link' href={'/buildings'}>
@@ -37,13 +34,7 @@ function Navbar() {
           </Link>
           <BuildinsSelect />
         </div>
-        {/* <div>
-          {data?.buildings?.map((item) => (
-            <div key={item.id}>
-              <Link href={`/binolar/${item?.id}`}>{item?.name}</Link>
-            </div>
-          ))}
-        </div> */}
+       
         <Link className='link' href={'/schedule'}>
           <span className={hiddenNav ? 'name' : ''}>Dars jadvali</span>
         </Link>

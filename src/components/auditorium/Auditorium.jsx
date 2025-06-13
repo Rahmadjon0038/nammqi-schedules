@@ -1,32 +1,33 @@
 'use client'
 import React from 'react'
-import { Info, Wrapper } from './style'
+import { Info, Title, Wrapper } from './style'
 import { useGetAuditorium } from '@/hooks/users/useUpdateProfile';
 import Loader from '../loader/Loader';
 
 function Auditorium({ building }) {
     const { data, error, isLoading } = useGetAuditorium(building);
 
-    if (error) {
-        console.log()
-        return <h2>{error.response.data.error}</h2>
-    }
+    if (isLoading) return <Loader />;
+    if (error) return <h2 style={{ marginTop: '20px' }}>{error?.response?.data?.error || 'Xatolik yuz berdi'}</h2>;
 
-    console.log(data)
     return (
-        <Wrapper>
-            {data ? data?.auditoriums?.map((item) => (
-                <Info key={item?.id}>
-                    <h3>Nomi: {item?.name}</h3>
-                    <p>Kafedrasi: {item?.department}</p>
-                    <p>Sig'imi: {item?.capacity}</p>
-                    <p>{item?.description}</p>
-                    <p>Elektron doska: {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
-                    <p>proyektor: {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
-                </Info>
-            )) : <Loader />}
-        </Wrapper>
-    )
+        <>
+            <Title>Binoga tegishli Auditoriyalar</Title>
+            <Wrapper>
+                {data?.auditoriums?.map((item) => (
+                    <Info key={item?.id}>
+                        <h3>{item?.name}</h3>
+                        <p><strong>Kafedrasi:</strong> {item?.department}</p>
+                        <p><strong>Sig'imi:</strong> {item?.capacity}</p>
+                        <p><strong>Izoh:</strong> {item?.description}</p>
+                        <p><strong>Elektron doska:</strong> {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
+                        <p><strong>Proyektor:</strong> {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
+                        <p><strong>Bino:</strong> {item?.buildingDTO?.name} — {item?.buildingDTO?.address}</p>
+                    </Info>
+                ))}
+            </Wrapper>
+        </>
+    );
 }
 
-export default Auditorium
+export default Auditorium;

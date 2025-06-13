@@ -9,6 +9,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 20px 40px;
   box-shadow: 0 0 4px var(--shadow);
+  z-index: 1000;
   h1 {
     text-shadow: 0 0 2px white;
   }
