@@ -184,17 +184,41 @@ export const useGetusersData = (key) => {
 
 
 
+// 🔁 Auditoriyalarni olish funksiyasi (building ID orqali)
 const getAuditorium = async ({ queryKey }) => {
     const [, id] = queryKey;
-    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}`)
-    return response.data
-}
+    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}`);
+    return response.data;
+};
 
+// ✅ Custom hook — doimiy ishlaydi, building ID bo'lsa
 export const useGetAuditorium = (id) => {
-    const { data, isLoading, error } = useQuery({
+    return useQuery({
         queryKey: ['auditorium', id],
         queryFn: getAuditorium,
-        enabled: !!id
-    })
-    return { data, isLoading, error }
+        enabled: Boolean(id), // building ID bo'lmasa so'rov yuborilmaydi, lekin hook baribir chaqiladi
+        staleTime: 5 * 60 * 1000, // (ixtiyoriy) 5 daqiqa cache-da saqlab turish
+    });
+};
+
+// ----------------------------------Auditorium --------------------------------
+
+const deleteAditorium = async (id) => {
+    console.log(id)
+    const respense = await instance.delete(`/api/db/auditoriums/${id}`)
+    return respense.data
+}
+export const useDeleteAuditorium = (id) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: deleteAditorium,
+        onSuccess: (data) => {
+            notify('ok',data.message)
+            queryClient.invalidateQueries(['auditorium', id]); // ✅ buildingId bu yerda mavjud
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
 }

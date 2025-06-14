@@ -54,9 +54,7 @@ function Page() {
         });
     };
 
-
-
-    const style = {
+    const style = { 
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -97,7 +95,6 @@ function Page() {
                     aria-describedby="modal-modal-description">
                     <Box sx={style}>
                         <Custommodal>
-
                             <Form onSubmit={handleSubmit}>
                                 <h2>Binoni yangilash</h2>
                                 <Label>Yangi bino nomi</Label>

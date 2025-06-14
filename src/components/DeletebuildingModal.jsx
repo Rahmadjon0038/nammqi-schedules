@@ -11,6 +11,7 @@ const GlobalModalStyle = createGlobalStyle`
     color:var(--color);
     border-radius: 12px;
     padding: 24px;
+    border: 1px solid var(--borderColor) !important;
   }
 
 
