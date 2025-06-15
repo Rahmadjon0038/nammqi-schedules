@@ -214,11 +214,56 @@ export const useDeleteAuditorium = (id) => {
     return useMutation({
         mutationFn: deleteAditorium,
         onSuccess: (data) => {
-            notify('ok',data.message)
+            notify('ok', data.message)
             queryClient.invalidateQueries(['auditorium', id]); // ✅ buildingId bu yerda mavjud
         },
         onError: (err) => {
             console.log(err);
         }
     });
+}
+
+
+const updateAditorium = async ({ auditoriumId, update }) => {
+    const respense = await instance.patch(`/api/db/auditoriums/${auditoriumId}`, update)
+    return respense.data
+}
+export const useUpdateAuditorium = (auditoriumId) => {
+    const queryClient = useQueryClient();
+    const upDateMutation = useMutation({
+        mutationFn: updateAditorium,
+        onSuccess: (data) => {
+            notify('ok', 'Auditoriya yangilandi')
+            queryClient.invalidateQueries(['auditorium', auditoriumId]);
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    return upDateMutation
+}
+
+
+
+const DeleteAditoriums = async (id) => {
+    console.log(id,'test')
+    const respense = await instance.delete(`/api/db/auditoriums/buildingID/${id}`)
+    return respense.data
+}
+export const useDeleteAuditoriums = (id) => {
+    const queryClient = useQueryClient();
+    const deleteAuditoriumsMuation = useMutation({
+        mutationFn: DeleteAditoriums,
+        onSuccess: (data) => {
+            console.log(data)
+            notify('ok',`Binoga tegishli auditoriyalar o'chirildi`)
+            queryClient.invalidateQueries(['auditorium', id]);
+        },
+        onError: (err) => {
+            console.log(err);
+            notify('err',`Auditoriyalarni o'chirishda hatolik`)
+
+        }
+    });
+    return deleteAuditoriumsMuation
 }

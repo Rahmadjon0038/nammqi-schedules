@@ -83,7 +83,7 @@ function Page() {
                     <p><strong>Role:</strong> {data?.creatorDTO.role}</p>
                     {role === 'admin' && (
                         <DeleteBildingModal building={building} buildingName={data?.name}/>
-                        // <DeleteButton onClick={() => alert('delete building')}>Binoni o‘chirish</DeleteButton>
+                        
                     )}
                 </Info>
 
@@ -102,16 +102,13 @@ function Page() {
                                     name="name"
                                     placeholder='Bino nomini kiriting'
                                     value={update.name}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                    onChange={handleChange}/>
                                 <Label>Yangi manzil</Label>
                                 <Input
                                     name="address"
                                     placeholder='Manzilni kiriting'
                                     value={update.address}
                                     onChange={handleChange}
-                                    required
                                 />
                                 <div className="btnbox">
                                     <UpdateButton type="submit">Yangilash</UpdateButton>

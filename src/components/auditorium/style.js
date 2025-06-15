@@ -44,10 +44,7 @@ export const Info = styled.div`
 `;
 
 export const Crud = styled.div`
-    background-color: var(--bg);
-    box-shadow: 0 0 10px var(--shadow);
-    border: 1px solid var(--borderColor);
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     justify-content: end;
     gap: 20px;
