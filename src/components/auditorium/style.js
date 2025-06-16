@@ -107,3 +107,33 @@ export const FilterInput = styled.input`
     color: white;
     width: 100%;
 ` 
+
+export const NextPages = styled.div`
+    margin: 50px 0px;
+    display: flex;
+    justify-content: center;
+`
+export const CustomButton = styled.button`
+    padding: 12px 30px;
+    background-color: var(--navColor);
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--color);
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+
+    &:active {
+        transform: scale(0.97);
+    }
+
+    &:disabled {
+        background-color:rgb(48, 48, 48);
+        opacity: 0.5;
+        color: #a0a0a0;
+        border-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+`;

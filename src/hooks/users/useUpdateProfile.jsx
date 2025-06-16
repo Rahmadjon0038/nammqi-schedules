@@ -186,15 +186,16 @@ export const useGetusersData = (key) => {
 
 // 🔁 Auditoriyalarni olish funksiyasi (building ID orqali)
 const getAuditorium = async ({ queryKey }) => {
-    const [, id] = queryKey;
-    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}`);
+    const [, id, page] = queryKey;
+    console.log(page, 'test')
+    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}?page=${page}`);
     return response.data;
 };
 
 // ✅ Custom hook — doimiy ishlaydi, building ID bo'lsa
-export const useGetAuditorium = (id) => {
+export const useGetAuditorium = (id,page) => {
     return useQuery({
-        queryKey: ['auditorium', id],
+        queryKey: ['auditorium', id,page],
         queryFn: getAuditorium,
         enabled: Boolean(id), // building ID bo'lmasa so'rov yuborilmaydi, lekin hook baribir chaqiladi
         staleTime: 5 * 60 * 1000, // (ixtiyoriy) 5 daqiqa cache-da saqlab turish
@@ -246,7 +247,7 @@ export const useUpdateAuditorium = (auditoriumId) => {
 
 
 const DeleteAditoriums = async (id) => {
-    console.log(id,'test')
+    console.log(id, 'test')
     const respense = await instance.delete(`/api/db/auditoriums/buildingID/${id}`)
     return respense.data
 }
@@ -256,12 +257,12 @@ export const useDeleteAuditoriums = (id) => {
         mutationFn: DeleteAditoriums,
         onSuccess: (data) => {
             console.log(data)
-            notify('ok',`Binoga tegishli auditoriyalar o'chirildi`)
+            notify('ok', `Binoga tegishli auditoriyalar o'chirildi`)
             queryClient.invalidateQueries(['auditorium', id]);
         },
         onError: (err) => {
             console.log(err);
-            notify('err',`Auditoriyalarni o'chirishda hatolik`)
+            notify('err', `Auditoriyalarni o'chirishda hatolik`)
 
         }
     });

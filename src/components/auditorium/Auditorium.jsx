@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import {
-    Crud, Info, Title, Wrapper
+    Crud, CustomButton, Info, NextPages, Title, Wrapper
 } from './style';
 import { useGetAuditorium } from '@/hooks/users/useUpdateProfile';
 import Loader from '../loader/Loader';
@@ -10,8 +10,10 @@ import { useAuth } from '@/context/authContext';
 import GenericModal from '../AuditoriumModals/Modal';
 import UpdateAuditoriumModal from '../AuditoriumModals/Auditoryrename';
 
+
 function Auditorium({ building }) {
-    const { data, error, isLoading } = useGetAuditorium(building);
+    const [page, setPage] = useState(1)
+    const { data, error, isLoading } = useGetAuditorium(building, page);
     const { role } = useAuth();
 
     const [selectedAuditorium, setSelectedAuditorium] = useState(null);
@@ -64,6 +66,26 @@ function Auditorium({ building }) {
                 />
             )
             }
+            <NextPages className="nextPage">
+                <CustomButton
+                    disabled={!data?.hasPreviousPage}
+                    onClick={() => {
+                        if (data?.hasPreviousPage) setPage(prev => prev - 1)
+                    }}
+                >
+                    Oldingi
+                </CustomButton>
+
+                <CustomButton
+                    disabled={!data?.hasNextPage}
+                    onClick={() => {
+                        if (data?.hasNextPage) setPage(prev => prev + 1)
+                    }}
+                >
+                    Keyingi
+                </CustomButton>
+            </NextPages>
+
         </>
     );
 }
