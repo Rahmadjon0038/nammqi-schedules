@@ -267,3 +267,31 @@ export const useDeleteAuditoriums = (id) => {
     });
     return deleteAuditoriumsMuation
 }
+
+
+
+// -----------------create auditoriums ----------------------
+
+const createAuditorium = async ({ buildingID, newAuditorium }) => {
+    const response = await instance.post(`/api/db/auditoriums/add`, {
+        ...newAuditorium,
+        buildingID,
+    });
+    return response.data;
+};
+
+export const useCreateAuditorium = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: createAuditorium,
+        onSuccess: (data) => {
+            notify('ok', 'Yangi auditoriya qo‘shildi');
+            queryClient.invalidateQueries(['auditorium']); // kerakli queryni invalidatsiya qil
+        },
+        onError: (err) => {
+            console.error(err);
+            notify('error', 'Auditoriya qo‘shishda xatolik yuz berdi');
+        },
+    });
+};

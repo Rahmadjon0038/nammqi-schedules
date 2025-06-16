@@ -17,10 +17,15 @@ import { useAuth } from '@/context/authContext';
 import { useUpdate } from '@/hooks/useUpdateBuilding';
 import { useRouter, useParams } from 'next/navigation';
 import Auditorium from '@/components/auditorium/Auditorium';
-import { FaPen } from "react-icons/fa";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import DeleteBildingModal from '@/components/DeletebuildingModal';
+import { Filter, FilterButtons, FilterInput, FilterItem } from '@/components/auditorium/style';
+import CreateAuditoriumModal from '@/components/AuditoriumModals/CreateAuditoriumModal';
+import GenericModalDelteAudirotiums from '@/components/AuditoriumModals/DeleteAuditoriums';
+import { IoFilterSharp } from "react-icons/io5";
+import { FaPen, FaPlusCircle } from "react-icons/fa";
+
 
 function Page() {
     const mutation = useUpdate();
@@ -54,7 +59,7 @@ function Page() {
         });
     };
 
-    const style = { 
+    const style = {
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -82,10 +87,11 @@ function Page() {
                     <p><strong>Yaratgan:</strong> {data?.creatorDTO.firstname} {data?.creatorDTO.lastname} (@{data?.creatorDTO.username})</p>
                     <p><strong>Role:</strong> {data?.creatorDTO.role}</p>
                     {role === 'admin' && (
-                        <DeleteBildingModal building={building} buildingName={data?.name}/>
-                        
+                        <DeleteBildingModal building={building} buildingName={data?.name} />
+
                     )}
                 </Info>
+
 
                 {/* Modal for updating building */}
                 <Modal
@@ -102,7 +108,7 @@ function Page() {
                                     name="name"
                                     placeholder='Bino nomini kiriting'
                                     value={update.name}
-                                    onChange={handleChange}/>
+                                    onChange={handleChange} />
                                 <Label>Yangi manzil</Label>
                                 <Input
                                     name="address"
@@ -120,7 +126,20 @@ function Page() {
 
 
             </Wrapper>
+            <Filter>
+                <FilterItem>
+                    <FilterButtons><IoFilterSharp /></FilterButtons>
+                    <FilterInput type="text" placeholder='Filter' />
+                </FilterItem>
+                <FilterItem>
 
+                    {role == 'admin' && <CreateAuditoriumModal buildingID={building} >
+                        <FilterButtons><FaPlusCircle />Qo'shish</FilterButtons>
+                    </CreateAuditoriumModal>}
+
+                    {role == 'admin' && <GenericModalDelteAudirotiums building={building} />}
+                </FilterItem>
+            </Filter>
             <Auditorium building={building} />
         </>
     );

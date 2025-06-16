@@ -68,9 +68,8 @@ function Users() {
           className="custom-dropdown"
           menu={{ items }}
           placement="top"
-          overlayClassName="custom-menu"
-        >
-          <Button className='customBtn'><IoFilter /></Button>
+          overlayClassName="custom-menu">
+          <Button className='customBtn'><IoFilter />Filter turini tanlang</Button>
         </Dropdown>
       </CustomFilter>
       <StychkiTable>
