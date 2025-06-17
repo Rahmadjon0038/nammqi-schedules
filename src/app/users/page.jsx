@@ -72,6 +72,7 @@ function Users() {
           <Button className='customBtn'><IoFilter />Filter turini tanlang</Button>
         </Dropdown>
       </CustomFilter>
+      
       <StychkiTable>
         <Table>
           <thead>

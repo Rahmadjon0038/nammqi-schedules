@@ -26,7 +26,6 @@ export const useUpdateUser = () => {
     return updateMutation
 }
 
-
 // ----------------- Logout -------
 
 const logoutuser = async () => {
@@ -184,24 +183,33 @@ export const useGetusersData = (key) => {
 
 
 
-// 🔁 Auditoriyalarni olish funksiyasi (building ID orqali)
+//  Auditoriyalarni olish funksiyasi (building ID orqali)
+//  Auditoriyalarni olish funksiyasi (building ID orqali)
 const getAuditorium = async ({ queryKey }) => {
-    const [, id, page] = queryKey;
-    console.log(page, 'test')
-    const response = await instance.get(`/api/db/auditoriums/buildingID/${id}?page=${page}`);
-    return response.data;
+  const [, id, page, filter, search] = queryKey;
+
+  let url = `/api/db/auditoriums/buildingID/${id}?page=${page}`;
+
+  if (filter && search) {
+    url += `&${filter}=${encodeURIComponent(search)}`;
+  }
+
+  const response = await instance.get(url);
+  return response.data;
 };
 
-// ✅ Custom hook — doimiy ishlaydi, building ID bo'lsa
-export const useGetAuditorium = (id,page) => {
+
+
+
+//  Custom hook — doimiy ishlaydi, building ID bo'lsa
+export const useGetAuditorium = (id, page, filter, search) => {
     return useQuery({
-        queryKey: ['auditorium', id,page],
+        queryKey: ['auditorium', id, page, filter, search],
         queryFn: getAuditorium,
-        enabled: Boolean(id), // building ID bo'lmasa so'rov yuborilmaydi, lekin hook baribir chaqiladi
-        staleTime: 5 * 60 * 1000, // (ixtiyoriy) 5 daqiqa cache-da saqlab turish
+        enabled: Boolean(id),
+        staleTime: 5 * 60 * 1000,
     });
 };
-
 // ----------------------------------Auditorium --------------------------------
 
 const deleteAditorium = async (id) => {
@@ -216,7 +224,7 @@ export const useDeleteAuditorium = (id) => {
         mutationFn: deleteAditorium,
         onSuccess: (data) => {
             notify('ok', data.message)
-            queryClient.invalidateQueries(['auditorium', id]); // ✅ buildingId bu yerda mavjud
+            queryClient.invalidateQueries(['auditorium', id]); //  buildingId bu yerda mavjud
         },
         onError: (err) => {
             console.log(err);
@@ -269,8 +277,6 @@ export const useDeleteAuditoriums = (id) => {
     return deleteAuditoriumsMuation
 }
 
-
-
 // -----------------create auditoriums ----------------------
 
 const createAuditorium = async ({ buildingID, newAuditorium }) => {
@@ -296,3 +302,24 @@ export const useCreateAuditorium = () => {
         },
     });
 };
+
+// --------  Auditoriyalarni expelda ommaviy qo'shish -------------------------------
+
+const addAllauditoriums = async (file) => {
+    console.log('test audi',file)
+    const response = await instance.post(`/api/db/auditoriums/add-bulk`,file)
+    return response.data
+}
+
+export const useAddAuiditoriums = () => {
+    const allAuiditoriumsMutaton = useMutation({
+        mutationFn: addAllauditoriums,
+        onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (err) => {
+            console.log(err)
+        }
+    })
+    return allAuiditoriumsMutaton
+}

@@ -11,9 +11,10 @@ import GenericModal from '../AuditoriumModals/Modal';
 import UpdateAuditoriumModal from '../AuditoriumModals/Auditoryrename';
 
 
-function Auditorium({ building }) {
+function Auditorium({ building, filter, search }) {
     const [page, setPage] = useState(1)
-    const { data, error, isLoading } = useGetAuditorium(building, page);
+    const { data, isLoading, error } = useGetAuditorium(building, page, filter, search);
+
     const { role } = useAuth();
 
     const [selectedAuditorium, setSelectedAuditorium] = useState(null);
@@ -31,31 +32,43 @@ function Auditorium({ building }) {
 
     if (isLoading) return <Loader />;
     if (error) {
-        const msg = error?.response?.data?.error || error?.message || 'Xatolik yuz berdi';
+        // const msg = error?.response?.data?.error || error?.message || 'Xatolik yuz berdi';
+        const msg = 'Auditoriyalar mavjud emas';
         return <h2 style={{ marginTop: '20px' }}>{msg}</h2>;
     }
 
     return (
         <>
             <Title>Binoga tegishli Auditoriyalar</Title>
-
             <Wrapper>
-                {data?.auditoriums?.map((item) => (
-                    <Info key={item?.id}>
-                        <h3>{item?.name}</h3>
-                        <p><strong>Kafedrasi:</strong> {item?.department}</p>
-                        <p><strong>Sig'imi:</strong> {item?.capacity}</p>
-                        <p><strong>Izoh:</strong> {item?.description}</p>
-                        <p><strong>Elektron doska:</strong> {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
-                        <p><strong>Proyektor:</strong> {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
-                        <p><strong>Bino:</strong> {item?.buildingDTO?.name} — {item?.buildingDTO?.address}</p>
-                        {role == 'admin' && < Crud >
-                            <FaPen className='icon' onClick={() => handleEditClick(item)} />
-                            <GenericModal auditoriumName={item.name} auditoriumId={item.id} icon={<FaTrash />} />
-                        </Crud>}
-                    </Info>
-                ))}
-            </Wrapper >
+                {data?.auditoriums?.length === 0 ? (
+                    <h2 style={{ marginTop: '20px', textAlign: 'center' }}>
+                        {search?.trim()
+                            ? "Qidiruv bo‘yicha natija topilmadi"
+                            : "Bu binoda auditoriyalar mavjud emas"}
+                    </h2>
+                ) : (
+                    data?.auditoriums?.map((item) => (
+                        <Info key={item?.id}>
+                            <h3>{item?.name}</h3>
+                            <p><strong>Kafedrasi:</strong> {item?.department}</p>
+                            <p><strong>Sig'imi:</strong> {item?.capacity}</p>
+                            <p><strong>Izoh:</strong> {item?.description}</p>
+                            <p><strong>Elektron doska:</strong> {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
+                            <p><strong>Proyektor:</strong> {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
+                            <p><strong>Bino:</strong> {item?.buildingDTO?.name} — {item?.buildingDTO?.address}</p>
+                            {role === 'admin' && (
+                                <Crud>
+                                    <FaPen className='icon' onClick={() => handleEditClick(item)} />
+                                    <GenericModal auditoriumName={item.name} auditoriumId={item.id} icon={<FaTrash />} />
+                                </Crud>
+                            )}
+                        </Info>
+                    ))
+                )}
+            </Wrapper>
+
+
 
             {selectedAuditorium && (
                 <UpdateAuditoriumModal

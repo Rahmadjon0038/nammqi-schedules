@@ -28,7 +28,12 @@ export const Table = styled.table`
         display: flex;
         align-items: center;
         justify-content: center;
+       
     }  
+    .nmap .aye{
+        color: var(--color);
+    }
+
     .icon{
         display: flex;
         align-items: center;

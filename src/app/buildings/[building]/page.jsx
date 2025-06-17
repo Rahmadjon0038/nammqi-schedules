@@ -23,17 +23,62 @@ import DeleteBildingModal from '@/components/DeletebuildingModal';
 import { Filter, FilterButtons, FilterInput, FilterItem } from '@/components/auditorium/style';
 import CreateAuditoriumModal from '@/components/AuditoriumModals/CreateAuditoriumModal';
 import GenericModalDelteAudirotiums from '@/components/AuditoriumModals/DeleteAuditoriums';
-import { IoFilterSharp } from "react-icons/io5";
-import { FaPen, FaPlusCircle } from "react-icons/fa";
+import { IoFilter, IoFilterSharp } from "react-icons/io5";
+import { FaPen, FaPlusCircle, FaTable } from "react-icons/fa";
+import { useAddAuiditoriums } from '@/hooks/users/useUpdateProfile';
+import { Button, Dropdown } from 'antd';
 
 
 function Page() {
     const mutation = useUpdate();
+    const allAuiditoriumsMutaton = useAddAuiditoriums();
+
     const params = useParams();
     const building = params?.building;
     const { data, isLoading, error } = useBuilding(building);
     const { role } = useAuth();
-    const router = useRouter();
+    const [inputValue, setInputValue] = useState('');
+    const [search, setSearch] = useState('');
+    const [daraja, setDaraja] = useState('');
+
+    const inputChange = (e) => {
+        const val = e.target.value;
+        setInputValue(val);
+
+        if (val.trim() === '') {
+            setSearch('');
+            setDaraja('');
+        }
+    };
+
+    const handleFilter = (filterType) => {
+        setDaraja(filterType);
+        setSearch(inputValue);
+    };
+
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <p onClick={() => handleFilter('name')}>Auditoriya nomi (to‘liq yoki qisman)</p>
+
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <p onClick={() => handleFilter('department')}>Kafedra yoki bo‘lim nomi</p>
+            ),
+        },
+        {
+            key: '3',
+            label: (
+                <p onClick={() => handleFilter('capacity')}>Minimal sig‘im (masalan: 50)</p>
+            ),
+        },
+
+    ]
 
     const [update, setUpdate] = useState({
         name: '',
@@ -75,6 +120,20 @@ function Page() {
     if (isLoading) return <Wrapper>Yuklanmoqda...</Wrapper>;
     if (error) return <Wrapper>Xatolik yuz berdi!</Wrapper>;
 
+    const addAllAuiditoriums = (e) => {
+        const file = e.target.files[0]; // Faylni olayapmiz
+        if (!file) {
+            console.log("Fayl tanlanmagan");
+            return;
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+        allAuiditoriumsMutaton.mutate(formData)
+
+
+    };
+
+
     return (
         <>
             <Wrapper>
@@ -92,8 +151,6 @@ function Page() {
                     )}
                 </Info>
 
-
-                {/* Modal for updating building */}
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -124,23 +181,36 @@ function Page() {
                     </Box>
                 </Modal>
 
-
             </Wrapper>
+
             <Filter>
+
                 <FilterItem>
-                    <FilterButtons><IoFilterSharp /></FilterButtons>
-                    <FilterInput type="text" placeholder='Filter' />
+                    {/* <FilterButtons><IoFilterSharp /></FilterButtons> */}
+
+                    <FilterInput type="text" placeholder='Filter' onChange={inputChange} value={inputValue} />
+
+                    <Dropdown
+                        className="custom-dropdown"
+                        menu={{ items }}
+                        placement="bottom"
+                        overlayClassName="custom-menu">
+                        <FilterButtons className='customBtn'><IoFilter />Filter</FilterButtons>
+                    </Dropdown>
                 </FilterItem>
+
                 <FilterItem>
 
                     {role == 'admin' && <CreateAuditoriumModal buildingID={building} >
                         <FilterButtons><FaPlusCircle />Qo'shish</FilterButtons>
                     </CreateAuditoriumModal>}
 
+                    <FilterButtons ><FaTable className='exel' />Exel orqali qo'shish <input onChange={addAllAuiditoriums} className='xls' type="file" /></FilterButtons>
+
                     {role == 'admin' && <GenericModalDelteAudirotiums building={building} />}
                 </FilterItem>
             </Filter>
-            <Auditorium building={building} />
+            <Auditorium building={building} page={1} filter={daraja} search={search} />
         </>
     );
 }

@@ -70,7 +70,7 @@ export const Filter = styled.div`
     border-radius: 4px;
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    gap: 100px;
+    gap: 10px;
     
 
 `
@@ -90,9 +90,19 @@ export const FilterButtons = styled.button`
     gap: 6px;
     border: 1px solid var(--borderColor);
     border-radius: 4px;
+    position: relative;
 
     &:active{
         transform: scale(0.98);
+    }
+    .exel{
+        color: green;
+        margin-bottom: 2px;
+    }
+
+    .xls{
+        position: absolute;
+        opacity: 0;
     }
 
 `

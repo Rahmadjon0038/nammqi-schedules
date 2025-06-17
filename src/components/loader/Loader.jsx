@@ -6,6 +6,7 @@ const Load = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 140px;
+    margin-bottom: 100px;
     .loader{
     width:70px;
     height: 70px;

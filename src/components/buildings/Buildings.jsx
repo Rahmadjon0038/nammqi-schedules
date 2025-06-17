@@ -48,6 +48,9 @@ function Buildings() {
         });
     };
 
+    if(isLoading){
+        return <Loader/>
+    }
 
     return (
         <TableContainer>
@@ -86,13 +89,14 @@ function Buildings() {
                                 </span>
                             </td>
                             <td className="nmap">
-                                <Link href={`/buildings/${item?.id}`}><span><FaEye /></span></Link>
+                                <Link href={`/buildings/${item?.id}`}><span><FaEye className="aye"/></span></Link>
                             </td>
                         </tr>
                     </tbody>
                 ))}
 
             </Table>
+
            </StychkiTable>
         </TableContainer >
     )

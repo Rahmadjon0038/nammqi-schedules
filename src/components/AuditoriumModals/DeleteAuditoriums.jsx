@@ -15,7 +15,9 @@ const GlobalModalStyle = createGlobalStyle`
     border: 1px solid var(--borderColor) !important;
   }
 
-
+  .trash{
+    color: #d84b4b;
+  }
 
   .ant-modal-mask {
     background-color: rgba(0, 0, 0, 0.6) !important;
@@ -89,7 +91,7 @@ const GenericModalDelteAudirotiums = ({ building }) => {
   return (
     <>
       <GlobalModalStyle />
-      <FilterButtons onClick={showModal}><FaTrash />Barcha auditoriyalarni o'chirish</FilterButtons>
+      <FilterButtons onClick={showModal}><FaTrash className='trash'/>Barcha auditoriyalarni o'chirish</FilterButtons>
       <Modal
         title={null}
         open={isModalOpen}
