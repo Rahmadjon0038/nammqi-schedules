@@ -9,7 +9,6 @@ import { useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
 function UpdateAuditoriumModal({ open, onClose, auditorium, building }) {
     const upDateMutation = useUpdateAuditorium();
     const [form, setForm] = useState({
-
         name: auditorium.name || '',
         department: auditorium.department || '',
         capacity: auditorium.capacity || '',

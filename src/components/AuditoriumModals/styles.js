@@ -17,7 +17,7 @@ export const Title = styled.h1`
 export const Info = styled.div`
   font-size: 20px;
   line-height: 1.6;
-  background-color: var(--bg);
+  background-color: var(--formBgcolor);
   border: 1px solid var(--borderColor);
   box-shadow: 0 4px 8px var(--shadow);
   padding: 30px;
@@ -41,12 +41,15 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 16px;
   padding: 20px;
+  max-width: 100%; 
+  box-sizing: border-box;
 
   h2 {
     text-align: center;
     margin-bottom: 10px;
   }
 `;
+
 
 export const Label = styled.label`
   font-size: 18px;
@@ -96,12 +99,26 @@ export const DeleteButton = styled.button`
     opacity: 0.9;
   }
 `;
-
 export const Custommodal = styled.div`
   background-color: var(--bg);
   border-radius: 18px;
   border: 1px solid var(--borderColor);
   padding: 20px;
+  max-height: 80vh; /* Ekran balandligining 80% */
+  overflow-y: auto;  /* Scroll chiqadi kerak bo‘lsa */
+`;
 
- 
+export const Select = styled.select`
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--borderColor);
+  background-color: transparent;
+  color: var(--color);
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: var(--hoverColor);
+  }
 `;

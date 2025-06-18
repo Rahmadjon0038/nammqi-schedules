@@ -34,10 +34,10 @@ body {
   /* Light Mode Variables */
   --bg: rgb(255, 255, 255);
   --color: rgb(42, 42, 42);
-  --navColor: #f1f8f3;
+  --navColor: #ffffff;
   --shadow: silver;
   --borderColor: #a6a4a4;
-  --hoverColor: #cee4f5;
+  --hoverColor: #e9f4fc;
   --tableColor: rgb(252, 253, 253);
   --formBgcolor: white;
   --gradientleft: rgb(180, 211, 240);

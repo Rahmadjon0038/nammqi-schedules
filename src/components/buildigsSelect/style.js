@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMenu = styled.div`
-  background-color: var(--navColor); /* Qora fon */
+  background-color: var(--navColor); 
   border-radius: 8px;
   overflow: hidden;
   min-width: 180px;
@@ -18,6 +18,6 @@ export const StyledMenuItem = styled.div`
   transition: background 0.2s;
 
   &:hover {
-    background-color: #222;
+    background-color: var(--hoverColor);
   }
 `;

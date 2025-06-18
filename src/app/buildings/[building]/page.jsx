@@ -205,11 +205,11 @@ function Page() {
                         <FilterButtons><FaPlusCircle />Qo'shish</FilterButtons>
                     </CreateAuditoriumModal>}
 
-                    <FilterButtons ><FaTable className='exel' />Exel orqali qo'shish <input onChange={addAllAuiditoriums} className='xls' type="file" /></FilterButtons>
+                    {role == 'admin' && < FilterButtons > <FaTable className='exel' />Exel orqali qo'shish <input onChange={addAllAuiditoriums} className='xls' type="file" /></FilterButtons>}
 
                     {role == 'admin' && <GenericModalDelteAudirotiums building={building} />}
                 </FilterItem>
-            </Filter>
+            </Filter >
             <Auditorium building={building} page={1} filter={daraja} search={search} />
         </>
     );

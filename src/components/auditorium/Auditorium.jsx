@@ -9,6 +9,7 @@ import { FaTrash, FaPen } from "react-icons/fa";
 import { useAuth } from '@/context/authContext';
 import GenericModal from '../AuditoriumModals/Modal';
 import UpdateAuditoriumModal from '../AuditoriumModals/Auditoryrename';
+import AddLessonModal from '../AuditoriumModals/AddLessonModal';
 
 
 function Auditorium({ building, filter, search }) {
@@ -57,10 +58,13 @@ function Auditorium({ building, filter, search }) {
                             <p><strong>Elektron doska:</strong> {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
                             <p><strong>Proyektor:</strong> {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
                             <p><strong>Bino:</strong> {item?.buildingDTO?.name} — {item?.buildingDTO?.address}</p>
+                            <p><strong>Id:</strong> {item?.id}</p>
                             {role === 'admin' && (
                                 <Crud>
                                     <FaPen className='icon' onClick={() => handleEditClick(item)} />
                                     <GenericModal auditoriumName={item.name} auditoriumId={item.id} icon={<FaTrash />} />
+                                    <AddLessonModal auditoriumID={item?.id}>Qoshish</AddLessonModal>
+
                                 </Crud>
                             )}
                         </Info>

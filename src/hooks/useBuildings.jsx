@@ -2,8 +2,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { instance } from '@/components/api/api'; // to‘g‘ri yo‘l bo‘lsin
-
+import { instance } from '@/components/api/api'; 
 const fetchBuildings = async () => {
   const response = await instance.get('/api/db/buildings/all');
   return response.data;
