@@ -14,6 +14,7 @@ import {
 import { useBuildings } from '@/hooks/useBuildings'
 import { IoIosArrowDown } from "react-icons/io"
 import ScheduleTable from './schedule/ScheduleTable'
+import WeekSchedules from './weekSchedule/WeekSchedules'
 
 function getLocalDate(date = new Date()) {
   const offset = date.getTimezoneOffset()
@@ -38,6 +39,7 @@ function getWeekRange(today = new Date()) {
 
 function Shedules() {
   const { data } = useBuildings()
+  console.log(data)
   const [select, setSelect] = useState(null)
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
@@ -109,7 +111,7 @@ function Shedules() {
           <DateInput type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Wrapper>
       </Container>
-
+      
       {select?.id && (
         <ScheduleTable
           buildingID={select.id}
@@ -119,6 +121,15 @@ function Shedules() {
           endDate={endDate}
         />
       )}
+
+      {select?.id && (
+        <WeekSchedules
+          buildingID={select.id}
+          shift={shift}
+          startWeek={startDate} // startDate ni API ga startWeek deb jo'natamiz
+        />
+      )}
+
     </>
   )
 }

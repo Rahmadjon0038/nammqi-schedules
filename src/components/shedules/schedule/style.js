@@ -1,3 +1,4 @@
+// style.js yoki birga yozilsa ham bo'ladi
 import styled from 'styled-components'
 
 export const TableWrapper = styled.div`
@@ -7,50 +8,33 @@ export const TableWrapper = styled.div`
   border-radius: 10px;
   margin-top: 20px;
 
-  .text{
-    color:var(--color);
+  .text {
+    color: var(--color);
     font-size: 24px;
     margin-top: 10px;
   }
 `
 
-export const RoomTitle = styled.h2`
-  margin-top: 24px;
-  color: var(--color);
-`
-
-export const LessonsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+export const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 10px;
 `
 
-export const DayColumn = styled.div`
-  background: var(--bg);
+export const Th = styled.th`
+  padding: 12px;
+  background-color: var(--bg);
   border: 1px solid var(--borderColor);
-  
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 4px var(--shadow);
-  font-size: 14px;
-
-  strong {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--color);
-  }
+  color: var(--color);
+  font-weight: 600;
+  text-align: center;
 `
 
-export const LessonCell = styled.div`
-  margin-bottom: 6px;
-  background: var(--navColor);
-  padding: 6px 10px;
-  border-radius: 4px;
-  color: var(--color);
+export const Td = styled.td`
+  padding: 10px;
+  border: 1px solid var(--borderColor);
   text-align: center;
-
-  .empty {
-    color: red;
-  }
+  font-size: 14px;
+  color: var(--color);
+  background-color: var(--bg);
 `
