@@ -47,13 +47,14 @@ function Page() {
 
         if (val.trim() === '') {
             setSearch('');
-            setDaraja('');
+        } else {
+            setSearch(val); // valni bevosita uzatamiz
         }
     };
 
     const handleFilter = (filterType) => {
         setDaraja(filterType);
-        setSearch(inputValue);
+
     };
 
 
@@ -139,7 +140,7 @@ function Page() {
             <Wrapper>
                 <Info>
                     <div className='edit'>
-                        <h1><strong>Bino nomi: </strong> {data?.name}</h1>
+                        <h2>Bino nomi: {data?.name}</h2>
                         {role === 'admin' && <FaPen className='pen' onClick={handleOpen} />}
                     </div>
                     <p><strong>Manzili:</strong> {data?.address}</p>
@@ -187,16 +188,16 @@ function Page() {
 
                 <FilterItem>
                     {/* <FilterButtons><IoFilterSharp /></FilterButtons> */}
-
-                    <FilterInput type="text" placeholder='Filter' onChange={inputChange} value={inputValue} />
-
                     <Dropdown
                         className="custom-dropdown"
                         menu={{ items }}
                         placement="bottom"
                         overlayClassName="custom-menu">
-                        <FilterButtons className='customBtn'><IoFilter />Filter</FilterButtons>
+                        <FilterButtons className='customBtn'><IoFilter />{daraja ? daraja : "Filter turini tanlang"}</FilterButtons>
                     </Dropdown>
+
+                    <FilterInput type="text" placeholder='Filter' onChange={inputChange} value={inputValue} />
+
                 </FilterItem>
 
                 <FilterItem>
@@ -210,7 +211,8 @@ function Page() {
                     {role == 'admin' && <GenericModalDelteAudirotiums building={building} />}
                 </FilterItem>
             </Filter >
-            <Auditorium building={building} page={1} filter={daraja} search={search} />
+
+            <Auditorium building={building} page={1} filter={daraja} search={search} setSearch={setSearch} />
         </>
     );
 }

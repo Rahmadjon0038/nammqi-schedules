@@ -12,7 +12,7 @@ export const Table = styled.table`
     width: 100%;
     min-width: 800px;
     tr {
-        border: 1px solid var(--hoverColor);
+        border: 1px solid var(--tableBorder);
     }
 
     th,td{

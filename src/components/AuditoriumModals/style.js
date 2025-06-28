@@ -49,16 +49,14 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  font-size: 18px;
 `;
 
 export const Input = styled.input`
-  padding: 12px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 4px;
   border: 1px solid var(--borderColor);
   background-color: transparent;
   color: var(--color);
-  font-size: 16px;
 
   &:focus {
     outline: none;
@@ -68,14 +66,12 @@ export const Input = styled.input`
 `;
 
 export const UpdateButton = styled.button`
-  padding: 12px;
-  font-size: 18px;
+  padding: 8px 14px;
   border-radius: 8px;
   border: none;
   background-color: #10b981;
   color: white;
   cursor: pointer;
-  margin-top: 10px;
 
   &:hover {
     opacity: 0.9;
@@ -83,14 +79,12 @@ export const UpdateButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
-  padding: 10px 28px;
-  font-size: 16px;
+  padding: 8px 14px;
   background-color: #e74c3c;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;
 
   &:hover {
     opacity: 0.9;
@@ -101,7 +95,21 @@ export const Custommodal = styled.div`
   background-color: var(--bg);
   border-radius: 18px;
   border: 1px solid var(--borderColor);
-  padding: 20px;
 
  
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+`;
+
+export const DisplayField = styled.p`
+  margin: 6px 0;
+`;
+
+export const FieldRow = styled.div`
+  display: flex;
+  gap: 20px;
 `;

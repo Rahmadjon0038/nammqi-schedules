@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
+export const PagesizeAndTitle = styled.div`
+   
+`
+
+export const Select = styled.select`
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid var(--borderColor);
+        background-color: var(--bg);
+        color: var(--coloer);
+        outline: none;
+        margin-left: 20px;
+        margin-top: 20px;
+`
 export const Title = styled.h2`
     color: var(--color);
-    margin-top: 40px;
 `
 
 export const Wrapper = styled.div`
     margin-top: 30px;
     border-radius: 10px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin-top: 20px;
 `;
@@ -30,16 +43,13 @@ export const Info = styled.div`
     h3 {
         margin-bottom: 10px;
         color: var(--color);
+        text-align: center;
     }
 
     p {
         margin-top: 8px;
         color: var(--color);
-        font-size: 18px;
-
-        strong {
-            margin-top: 8px;
-        }
+        text-align: center;
     }
 `;
 
@@ -69,16 +79,15 @@ export const Filter = styled.div`
     margin-bottom: 40px;
     border-radius: 4px;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
     
 
 `
 export const FilterItem = styled.div`
     display: flex;
     align-items: center;
-    gap: 30px;
-    justify-content: end;
+    gap: 10px;
 `
 export const FilterButtons = styled.button`
     font-size: 16px;
@@ -115,8 +124,7 @@ export const FilterInput = styled.input`
     padding: 10px 20px;
     font-size: 16px;
     color: white;
-    width: 100%;
-` 
+`
 
 export const NextPages = styled.div`
     margin: 50px 0px;
@@ -147,3 +155,12 @@ export const CustomButton = styled.button`
         transform: none;
     }
 `;
+
+
+export const CustomPagination = styled.div`
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+
+    
+`

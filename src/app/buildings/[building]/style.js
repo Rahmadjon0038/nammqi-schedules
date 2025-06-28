@@ -15,7 +15,6 @@ export const Title = styled.h1`
 `;
 
 export const Info = styled.div`
-  font-size: 20px;
   line-height: 1.6;
   background-color: var(--bg);
   border: 1px solid var(--borderColor);
@@ -31,8 +30,12 @@ export const Info = styled.div`
   }
 
   .pen {
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
+  }
+
+  p{
+    font-size: 16px;
   }
 `;
 
@@ -83,7 +86,7 @@ export const UpdateButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
-  padding: 10px 28px;
+  padding: 8px 20px;
   font-size: 16px;
   background-color: #e74c3c;
   color: white;

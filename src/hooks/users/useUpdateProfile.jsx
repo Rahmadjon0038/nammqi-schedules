@@ -183,33 +183,30 @@ export const useGetusersData = (key) => {
 
 
 
-//  Auditoriyalarni olish funksiyasi (building ID orqali)
-//  Auditoriyalarni olish funksiyasi (building ID orqali)
+
+
 const getAuditorium = async ({ queryKey }) => {
-  const [, id, page, filter, search] = queryKey;
+    const [, id, page, size, filter, search] = queryKey;
 
-  let url = `/api/db/auditoriums/buildingID/${id}?page=${page}`;
+    let url = `/api/db/auditoriums/buildingID/${id}?page=${page}&size=${size}`;
 
-  if (filter && search) {
-    url += `&${filter}=${encodeURIComponent(search)}`;
-  }
+    if (filter && search) {
+        url += `&${filter}=${encodeURIComponent(search)}`;
+    }
 
-  const response = await instance.get(url);
-  return response.data;
+    const response = await instance.get(url);
+    return response.data;
 };
 
-
-
-
-//  Custom hook — doimiy ishlaydi, building ID bo'lsa
-export const useGetAuditorium = (id, page, filter, search) => {
+export const useGetAuditorium = (id, page, size, filter, search) => {
     return useQuery({
-        queryKey: ['auditorium', id, page, filter, search],
+        queryKey: ['auditorium', id, page, size, filter, search],
         queryFn: getAuditorium,
         enabled: Boolean(id),
         staleTime: 5 * 60 * 1000,
     });
 };
+
 // ----------------------------------Auditorium --------------------------------
 
 const deleteAditorium = async (id) => {
@@ -241,9 +238,12 @@ export const useUpdateAuditorium = (auditoriumId) => {
     const queryClient = useQueryClient();
     const upDateMutation = useMutation({
         mutationFn: updateAditorium,
-        onSuccess: (data) => {
+        onSuccess: (data, vars) => {
             notify('ok', 'Auditoriya yangilandi')
             queryClient.invalidateQueries(['auditorium', auditoriumId]);
+            if (vars.onSuccess) {
+                vars.onSuccess(data)
+            }
         },
         onError: (err) => {
             console.log(err);
@@ -306,8 +306,8 @@ export const useCreateAuditorium = () => {
 // --------  Auditoriyalarni expelda ommaviy qo'shish -------------------------------
 
 const addAllauditoriums = async (file) => {
-    console.log('test audi',file)
-    const response = await instance.post(`/api/db/auditoriums/add-bulk`,file)
+    console.log('test audi', file)
+    const response = await instance.post(`/api/db/auditoriums/add-bulk`, file)
     return response.data
 }
 

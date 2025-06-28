@@ -70,7 +70,7 @@ const ConfirmDeleteButton = styled.button`
   }
 `;
 
-const GenericModal = ({ auditoriumId, icon, auditoriumName, text }) => {
+const GenericModal = ({ auditoriumId, icon, auditoriumName,setSearch }) => {
     const deleteAidotoriumMutation = useDeleteAuditorium()
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -83,6 +83,8 @@ const GenericModal = ({ auditoriumId, icon, auditoriumName, text }) => {
     };
     const deleteAuditoium = (id) => {
         deleteAidotoriumMutation.mutate(id)
+        setSearch('')
+        console.log('salomat')
     }
 
 

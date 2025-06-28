@@ -8,6 +8,7 @@ import { useCreateAuditorium } from '@/hooks/users/useUpdateProfile';
 
 function CreateAuditoriumModal({ buildingID, children }) {
     const [open, setOpen] = useState(false);
+ 
     const createMutation = useCreateAuditorium()
     const [form, setForm] = useState({
         name: '',

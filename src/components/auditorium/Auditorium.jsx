@@ -1,21 +1,21 @@
-'use client';
 import React, { useState } from 'react';
 import {
-    Crud, CustomButton, Info, NextPages, Title, Wrapper
+    Title, Wrapper, Info, CustomPagination,
+    PagesizeAndTitle,Select
 } from './style';
 import { useGetAuditorium } from '@/hooks/users/useUpdateProfile';
 import Loader from '../loader/Loader';
-import { FaTrash, FaPen } from "react-icons/fa";
-import { useAuth } from '@/context/authContext';
-import GenericModal from '../AuditoriumModals/Modal';
 import UpdateAuditoriumModal from '../AuditoriumModals/Auditoryrename';
-import AddLessonModal from '../AuditoriumModals/AddLessonModal';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import { useAuth } from '@/context/authContext';
 
 
-function Auditorium({ building, filter, search }) {
-    const [page, setPage] = useState(1)
-    const { data, isLoading, error } = useGetAuditorium(building, page, filter, search);
+function Auditorium({ building, filter, search, setSearch }) {
+    const [page, setPage] = useState(1);
+    const [size, setSize] = useState(5); // 👈 Default size 5
 
+    const { data, isLoading, error } = useGetAuditorium(building, page, size, filter, search);
     const { role } = useAuth();
 
     const [selectedAuditorium, setSelectedAuditorium] = useState(null);
@@ -31,16 +31,39 @@ function Auditorium({ building, filter, search }) {
         setSelectedAuditorium(null);
     };
 
+    const handleSizeChange = (e) => {
+        setSize(Number(e.target.value));
+        setPage(1); // 👈 Size o‘zgarsa page 1ga qaytamiz
+    };
+
     if (isLoading) return <Loader />;
     if (error) {
-        // const msg = error?.response?.data?.error || error?.message || 'Xatolik yuz berdi';
         const msg = 'Auditoriyalar mavjud emas';
         return <h2 style={{ marginTop: '20px' }}>{msg}</h2>;
     }
 
     return (
         <>
-            <Title>Binoga tegishli Auditoriyalar</Title>
+            <PagesizeAndTitle>
+                <Title>Binoga tegishli Auditoriyalar</Title>
+
+                {/* Page Size Dropdown */}
+                <div className='select'>
+                    <label htmlFor="pageSize" >Sahifada nechta ko‘rsatilsin:</label>
+                    <Select 
+                        id="pageSize"
+                        value={size}
+                        onChange={handleSizeChange}
+                       
+                    >
+                        <option value={3}>3 ta</option>
+                        <option value={5}>5 ta</option>
+                        <option value={10}>10 ta</option>
+                        <option value={20}>20 ta</option>
+                    </Select>
+                </div>
+            </PagesizeAndTitle>
+
             <Wrapper>
                 {data?.auditoriums?.length === 0 ? (
                     <h2 style={{ marginTop: '20px', textAlign: 'center' }}>
@@ -50,30 +73,15 @@ function Auditorium({ building, filter, search }) {
                     </h2>
                 ) : (
                     data?.auditoriums?.map((item) => (
-                        <Info key={item?.id}>
+                        <Info onClick={() => handleEditClick(item)} key={item?.id}>
                             <h3>{item?.name}</h3>
-                            <p><strong>Kafedrasi:</strong> {item?.department}</p>
-                            <p><strong>Sig'imi:</strong> {item?.capacity}</p>
-                            <p><strong>Izoh:</strong> {item?.description}</p>
-                            <p><strong>Elektron doska:</strong> {item?.hasElectronicScreen ? "Mavjud" : "Mavjud emas"}</p>
-                            <p><strong>Proyektor:</strong> {item?.hasProjector ? "Mavjud" : "Mavjud emas"}</p>
-                            <p><strong>Bino:</strong> {item?.buildingDTO?.name} — {item?.buildingDTO?.address}</p>
-                            <p><strong>Id:</strong> {item?.id}</p>
-                            {role === 'admin' && (
-                                <Crud>
-                                    <FaPen className='icon' onClick={() => handleEditClick(item)} />
-                                    <GenericModal auditoriumName={item.name} auditoriumId={item.id} icon={<FaTrash />} />
-                                    <AddLessonModal auditoriumID={item?.id}>Qoshish</AddLessonModal>
-
-                                </Crud>
-                            )}
+                            <p>Kafedrasi: {item?.department}</p>
                         </Info>
                     ))
                 )}
             </Wrapper>
 
-
-
+            {/* Edit Modal */}
             {selectedAuditorium && (
                 <UpdateAuditoriumModal
                     open={openEditModal}
@@ -81,28 +89,40 @@ function Auditorium({ building, filter, search }) {
                     auditorium={selectedAuditorium}
                     building={building}
                 />
-            )
-            }
-            <NextPages className="nextPage">
-                <CustomButton
-                    disabled={!data?.hasPreviousPage}
-                    onClick={() => {
-                        if (data?.hasPreviousPage) setPage(prev => prev - 1)
-                    }}
-                >
-                    Oldingi
-                </CustomButton>
+            )}
 
-                <CustomButton
-                    disabled={!data?.hasNextPage}
-                    onClick={() => {
-                        if (data?.hasNextPage) setPage(prev => prev + 1)
-                    }}
-                >
-                    Keyingi
-                </CustomButton>
-            </NextPages>
-
+            {/* Pagination */}
+            {data?.totalPages > 1 && (
+                <CustomPagination>
+                    <Stack spacing={2}>
+                        <Pagination
+                            count={data?.totalPages}
+                            page={data?.currentPage}
+                            onChange={(e, value) => setPage(value)}
+                            variant="outlined"
+                            shape="rounded"
+                            sx={{
+                                '& .MuiPaginationItem-root': {
+                                    color: 'white',
+                                    borderColor: 'white',
+                                    backgroundColor: '#3f3e3e',
+                                },
+                                '& .Mui-selected': {
+                                    backgroundColor: '#333',
+                                    color: 'white',
+                                    borderColor: 'white',
+                                    '&:hover': {
+                                        backgroundColor: '#363333',
+                                    },
+                                },
+                                '& .MuiPaginationItem-ellipsis': {
+                                    color: 'gray',
+                                },
+                            }}
+                        />
+                    </Stack>
+                </CustomPagination>
+            )}
         </>
     );
 }

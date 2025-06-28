@@ -2,78 +2,185 @@
 import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { Custommodal, Form, Label, Input, UpdateButton } from './style';
+import {
+  Custommodal,
+  Form,
+  Label,
+  Input,
+  UpdateButton,
+  DeleteButton,
+  ButtonGroup,
+  DisplayField,
+  FieldRow
+} from './style';
 import { useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
 
+function UpdateAuditoriumModal({ open, onClose, auditorium }) {
+  const upDateMutation = useUpdateAuditorium();
 
-function UpdateAuditoriumModal({ open, onClose, auditorium, building }) {
-    const upDateMutation = useUpdateAuditorium();
-    const [form, setForm] = useState({
-        name: auditorium.name || '',
-        department: auditorium.department || '',
-        capacity: auditorium.capacity || '',
-        description: auditorium.description || '',
-        hasElectronicScreen: auditorium.hasElectronicScreen,
-        hasProjector: auditorium.hasProjector,
+  const [editMode, setEditMode] = useState(false);
+
+  const [form, setForm] = useState({
+    name: auditorium.name || '',
+    department: auditorium.department || '',
+    capacity: auditorium.capacity || '',
+    description: auditorium.description || '',
+    hasElectronicScreen: Boolean(auditorium.hasElectronicScreen),
+    hasProjector: Boolean(auditorium.hasProjector),
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    setForm((prev) => ({ ...prev, [name]: newValue }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!editMode) {
+      setEditMode(true);
+      return;
+    }
+
+    upDateMutation.mutate({
+      auditoriumId: auditorium.id,
+      buildingId: auditorium.buildingDTO?.id,
+      update: form,
+      onSuccess: (data) => {
+        setEditMode(false);
+        onClose();
+        console.log('iye salomat')
+      }
     });
+  };
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '60%',
+    bgcolor: 'transparent',
+    p: 1,
+  };
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        const newValue = type === 'checkbox' ? checked : value;
-        setForm(prev => ({ ...prev, [name]: newValue }));
-    };
+  return (
+    <Modal open={open} onClose={onClose}>
+      <Box sx={style}>
+        <Custommodal>
+          <Form onSubmit={handleSubmit}>
+            <h2>
+              {editMode ? (
+                <Input name="name" value={form.name} onChange={handleChange} />
+              ) : (
+                form.name
+              )}
+            </h2>
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+            <DisplayField>
+              <strong>Kafedra:</strong>{' '}
+              {editMode ? (
+                <Input name="department" value={form.department} onChange={handleChange} />
+              ) : (
+                form.department
+              )}
+            </DisplayField>
 
-        upDateMutation.mutate({
-            auditoriumId: auditorium.id,
-            buildingId: building,
-            update: form,
-            onSuccess: () => {
-                onClose();
-            }
-        });
-    };
+            <DisplayField>
+              <strong>Sig'imi:</strong>{' '}
+              {editMode ? (
+                <Input
+                  name="capacity"
+                  type="number"
+                  value={form.capacity}
+                  onChange={handleChange}
+                />
+              ) : (
+                form.capacity
+              )}
+            </DisplayField>
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '50%',
-        bgcolor: 'transparent',
-        p: 1,
-    };
+            <DisplayField>
+              <strong>Izoh:</strong>{' '}
+              {editMode ? (
+                <Input name="description" value={form.description} onChange={handleChange} />
+              ) : (
+                form.description
+              )}
+            </DisplayField>
 
-    return (
-        <Modal open={open} onClose={onClose}>
-            <Box sx={style}>
-                <Custommodal>
-                    <Form onSubmit={handleSubmit}>
-                        <h2>Auditoriyani yangilash</h2>
-                        <Label>Nomi</Label>
-                        <Input name="name" value={form.name} onChange={handleChange} />
+            <FieldRow>
+              <Label>
+                <span>Elektron doska:</span>{' '}
+                {editMode ? (
+                  <input
+                    type="checkbox"
+                    name="hasElectronicScreen"
+                    checked={form.hasElectronicScreen}
+                    onChange={handleChange}
+                  />
+                ) : form.hasElectronicScreen ? (
+                  'Bor'
+                ) : (
+                  'Yo‘q'
+                )}
+              </Label>
 
-                        <Label>Kafedrasi</Label>
-                        <Input name="department" value={form.department} onChange={handleChange} />
+              <Label>
+                <span>Proyektor:</span>{' '}
+                {editMode ? (
+                  <input
+                    type="checkbox"
+                    name="hasProjector"
+                    checked={form.hasProjector}
+                    onChange={handleChange}
+                  />
+                ) : form.hasProjector ? (
+                  'Bor'
+                ) : (
+                  'Yo‘q'
+                )}
+              </Label>
+            </FieldRow>
 
-                        <Label>Sig'imi</Label>
-                        <Input name="capacity" value={form.capacity} onChange={handleChange} type="number" />
+            <hr />
 
-                        <Label>Izoh</Label>
-                        <Input name="description" value={form.description} onChange={handleChange} />
+            <DisplayField>
+              <strong>Yaratuvchi:</strong>{' '}
+              {auditorium.creatorDTO.firstname} {auditorium.creatorDTO.lastname} (
+              {auditorium.creatorDTO.role})
+            </DisplayField>
 
-                        <Label><input type="checkbox" name="hasElectronicScreen" checked={form.hasElectronicScreen} onChange={handleChange} /> Elektron doska</Label>
-                        <Label><input type="checkbox" name="hasProjector" checked={form.hasProjector} onChange={handleChange} /> Proyektor</Label>
+            <DisplayField>
+              <strong>Username:</strong> {auditorium.creatorDTO.username}
+            </DisplayField>
 
-                        <UpdateButton type="submit">Yangilash</UpdateButton>
-                    </Form>
-                </Custommodal>
-            </Box>
-        </Modal>
-    );
+            <hr />
+
+            <DisplayField>
+              <strong>Bino nomi:</strong> {auditorium.buildingDTO.name}
+            </DisplayField>
+            <DisplayField>
+              <strong>Manzili:</strong> {auditorium.buildingDTO.address}
+            </DisplayField>
+            <DisplayField>
+              <strong>Binoni yaratgan:</strong>{' '}
+              {auditorium.buildingDTO.creatorDTO.firstname}{' '}
+              {auditorium.buildingDTO.creatorDTO.lastname} (
+              {auditorium.buildingDTO.creatorDTO.role})
+            </DisplayField>
+
+            <ButtonGroup>
+              <UpdateButton type="submit">
+                {editMode ? 'Saqlash' : 'Yangilash'}
+              </UpdateButton>
+              <DeleteButton onClick={onClose}>Yopish</DeleteButton>
+            </ButtonGroup>
+          </Form>
+        </Custommodal>
+      </Box>
+    </Modal>
+  );
 }
 
 export default UpdateAuditoriumModal;
