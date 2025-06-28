@@ -169,6 +169,7 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
               {auditorium.buildingDTO.creatorDTO.lastname} (
               {auditorium.buildingDTO.creatorDTO.role})
             </DisplayField>
+            <p>{auditorium.id}</p>
 
             <ButtonGroup>
               <UpdateButton type="submit">

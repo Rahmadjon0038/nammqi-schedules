@@ -1,8 +1,8 @@
 import React from 'react'
 import { useGetschedules } from '@/hooks/addBildings'
 import { StyledTable, TableWrapper, Td, Th } from './style'
+import Loader from '@/components/loader/Loader'
 
-// 📅 Hafta kunlari
 const daysOfWeek = [
   { eng: 'Monday', uz: 'Dushanba' },
   { eng: 'Tuesday', uz: 'Seshanba' },
@@ -14,13 +14,7 @@ const daysOfWeek = [
 
 const lessonSlots = [1, 2, 3, 4, 5, 6]
 
-// 📅 Sana formatlash
-const formatDate = (iso) => {
-  const [y, m, d] = iso.split('-')
-  return `${d}.${m}.${y}`
-}
-
-function ScheduleTable({ buildingID, shift, weekType, startDate, endDate }) {
+function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate }) {
   const { data: schedule, isLoading, error } = useGetschedules({
     buildingID,
     shift,
@@ -29,51 +23,62 @@ function ScheduleTable({ buildingID, shift, weekType, startDate, endDate }) {
     endDate,
   })
 
-  if (isLoading) return <div>📦 Jadval yuklanmoqda...</div>
-  if (error) return <div>❌ Xatolik yuz berdi</div>
-  if (!schedule?.days || Object.keys(schedule.days).length === 0) return <div>ℹ️ Ma’lumot topilmadi</div>
+  if (isLoading) return <Loader/>
+  if (error) return <div>Xatolik yuz berdi</div>
+  if (!schedule?.days || Object.keys(schedule.days).length === 0) return <div>ℹ Ma’lumot topilmadi</div>
+
+  const auditoriumsSet = new Set()
+  Object.values(schedule.days).forEach((day) => {
+    Object.values(day).forEach((lesson) => {
+      if (lesson?.auditorium) auditoriumsSet.add(lesson.auditorium)
+    })
+  })
+  const auditoriums = Array.from(auditoriumsSet)
+
+  const getLesson = (day, slot, auditorium) => {
+    const lesson = schedule.days?.[day]?.[slot]
+    return lesson?.auditorium === auditorium ? lesson : null
+  }
 
   return (
-    <TableWrapper>
-      <h3 className="mb-6 text-xl font-bold text-center">
-        🏫 {schedule.buildingName || "Bino"} | 🕘 {schedule.shift}-smena | 📅 {schedule.weekType === 'even' ? 'Juft hafta' : 'Toq hafta'}
-      </h3>
-      <p className="text-sm text-center text-gray-600 mb-10">
-        Davr: {formatDate(schedule.startDate)} — {formatDate(schedule.endDate)}
-      </p>
-
+    <TableWrapper style={{ overflowX: 'auto' }}>
       <StyledTable>
         <thead>
           <tr>
-            <Th>Soat</Th>
-            {daysOfWeek.map(({ uz }) => (
-              <Th key={uz}>{uz}</Th>
-            ))}
+            <Th>Auditoriya</Th>
+            {daysOfWeek.map(({ uz }) =>
+              lessonSlots.map((slot) => (
+                <Th key={`${uz}-${slot}`}>
+                  {uz} <br /> {slot}-par
+                </Th>
+              ))
+            )}
           </tr>
         </thead>
         <tbody>
-          {lessonSlots.map((slot) => (
-            <tr key={slot}>
-              <Td><strong>{slot}</strong></Td>
-              {daysOfWeek.map(({ eng }) => {
-                const lesson = schedule.days[eng]?.[slot]
-                return (
-                  <Td key={eng}>
-                    {lesson ? (
-                      <div>
-                        <div className="font-semibold">{lesson.subject}</div>
-                        <div className="text-gray-600 text-sm">
-                          {lesson.type} | {lesson.group}
+          {auditoriums.map((auditorium) => (
+            <tr key={auditorium}>
+              <Td><strong>{auditorium}</strong></Td>
+              {daysOfWeek.map(({ eng }) =>
+                lessonSlots.map((slot) => {
+                  const lesson = getLesson(eng, slot, auditorium)
+                  return (
+                    <Td key={`${eng}-${slot}-${auditorium}`}>
+                      {lesson ? (
+                        <div>
+                          <div className="font-semibold">{lesson.subject}</div>
+                          <div className="text-gray-600 text-sm">
+                            {lesson.type} | {lesson.group}
+                          </div>
+                          <div className="text-gray-700 text-sm">{lesson.teacher}</div>
                         </div>
-                        <div className="text-gray-700 text-sm">{lesson.teacher}</div>
-                        <div className="text-blue-700 text-sm">{lesson.auditorium}</div>
-                      </div>
-                    ) : (
-                      <div className="text-gray-300">—</div>
-                    )}
-                  </Td>
-                )
-              })}
+                      ) : (
+                        <div className="text-gray-300">—</div>
+                      )}
+                    </Td>
+                  )
+                })
+              )}
             </tr>
           ))}
         </tbody>
@@ -82,4 +87,4 @@ function ScheduleTable({ buildingID, shift, weekType, startDate, endDate }) {
   )
 }
 
-export default ScheduleTable
+export default ScheduleByAuditorium

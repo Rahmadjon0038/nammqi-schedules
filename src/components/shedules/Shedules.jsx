@@ -39,7 +39,6 @@ function getWeekRange(today = new Date()) {
 
 function Shedules() {
   const { data } = useBuildings()
-  console.log(data)
   const [select, setSelect] = useState(null)
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
@@ -122,13 +121,13 @@ function Shedules() {
         />
       )}
 
-      {select?.id && (
+      {/* {select?.id && (
         <WeekSchedules
           buildingID={select.id}
           shift={shift}
           startWeek={startDate} // startDate ni API ga startWeek deb jo'natamiz
         />
-      )}
+      )} */}
 
     </>
   )

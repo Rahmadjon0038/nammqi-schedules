@@ -7,6 +7,8 @@ export const TableWrapper = styled.div`
   border: 1px solid var(--borderColor);
   border-radius: 10px;
   margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;
 
   .text {
     color: var(--color);
@@ -16,7 +18,8 @@ export const TableWrapper = styled.div`
 `
 
 export const StyledTable = styled.table`
-  width: 100%;
+   width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 `
