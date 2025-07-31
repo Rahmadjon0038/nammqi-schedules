@@ -23,8 +23,6 @@ export const useAddBuilding = () => {
 };
 
 
-
-
 // --------------------------SCHEDULES ---------------------
 const getSchedules = async ({ queryKey }) => {
   const [_key, { buildingID, shift, weekType, startDate, endDate }] = queryKey
