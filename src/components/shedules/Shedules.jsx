@@ -8,13 +8,15 @@ import {
   SearchInput,
   Container,
   DateInput,
-  StyledSelect
+  StyledSelect,
+  AddBtn
 } from './style'
 
 import { useBuildings } from '@/hooks/useBuildings'
 import { IoIosArrowDown } from "react-icons/io"
 import ScheduleTable from './schedule/ScheduleTable'
 import WeekSchedules from './weekSchedule/WeekSchedules'
+import Addlesson from './schedule/Addlesson'
 
 function getLocalDate(date = new Date()) {
   const offset = date.getTimezoneOffset()
@@ -38,6 +40,7 @@ function getWeekRange(today = new Date()) {
 }
 
 function Shedules() {
+
   const { data } = useBuildings()
   const [select, setSelect] = useState(null)
   const [open, setOpen] = useState(false)
@@ -69,48 +72,57 @@ function Shedules() {
     i.name.toLowerCase().includes(search.toLowerCase())
   )
 
+
   return (
     <>
       <Container>
         <Wrapper>
-          <SelectBox onClick={() => setOpen(!open)}>
-            {select?.name ? select.name : "Binoni tanlang"} <IoIosArrowDown />
-          </SelectBox>
+          <div className='wrapchild'>
+            <SelectBox onClick={() => setOpen(!open)}>
+              {select?.name ? select.name : "Binoni tanlang"} <IoIosArrowDown />
+            </SelectBox>
 
-          {open && (
-            <Dropdown>
-              <SearchInput
-                type="text"
-                placeholder="Qidiruv..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              {filteredData?.length ? filteredData.map((i) => (
-                <Option key={i.id} onClick={() => handleSelect(i)}>
-                  {i.name}
-                </Option>
-              )) : (
-                <Option disabled>Topilmadi</Option>
-              )}
-            </Dropdown>
-          )}
+            {open && (
+              <Dropdown>
+                <SearchInput
+                  type="text"
+                  placeholder="Qidiruv..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {filteredData?.length ? filteredData.map((i) => (
+                  <Option key={i.id} onClick={() => handleSelect(i)}>
+                    {i.name}
+                  </Option>
+                )) : (
+                  <Option disabled>Topilmadi</Option>
+                )}
+              </Dropdown>
+            )}
 
-          <StyledSelect value={shift} onChange={(e) => setShift(Number(e.target.value))}>
-            <option value={1}>1-smena</option>
-            <option value={2}>2-smena</option>
-          </StyledSelect>
+            <StyledSelect value={shift} onChange={(e) => setShift(Number(e.target.value))}>
+              <option value={1}>1-smena</option>
+              <option value={2}>2-smena</option>
+            </StyledSelect>
 
-          <StyledSelect value={weekType} onChange={(e) => setWeekType(e.target.value)}>
-            <option value="odd">Toq hafta</option>
-            <option value="even">Juft hafta</option>
-            <option value="both">Ikkalasi</option>
-          </StyledSelect>
+            <StyledSelect value={weekType} onChange={(e) => setWeekType(e.target.value)}>
+              <option value="odd">Toq hafta</option>
+              <option value="even">Juft hafta</option>
+              <option value="both">Ikkalasi</option>
+            </StyledSelect>
 
-          <DateInput type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-          <DateInput type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <DateInput type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+            <DateInput type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+
+          </div>
+
+          <Addlesson >
+            <AddBtn>Dars qo'shish</AddBtn>
+          </Addlesson>
+
         </Wrapper>
       </Container>
-      
+
       {select?.id && (
         <ScheduleTable
           buildingID={select.id}
@@ -125,7 +137,7 @@ function Shedules() {
         <WeekSchedules
           buildingID={select.id}
           shift={shift}
-          startWeek={startDate} 
+          startWeek={startDate}
         />
       )}
 

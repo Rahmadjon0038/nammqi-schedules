@@ -2,6 +2,9 @@ import React from 'react'
 import { useGetschedules } from '@/hooks/addBildings'
 import { StyledTable, TableWrapper, Td, Th } from './style'
 import Loader from '@/components/loader/Loader'
+import ViewLessonodal from './ViewModal'
+import Addlesson from './Addlesson'
+import { useGetAuditorium } from '@/hooks/users/useUpdateProfile'
 
 const daysOfWeek = [
   { eng: 'Monday', uz: 'Dushanba' },
@@ -23,20 +26,20 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
     endDate,
   })
 
+  const { data: Auditurium } = useGetAuditorium(schedule?.buildingID);
+
 
   const auditoriumsSet = new Set()
-  schedule && schedule?.values && Object.values(schedule?.days).forEach((day) => {
-    Object?.values(day)?.forEach((lesson) => {
+  schedule && schedule?.days && Object.values(schedule?.days).forEach((day) => {
+    Object.values(day).forEach((lesson) => {
       if (lesson?.auditorium) auditoriumsSet.add(lesson.auditorium)
     })
   })
-  const auditoriums = Array.from(auditoriumsSet)
 
   const getLesson = (day, slot, auditorium) => {
     const lesson = schedule.days?.[day]?.[slot]
     return lesson?.auditorium === auditorium ? lesson : null
   }
-
 
   if (isLoading) return <Loader />
   if (error) return <div>Xatolik yuz berdi</div>
@@ -58,24 +61,18 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
           </tr>
         </thead>
         <tbody>
-          {auditoriums.map((auditorium) => (
-            <tr key={auditorium}>
-              <Td><strong>{auditorium}</strong></Td>
+          {Auditurium?.auditoriums?.map((auditorium, index) => (
+            <tr key={auditorium.id || index}>
+              <Td><strong>{auditorium.name}</strong></Td>
               {daysOfWeek.map(({ eng }) =>
                 lessonSlots.map((slot) => {
-                  const lesson = getLesson(eng, slot, auditorium)
+                  const lesson = getLesson(eng, slot, auditorium.name) // faqat name yoki id orqali solishtirish
                   return (
-                    <Td key={`${eng}-${slot}-${auditorium}`}>
+                    <Td key={`${eng}-${slot}-${auditorium.id}`}>
                       {lesson ? (
-                        <div>
-                          <div className="font-semibold">{lesson.subject}</div>
-                          <div className="text-gray-600 text-sm">
-                            {lesson.type} | {lesson.group}
-                          </div>
-                          <div className="text-gray-700 text-sm">{lesson.teacher}</div>
-                        </div>
+                        <ViewLessonodal schedule={{ day: eng, slot, auditorium, lesson }} />
                       ) : (
-                        <div className="text-gray-300">—</div>
+                        <Addlesson data={auditorium} />
                       )}
                     </Td>
                   )

@@ -14,6 +14,15 @@ export const Wrapper = styled.div`
   gap: 20px;
   flex-wrap: wrap;
   font-family: Arial, sans-serif;
+  align-items: center;
+  justify-content: space-between;
+
+  .wrapchild{
+  display: flex;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  align-items: center;
+  }
 `;
 
 export const SelectBox = styled.p`
@@ -105,3 +114,19 @@ export const DateInput = styled.input`
     cursor: pointer;
   }
 `;
+
+export const AddBtn = styled.button`
+    padding: 12px 30px;
+    background-color: var(--navColor);
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    font-weight: bold;
+    color: var(--color);
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+`

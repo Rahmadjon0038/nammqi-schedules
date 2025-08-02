@@ -3,23 +3,23 @@ import getNotify from "./notify";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useAddBuilding = () => {
-    const { notify } = getNotify();
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: async ({ addBuilding }) => {
-            const res = await instance.post('/api/db/buildings/add', addBuilding);
-            queryClient.invalidateQueries(["buildings"]);
-            return res.data;
-        },
-        onSuccess: (data, { getData }) => {
-            notify('ok', "Bino muvaffaqiyatli qo'shildi");
-            getData(data)
-        },
-        onError: (error, { onError }) => {
-            notify('err', error?.response?.data?.message || 'xatolik');
-            onError(error)
-        }
-    });
+  const { notify } = getNotify();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ addBuilding }) => {
+      const res = await instance.post('/api/db/buildings/add', addBuilding);
+      queryClient.invalidateQueries(["buildings"]);
+      return res.data;
+    },
+    onSuccess: (data, { getData }) => {
+      notify('ok', "Bino muvaffaqiyatli qo'shildi");
+      getData(data)
+    },
+    onError: (error, { onError }) => {
+      notify('err', error?.response?.data?.message || 'xatolik');
+      onError(error)
+    }
+  });
 };
 
 
@@ -62,9 +62,36 @@ export const useAddLessons = () => {
       if (getData) getData(data);
     },
     onError: (err, { onError }) => {
-      console.log(err,'test')
+      console.log(err, 'test')
       notify('err', err?.response?.data?.error || "Xatolik yuz berdi");
       if (onError) onError(err);
     }
   });
 };
+
+
+// ----------------------------------------
+
+const addAuditoiumLesson = async (data) => {
+  console.log(data, "koramizda")
+  const response = await instance.post('/api/db/schedules', data)
+  return response.data
+}
+export const userAddAuditoiumLesson = () => {
+  const queryClient = useQueryClient();
+
+  const addlessonMutation = useMutation(({
+    mutationFn: addAuditoiumLesson,
+    onSuccess: (data) => {
+      notify("ok", data?.message)
+      console.log(data)
+      queryClient.invalidateQueries(['schedules']); // kerakli query nomi
+
+    },
+    onError: (err) => {
+      notify('err', err?.response?.data?.error || 'xatolik')
+      console.log(err.response.data.error,'--dssssssssssssssssssssssss')
+    }
+  }))
+  return addlessonMutation
+}

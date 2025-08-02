@@ -15,15 +15,18 @@ body {
 
 ::-webkit-scrollbar {
   width: 5px;
-  height: 3px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 10px;
+
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -81,7 +84,6 @@ body {
   box-shadow: 0 4px 20px var(--shadow) !important;
 }
 
-/* Bu menyudagi har bir item uchun */
 .custom-menu .ant-dropdown-menu {
   background-color: transparent !important;
 }

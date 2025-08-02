@@ -20,7 +20,6 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
   const upDateMutation = useUpdateAuditorium();
   const { role } = useAuth();
 
-
   const [editMode, setEditMode] = useState(false);
 
   const [form, setForm] = useState({
@@ -44,7 +43,6 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
       setEditMode(true);
       return;
     }
-
     upDateMutation.mutate({
       auditoriumId: auditorium.id,
       buildingId: auditorium.buildingDTO?.id,
@@ -175,7 +173,7 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
               {auditorium.buildingDTO.creatorDTO.lastname} (
               {auditorium.buildingDTO.creatorDTO.role})
             </DisplayField>
-            <i>{auditorium?.buildingDTO?.id}</i>
+            <i>{auditorium?.id}</i>
 
             <ButtonGroup>
               {role == 'admin' && <UpdateButton type="submit">

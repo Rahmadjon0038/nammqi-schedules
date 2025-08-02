@@ -12,6 +12,7 @@ import { useAuth } from '@/context/authContext';
 
 
 function Auditorium({ building, filter, search, setSearch }) {
+    
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(5); // 👈 Default size 5
 
@@ -25,7 +26,6 @@ function Auditorium({ building, filter, search, setSearch }) {
         setSelectedAuditorium(auditorium);
         setOpenEditModal(true);
     };
-
     const handleCloseModal = () => {
         setOpenEditModal(false);
         setSelectedAuditorium(null);
