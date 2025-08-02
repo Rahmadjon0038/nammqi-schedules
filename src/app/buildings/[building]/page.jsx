@@ -130,10 +130,7 @@ function Page() {
         const formData = new FormData();
         formData.append("file", file);
         allAuiditoriumsMutaton.mutate(formData)
-
-
     };
-
 
     return (
         <>

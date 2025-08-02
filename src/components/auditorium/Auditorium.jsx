@@ -41,6 +41,7 @@ function Auditorium({ building, filter, search, setSearch }) {
         const msg = 'Auditoriyalar mavjud emas';
         return <h2 style={{ marginTop: '20px' }}>{msg}</h2>;
     }
+    
 
     return (
         <>

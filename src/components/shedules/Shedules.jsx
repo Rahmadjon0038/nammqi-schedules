@@ -121,13 +121,13 @@ function Shedules() {
         />
       )}
 
-      {/* {select?.id && (
+      {select?.id && (
         <WeekSchedules
           buildingID={select.id}
           shift={shift}
-          startWeek={startDate} // startDate ni API ga startWeek deb jo'natamiz
+          startWeek={startDate} 
         />
-      )} */}
+      )}
 
     </>
   )

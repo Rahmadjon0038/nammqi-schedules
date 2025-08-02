@@ -23,13 +23,10 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
     endDate,
   })
 
-  if (isLoading) return <Loader/>
-  if (error) return <div>Xatolik yuz berdi</div>
-  if (!schedule?.days || Object.keys(schedule.days).length === 0) return <div>ℹ Ma’lumot topilmadi</div>
 
   const auditoriumsSet = new Set()
-  Object.values(schedule.days).forEach((day) => {
-    Object.values(day).forEach((lesson) => {
+  schedule && schedule?.values && Object.values(schedule?.days).forEach((day) => {
+    Object?.values(day)?.forEach((lesson) => {
       if (lesson?.auditorium) auditoriumsSet.add(lesson.auditorium)
     })
   })
@@ -39,6 +36,11 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
     const lesson = schedule.days?.[day]?.[slot]
     return lesson?.auditorium === auditorium ? lesson : null
   }
+
+
+  if (isLoading) return <Loader />
+  if (error) return <div>Xatolik yuz berdi</div>
+  if (!schedule?.days || Object.keys(schedule.days).length === 0) return <div>ℹ Ma’lumot topilmadi</div>
 
   return (
     <TableWrapper style={{ overflowX: 'auto' }}>

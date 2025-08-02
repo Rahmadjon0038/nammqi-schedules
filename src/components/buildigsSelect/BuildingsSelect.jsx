@@ -9,23 +9,29 @@ const BuildingsSelect = () => {
   const navigate = useRouter();
   const { data, isLoading } = useBuildings();
 
-  const menu = (
-    <StyledMenu>
-      {data?.buildings.map((building) => (
-        <StyledMenuItem
-          key={building.id}
-          onClick={() => navigate.push(`/buildings/${building.id}`)}>
-          {building.name}
-        </StyledMenuItem>
-      ))}
-    </StyledMenu>
-  );
+  const items = data?.buildings.map((building) => ({
+    key: building.id,
+    label: (
+      <StyledMenuItem
+        onClick={() => navigate.push(`/buildings/${building.id}`)}
+      >
+        {building.name}
+      </StyledMenuItem>
+    ),
+  })) || [];
 
   return (
     <Space direction="vertical">
       <Space wrap>
-        <Dropdown overlay={menu} trigger={['click']} disabled={isLoading}>
-          <div style={{marginTop:'5px'}}>
+        <Dropdown
+          menu={{ items }}
+          trigger={['click']}
+          disabled={isLoading}
+          dropdownRender={(menu) => (
+            <StyledMenu>{menu}</StyledMenu>   
+          )}
+        >
+          <div style={{ marginTop: '5px', cursor: 'pointer' }}>
             <IoIosArrowDown />
           </div>
         </Dropdown>

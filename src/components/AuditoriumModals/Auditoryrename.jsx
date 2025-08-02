@@ -14,9 +14,12 @@ import {
   FieldRow
 } from './style';
 import { useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
+import { useAuth } from '@/context/authContext';
 
 function UpdateAuditoriumModal({ open, onClose, auditorium }) {
   const upDateMutation = useUpdateAuditorium();
+  const { role } = useAuth();
+
 
   const [editMode, setEditMode] = useState(false);
 
@@ -62,6 +65,7 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
     width: '60%',
     bgcolor: 'transparent',
     p: 1,
+    outline:"none"
   };
 
   return (
@@ -163,18 +167,20 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
             <DisplayField>
               <strong>Manzili:</strong> {auditorium.buildingDTO.address}
             </DisplayField>
+
             <DisplayField>
               <strong>Binoni yaratgan:</strong>{' '}
+              
               {auditorium.buildingDTO.creatorDTO.firstname}{' '}
               {auditorium.buildingDTO.creatorDTO.lastname} (
               {auditorium.buildingDTO.creatorDTO.role})
             </DisplayField>
-            <p>{auditorium.id}</p>
+            <i>{auditorium?.buildingDTO?.id}</i>
 
             <ButtonGroup>
-              <UpdateButton type="submit">
+              {role == 'admin' && <UpdateButton type="submit">
                 {editMode ? 'Saqlash' : 'Yangilash'}
-              </UpdateButton>
+              </UpdateButton>}
               <DeleteButton onClick={onClose}>Yopish</DeleteButton>
             </ButtonGroup>
           </Form>

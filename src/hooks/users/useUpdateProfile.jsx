@@ -166,21 +166,21 @@ export const useDeleteaccount = () => {
 };
 // -------------------------- Users table get ---------------------------
 const usersget = async ({ queryKey }) => {
-    const [_key, fiil] = queryKey;
-
-    const response = await instance.get(`/api/admin/users?${fiil.daraja}=${fiil?.search}`);
-    return response.data;
+  const [_key, fiil] = queryKey;
+  const response = await instance.get(`/api/admin/users?${fiil.daraja}=${fiil?.search}`);
+  return response.data;
 };
 
 export const useGetusersData = (key) => {
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['userstable', key], // key bu yerda masalan "rahmadjon"
-        queryFn: usersget,
-    });
+  const { data, isLoading, isFetching, error } = useQuery({
+    queryKey: ['userstable', key],
+    queryFn: usersget,
+    keepPreviousData: true, // 🔑 input qotib qolmasligi uchun
+    refetchOnWindowFocus: false,
+  });
 
-    return { data, error, isLoading };
+  return { data, error, isLoading, isFetching };
 };
-
 
 
 

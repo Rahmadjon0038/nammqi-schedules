@@ -3,76 +3,53 @@ import { useGetusersData } from '@/hooks/users/useUpdateProfile';
 import React, { useState } from 'react';
 import { CustomFilter, CustomInput, StychkiTable, Table } from './style';
 import Loader from '@/components/loader/Loader';
-import { Button, Dropdown, Space } from 'antd';
+import { Button, Dropdown } from 'antd';
 import { IoFilter } from "react-icons/io5";
+
 function Users() {
   const [inputValue, setInputValue] = useState('');
   const [search, setSearch] = useState('');
   const [daraja, setDaraja] = useState('');
 
-  const inputChange = (e) => {
-    const val = e.target.value;
-    setInputValue(val);
-
-    if (val.trim() === '') {
-      setSearch('');
-      setDaraja('');
-    }
-  };
-
   const handleFilter = (filterType) => {
     setDaraja(filterType);
-    setSearch(inputValue);
+    setSearch(inputValue); 
   };
 
-  const { data, isLoading } = useGetusersData({ daraja, search });
-
-  if (isLoading) {
-    return <Loader />;
-  }
+  const { data, isFetching } = useGetusersData({ daraja, search });
 
   const items = [
-    {
-      key: '1',
-      label: (
-        <p onClick={() => handleFilter('lastname')}>Ismi</p>
-
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <p onClick={() => handleFilter('firstname')}>Familiyasi</p>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <p onClick={() => handleFilter('username')}>Foydalanuvchi nomi</p>
-      ),
-    },
-
-
-  ]
+    { key: '1', label: <p onClick={() => handleFilter('lastname')}>Ismi</p> },
+    { key: '2', label: <p onClick={() => handleFilter('firstname')}>Familiyasi</p> },
+    { key: '3', label: <p onClick={() => handleFilter('username')}>Foydalanuvchi nomi</p> },
+  ];
 
   return (
     <>
       <CustomFilter>
-        <CustomInput
-          type="text"
-          placeholder="Qidirish..."
-          value={inputValue}
-          onChange={inputChange}
-        />
         <Dropdown
           className="custom-dropdown"
           menu={{ items }}
           placement="top"
           overlayClassName="custom-menu">
-          <Button className='customBtn'><IoFilter />Filter turini tanlang</Button>
+          <Button className='customBtn'>
+            <IoFilter /> {daraja ? `Tanlangan: ${daraja}` : 'Filter turini tanlang'}
+          </Button>
         </Dropdown>
+        <CustomInput
+          type="text"
+          placeholder={daraja ? "Qidirish..." : "Avval filterni tanlang"}
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setSearch(e.target.value);
+          }}
+          disabled={!daraja}
+        />
       </CustomFilter>
-      
+
+      {isFetching && <p style={{textAlign:"center"}}> Qidirilmoqda...</p>}
+
       <StychkiTable>
         <Table>
           <thead>

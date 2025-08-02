@@ -33,7 +33,8 @@ function UserProfile() {
     boxShadow: 24,
     borderRadius: '10px',
     minHeight: '400px',
-    overflow: "hidden"
+    overflow: "hidden",
+    outline:"none"
   };
 
   const [userUpdate, setUserUpdate] = useState({
