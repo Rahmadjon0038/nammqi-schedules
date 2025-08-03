@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   border: 1px solid var(--borderColor);
-  margin-top: 120px;
   border-radius: 10px;
 `;
 
@@ -23,6 +22,14 @@ export const Wrapper = styled.div`
   font-family: Arial, sans-serif;
   align-items: center;
   }
+   @media(max-width:768px){
+    padding: 4px 8px;
+    font-size: 12px;
+    .wrapchild{
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+  }
 `;
 
 export const SelectBox = styled.p`
@@ -35,9 +42,14 @@ export const SelectBox = styled.p`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 220px;
   &:hover {
     background-color: var(--hoverColor);
+  }
+  white-space: nowrap;
+
+  @media(max-width:460px){
+  padding: 4px 8px;
+  font-size: 12px;
   }
 `;
 
@@ -45,14 +57,13 @@ export const Dropdown = styled.div`
   position: absolute;
   top: 110%;
   left: 0;
-  width: 220px;
-  max-height: 200px;
   overflow-y: auto;
   background-color: var(--bg);
   border-radius: 10px;
   border: 1px solid var(--borderColor);
   z-index: 100;
   box-shadow: 0 4px 10px var(--shadow);
+  
 `;
 
 export const Option = styled.button`
@@ -66,6 +77,11 @@ export const Option = styled.button`
   &:hover {
     background-color: var(--hoverColor);
   }
+
+  @media(max-width:460px){
+  padding: 4px 8px;
+  }
+  
 `;
 
 export const SearchInput = styled.input`
@@ -97,6 +113,11 @@ export const StyledSelect = styled.select`
     background-color: var(--bg);
     color: var(--color);
   }
+
+  @media(max-width:460px){
+  padding: 4px 8px;
+  min-width: 0;
+  }
 `;
 
 export const DateInput = styled.input`
@@ -113,6 +134,12 @@ export const DateInput = styled.input`
     filter: invert(0.5);
     cursor: pointer;
   }
+   @media(max-width:460px){
+  padding: 4px 8px;
+  min-width: 0;
+  }
+
+  
 `;
 
 export const AddBtn = styled.button`
@@ -128,5 +155,7 @@ export const AddBtn = styled.button`
     display: flex;
     gap: 15px;
     align-items: center;
-
+ @media(max-width:460px){
+  padding: 4px 8px;
+  }
 `

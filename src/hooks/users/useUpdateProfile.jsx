@@ -6,7 +6,6 @@ import { useAuth } from "@/context/authContext"
 const { notify } = getNotify()
 
 const updateData = async (profileData) => {
-    console.log(profileData)
     const response = await instance.patch('/api/user/profile', profileData)
     return response.data
 }
@@ -17,7 +16,6 @@ export const useUpdateUser = () => {
         mutationFn: updateData,
         onSuccess: (data) => {
             queryclient.invalidateQueries(['userme'])
-            console.log(data)
         },
         onError: (error) => {
             console.log(error);

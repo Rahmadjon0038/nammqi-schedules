@@ -50,16 +50,24 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
       <StyledTable>
         <thead>
           <tr>
-            <Th>Auditoriya</Th>
+            <Th rowSpan={2}>Auditoriya</Th>
+            {daysOfWeek.map(({ uz }) => (
+              <Th key={uz} colSpan={lessonSlots.length} >
+                {uz}
+              </Th>
+            ))}
+          </tr>
+          <tr>
             {daysOfWeek.map(({ uz }) =>
               lessonSlots.map((slot) => (
                 <Th key={`${uz}-${slot}`}>
-                  {uz} <br /> {slot}-par
+                  {slot}-par
                 </Th>
               ))
             )}
           </tr>
         </thead>
+
         <tbody>
           {Auditurium?.auditoriums?.map((auditorium, index) => (
             <tr key={auditorium.id || index}>

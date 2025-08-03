@@ -27,6 +27,7 @@ import { IoFilter, IoFilterSharp } from "react-icons/io5";
 import { FaPen, FaPlusCircle, FaTable } from "react-icons/fa";
 import { useAddAuiditoriums } from '@/hooks/users/useUpdateProfile';
 import { Button, Dropdown } from 'antd';
+import useMedia from 'use-media';
 
 
 function Page() {
@@ -104,14 +105,17 @@ function Page() {
             }
         });
     };
+    const isWide = useMedia("(max-width: 768px)");
 
     const style = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '50%',
+        width: isWide ? '90%' :'50%',
         bgcolor: 'transparent',
+        maxHeight: '90vh',    // ekran balandligining 90% dan oshmasin
+        overflowY: 'auto',
         p: 1,
     };
     const [open, setOpen] = useState(false);

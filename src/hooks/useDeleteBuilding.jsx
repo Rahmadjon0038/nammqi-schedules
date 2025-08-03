@@ -10,6 +10,7 @@ export const useDeleteBuilding = () => {
     return useMutation({
         mutationFn: async ({ building }) => {
 
+            console.log('-------------------------',building)
             const res = await instance.delete(`/api/db/buildings/${building}`);
             queryClient.invalidateQueries(["building", building]);
             return res.data;

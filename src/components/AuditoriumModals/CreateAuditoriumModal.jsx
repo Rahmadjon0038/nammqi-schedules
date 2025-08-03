@@ -5,10 +5,11 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { Custommodal, Form, Label, Input, UpdateButton } from './style';
 import { useCreateAuditorium } from '@/hooks/users/useUpdateProfile';
+import useMedia from 'use-media';
 
 function CreateAuditoriumModal({ buildingID, children }) {
     const [open, setOpen] = useState(false);
- 
+
     const createMutation = useCreateAuditorium()
     const [form, setForm] = useState({
         name: '',
@@ -49,13 +50,14 @@ function CreateAuditoriumModal({ buildingID, children }) {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const isWide = useMedia("(max-width: 768px)");
 
     const modalStyle = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '50%',
+        width: isWide ? '90%' : '50%',
         bgcolor: 'transparent',
         p: 1,
     };

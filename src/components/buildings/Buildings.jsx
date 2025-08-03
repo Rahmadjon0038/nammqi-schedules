@@ -11,10 +11,8 @@ import { useAddBuilding } from "@/hooks/addBildings";
 import Loader from "../loader/Loader";
 
 function Buildings() {
-
     const { data, isLoading } = useBuildings()
     const { role, setRole } = useAuth()
-
 
     const mutation = useAddBuilding()
     const [addBuilding, setAddBuilding] = useState({

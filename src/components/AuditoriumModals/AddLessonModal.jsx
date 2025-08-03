@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { Custommodal, Form, Label, Input, UpdateButton, Select } from './styles';
 import { useAddLessons } from '@/hooks/addBildings';
+import useMedia from 'use-media';
 
 function AddLessonModal({ auditoriumID, children }) {
   const [open, setOpen] = useState(false);
@@ -56,17 +57,18 @@ function AddLessonModal({ auditoriumID, children }) {
   };
 
 
-
+  const isWide = useMedia("(max-width: 768px)");
 
   const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '90%', // avval 50% edi
-    maxWidth: '600px', // maksimal kenglikni belgilash
+    width: isWide ? '90%' : '50%',
     bgcolor: 'transparent',
     p: 1,
+    maxHeight: '90vh',    // ekran balandligining 90% dan oshmasin
+    overflowY: 'auto',
   };
 
   return (

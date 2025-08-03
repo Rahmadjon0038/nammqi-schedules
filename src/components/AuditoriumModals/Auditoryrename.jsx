@@ -15,6 +15,7 @@ import {
 } from './style';
 import { useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
 import { useAuth } from '@/context/authContext';
+import useMedia from 'use-media';
 
 function UpdateAuditoriumModal({ open, onClose, auditorium }) {
   const upDateMutation = useUpdateAuditorium();
@@ -54,16 +55,20 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
       }
     });
   };
+  const isWide = useMedia("(max-width: 768px)");
+
 
   const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '60%',
+    width: isWide ? '90%' : '50%',
     bgcolor: 'transparent',
     p: 1,
-    outline:"none"
+    outline: "none",
+    maxHeight: '90vh',    // ekran balandligining 90% dan oshmasin
+    overflowY: 'auto',
   };
 
   return (
@@ -168,7 +173,7 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
 
             <DisplayField>
               <strong>Binoni yaratgan:</strong>{' '}
-              
+
               {auditorium.buildingDTO.creatorDTO.firstname}{' '}
               {auditorium.buildingDTO.creatorDTO.lastname} (
               {auditorium.buildingDTO.creatorDTO.role})

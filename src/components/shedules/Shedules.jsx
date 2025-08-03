@@ -116,9 +116,6 @@ function Shedules() {
 
           </div>
 
-          <Addlesson >
-            <AddBtn>Dars qo'shish</AddBtn>
-          </Addlesson>
 
         </Wrapper>
       </Container>
@@ -133,13 +130,13 @@ function Shedules() {
         />
       )}
 
-      {select?.id && (
+      {/* {select?.id && (
         <WeekSchedules
           buildingID={select.id}
           shift={shift}
           startWeek={startDate}
         />
-      )}
+      )} */}
 
     </>
   )

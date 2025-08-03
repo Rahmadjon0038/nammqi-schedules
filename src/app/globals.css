@@ -71,11 +71,7 @@ body {
   background-repeat: no-repeat;
 }
 
-@media(max-width:768px) {
-  .mainContainer {
-    margin-left: 70px;
-  }
-}
+
 
 .custom-menu {
   background-color: var(--navColor) !important;

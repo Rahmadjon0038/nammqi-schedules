@@ -16,6 +16,7 @@ import {
 } from '@/hooks/users/useUpdateProfile';
 import { useRouter } from 'next/navigation';
 
+
 function UserProfile() {
   const updateMutation = useUpdateUser();
   const [edit, setEdit] = useState(true)
@@ -24,18 +25,21 @@ function UserProfile() {
   const { role, setRole, userMeData } = useAuth()
   const router = useRouter();
 
-  const style = {
+
+   const style = {
     position: 'absolute',
-    top: '50%', left: '50%',
+    top: '50%',
+    left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
-    bgcolor: 'transparent',
+    width: '90%',
+    bgcolor: 'background.paper',
     boxShadow: 24,
     borderRadius: '10px',
-    minHeight: '400px',
-    overflow: "hidden",
-    outline:"none"
+    outline: "none",
+    maxHeight: '90vh',    // ekran balandligining 90% dan oshmasin
+    overflowY: 'auto',    // scroll chiqadi
   };
+
 
   const [userUpdate, setUserUpdate] = useState({
     firstname: "",

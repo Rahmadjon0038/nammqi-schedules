@@ -73,25 +73,25 @@ export const useAddLessons = () => {
 // ----------------------------------------
 
 const addAuditoiumLesson = async (data) => {
-  console.log(data, "koramizda")
-  const response = await instance.post('/api/db/schedules', data)
-  return response.data
-}
-export const userAddAuditoiumLesson = () => {
-  const queryClient = useQueryClient();
+  console.log(data, "koramizda");
+  const response = await instance.post('/api/db/schedules', data);
+  return response.data;
+};
 
-  const addlessonMutation = useMutation(({
+export const useAddAuditoiumLesson = () => {
+  const queryClient = useQueryClient();
+  const { notify } = getNotify();
+
+  return useMutation({
     mutationFn: addAuditoiumLesson,
     onSuccess: (data) => {
-      notify("ok", data?.message)
-      console.log(data)
-      queryClient.invalidateQueries(['schedules']); // kerakli query nomi
-
+      notify("ok", data?.message || "Dars qo‘shildi");
+      console.log(data);
+      queryClient.invalidateQueries(['schedules']);
     },
     onError: (err) => {
-      notify('err', err?.response?.data?.error || 'xatolik')
-      console.log(err.response.data.error,'--dssssssssssssssssssssssss')
-    }
-  }))
-  return addlessonMutation
-}
+      notify('err', err?.response?.data?.error || 'xatolik');
+      console.log(err?.response?.data?.error, '--xatolik detali');
+    },
+  });
+};

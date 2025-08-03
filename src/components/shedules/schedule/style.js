@@ -1,10 +1,8 @@
-// style.js yoki birga yozilsa ham bo'ladi
+// style.js
 import styled from 'styled-components'
 
 export const TableWrapper = styled.div`
-  padding: 20px;
   background: var(--bg);
-  border: 1px solid var(--borderColor);
   border-radius: 10px;
   margin-top: 20px;
   width: 100%;
@@ -15,13 +13,37 @@ export const TableWrapper = styled.div`
     font-size: 24px;
     margin-top: 10px;
   }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    padding: 15px;
+
+    .text {
+      font-size: 20px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    padding: 10px;
+
+    .text {
+      font-size: 16px;
+      text-align: center;
+    }
+  }
 `
 
 export const StyledTable = styled.table`
-   width: max-content;
+  width: max-content;
   min-width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 `
 
 export const Th = styled.th`
@@ -31,6 +53,18 @@ export const Th = styled.th`
   color: var(--color);
   font-weight: 600;
   text-align: center;
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    padding: 8px;
+    font-size: 12px;
+  }
 `
 
 export const Td = styled.td`
@@ -40,4 +74,16 @@ export const Td = styled.td`
   font-size: 14px;
   color: var(--color);
   background-color: var(--bg);
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    padding: 6px;
+    font-size: 12px;
+  }
 `

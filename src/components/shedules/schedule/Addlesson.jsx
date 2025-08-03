@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 import styled, { createGlobalStyle } from 'styled-components';
 import { IoIosAddCircle } from "react-icons/io";
-import { userAddAuditoiumLesson } from '@/hooks/addBildings';
+import { useAddAuditoiumLesson } from '@/hooks/addBildings';
 
 const GlobalModalStyle = createGlobalStyle`
   .ant-modal-content {
@@ -11,6 +11,8 @@ const GlobalModalStyle = createGlobalStyle`
     border-radius: 12px;
     padding: 24px;
     border: 1px solid var(--borderColor) !important;
+    max-width: 700px;
+    margin: auto;
   }
 
   .ant-modal-mask {
@@ -23,6 +25,10 @@ const Title = styled.h2`
   color: var(--color);
   margin-bottom: 12px;
   text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
 `;
 
 const Form = styled.form`
@@ -32,22 +38,33 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  padding: 12px;
   border: 1px solid ${props => (props.error ? 'red' : '#666')};
   border-radius: 8px;
-  background-color: var(--bg2, #222);
-  color: var(--color, #fff);
+  background-color: var(--bg2);
+  color: var(--color);
   font-size: 15px;
   width: 100%;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    font-size: 14px;
+  }
 `;
 
 const Select = styled.select`
-  padding: 10px;
+  padding: 12px;
   border: 1px solid ${props => (props.error ? 'red' : '#666')};
   border-radius: 8px;
-  background-color: var(--bg2, #222);
-  color: var(--color, #fff);
+  background-color: var(--bg2);
+  color: var(--color);
   font-size: 15px;
+  width: 100%;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    font-size: 14px;
+  }
 `;
 
 const ErrorMsg = styled.span`
@@ -58,23 +75,40 @@ const ErrorMsg = styled.span`
 
 const RadioWrapper = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
+
   label {
     display: flex;
     align-items: center;
     gap: 5px;
     color: var(--color, #fff);
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    gap: 10px;
+    label {
+      font-size: 13px;
+    }
   }
 `;
 
 const Textarea = styled.textarea`
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #666;
   border-radius: 8px;
-  background-color: var(--bg2, #222);
-  color: var(--color, #fff);
+  background-color: var(--bg2);
+  color: var(--color);
   font-size: 15px;
+  min-height: 100px;
+  resize: vertical;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+    padding: 10px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -82,6 +116,11 @@ const ButtonWrapper = styled.div`
   justify-content: flex-end;
   margin-top: 20px;
   gap: 12px;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 const CancelButton = styled.button`
@@ -96,10 +135,15 @@ const CancelButton = styled.button`
   &:hover {
     background-color: #555;
   }
+
+  @media (max-width: 600px) {
+    width: 45%;
+    font-size: 14px;
+  }
 `;
 
 const SubmitButton = styled.button`
-  background-color: #4cafef;
+  background-color: #51ef4c;
   color: #fff;
   padding: 8px 18px;
   border: none;
@@ -109,6 +153,11 @@ const SubmitButton = styled.button`
   transition: background 0.3s ease;
   &:hover {
     background-color: #3b8edc;
+  }
+
+  @media (max-width: 600px) {
+    width: 45%;
+    font-size: 14px;
   }
 `;
 
@@ -131,7 +180,7 @@ const Addlesson = ({ data, children }) => {
 
   const [errors, setErrors] = useState({});
 
-  const addlessonMutation = userAddAuditoiumLesson();
+  const addlessonMutation = useAddAuditoiumLesson();
 
   const showModal = () => setIsModalOpen(true);
   const handleCancel = () => {
@@ -158,9 +207,7 @@ const Addlesson = ({ data, children }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
-    addlessonMutation.mutate(formData)
-    // handleCancel();
+    addlessonMutation.mutate(formData);
   };
 
   return (
@@ -197,9 +244,17 @@ const Addlesson = ({ data, children }) => {
             <Input name="teacher" placeholder="O‘qituvchi" value={formData.teacher} onChange={handleChange} error={errors.teacher} />
             {errors.teacher && <ErrorMsg>{errors.teacher}</ErrorMsg>}
           </div>
-
+          
           <div>
-            <Input name="dayID" type="number" placeholder="Hafta kuni (1=Du, 7=Yak)" value={formData.dayID} onChange={handleChange} error={errors.dayID} />
+            <Select name="dayID" value={formData.dayID} onChange={handleChange} error={errors.dayID}>
+              <option value="">Hafta kunini tanlang</option>
+              <option value="1">Dushanba</option>
+              <option value="2">Seshanba</option>
+              <option value="3">Chorshanba</option>
+              <option value="4">Payshanba</option>
+              <option value="5">Juma</option>
+              <option value="6">Shanba</option>
+            </Select>
             {errors.dayID && <ErrorMsg>{errors.dayID}</ErrorMsg>}
           </div>
 
