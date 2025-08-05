@@ -52,7 +52,7 @@ body {
   --tableTitleColor: rgb(255, 255, 255);
   --tableOddbg: #d1fff0;
   --tableIconColor: #10B981;
-  --textColor:#10B981;
+  --textColor: #10B981;
 
 }
 
@@ -75,24 +75,32 @@ body {
   --tableTitleColor: rgb(255, 255, 255);
   --tableOddbg: #1f1f1f;
   --tableIconColor: #10B981;
-  --textColor:white;
-
+  --textColor: white;
 
 }
-.arrows{
+
+.arrows {
   color: var(--tableTitleColor);
 }
+
+@media(max-width:600px) {
+  .arrows {
+    color: var(--color);
+  }
+}
+
 .bgImg {
   background-image: url('../assets/login.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .custom-menu {
   background-color: var(--navColor) !important;
   border-radius: 10px !important;
   padding: 8px !important;
-  box-shadow: 0 4px 20px var(--shadow) !important;
 }
+
 .custom-menu .ant-dropdown-menu {
   background-color: transparent !important;
 }
@@ -101,8 +109,4 @@ body {
   color: var(--color) !important;
   border-radius: 6px;
   transition: 0.3s;
-}
-
-.custom-menu .ant-dropdown-menu-item:hover {
-  background-color: var(--hoverColor) !important;
 }

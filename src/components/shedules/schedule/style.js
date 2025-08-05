@@ -44,13 +44,18 @@ export const StyledTable = styled.table`
   @media (max-width: 600px) {
     font-size: 12px;
   }
+
+  tbody td:nth-child(1){
+    background-color: var(--tableHeaderBg);
+  color: var(--tableTitleColor);
+  }
 `
 
 export const Th = styled.th`
+  background-color: var(--tableHeaderBg);
+  color: var(--tableTitleColor);
   padding: 12px;
-  background-color: var(--bg);
   border: 1px solid var(--borderColor);
-  color: var(--color);
   font-weight: 600;
   text-align: center;
 
@@ -75,6 +80,7 @@ export const Td = styled.td`
   color: var(--color);
   background-color: var(--bg);
 
+  
   /* Tablet */
   @media (max-width: 768px) {
     padding: 8px;

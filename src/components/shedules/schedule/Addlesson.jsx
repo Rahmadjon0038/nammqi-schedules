@@ -50,6 +50,11 @@ const Input = styled.input`
     padding: 10px;
     font-size: 14px;
   }
+   &:focus {
+    outline: none;
+    border-color: #10B981;
+    background-color: var(--tableOddbg);
+  }
 `;
 
 const Select = styled.select`
@@ -109,6 +114,12 @@ const Textarea = styled.textarea`
     font-size: 14px;
     padding: 10px;
   }
+  &:focus {
+    outline: none;
+    border-color: #10B981;
+    background-color: var(--tableOddbg);
+  }
+  
 `;
 
 const ButtonWrapper = styled.div`
@@ -131,7 +142,7 @@ const CancelButton = styled.button`
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition:  0.3s ease;
   &:hover {
     background-color: #555;
   }
@@ -143,14 +154,14 @@ const CancelButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  background-color: #51ef4c;
+  background-color: #10B981;
   color: #fff;
   padding: 8px 18px;
   border: none;
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition:  0.3s ease;
   &:hover {
     background-color: #3b8edc;
   }
@@ -214,7 +225,7 @@ const Addlesson = ({ data, children }) => {
     <>
       <GlobalModalStyle />
       <div className="icon trash" onClick={showModal}>
-        {children ? children : <IoIosAddCircle style={{ transform: 'scale(1.5)', cursor: 'pointer' }} />}
+        {children ? children : <IoIosAddCircle style={{color:'#d45858', transform: 'scale(1.5)', cursor: 'pointer' }} />}
       </div>
       <Modal
         title={null}

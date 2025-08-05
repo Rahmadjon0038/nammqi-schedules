@@ -104,6 +104,12 @@ export const CustomInput = styled.input`
   border-radius: 4px;
   border: 1px solid var(--borderColor);
 
+  &:focus {
+    outline: none;
+    border-color: #10B981;
+    background-color: var(--tableOddbg);
+  }
+
   @media (max-width: 600px) {
     width: 100%;
     font-size: 14px;

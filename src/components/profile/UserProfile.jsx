@@ -107,7 +107,7 @@ function UserProfile() {
       <ImgContainer onClick={() => { setOpen(true); setEdit(true); }}>
         <Image src={avatar} alt="avatar" />
         <p>{userMeData?.username}</p>
-        <FaAngleDown className='arrows'/>
+        <FaAngleDown className='icons-arrow'/>
       </ImgContainer>
 
       <Modal open={open} onClose={() => setOpen(false)}>

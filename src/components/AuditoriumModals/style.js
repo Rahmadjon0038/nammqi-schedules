@@ -60,10 +60,10 @@ export const Input = styled.input`
   width: 100%;
   margin-top: 4px;
 
-  &:focus {
+ &:focus {
     outline: none;
-    border-color: #3498db;
-    background-color: var(--hoverColor);
+    border-color: #10B981;
+    background-color: var(--tableOddbg);
   }
 `;
 

@@ -62,7 +62,7 @@ const ViewLessonModal = ({ schedule }) => {
     <>
       <GlobalModalStyle />
       <div className="icon trash" onClick={showModal}>
-        <FaTable style={{ color: 'green', transform: 'scale(1.5)', cursor: 'pointer' }} />
+        <FaTable style={{color:'var(--tableIconColor)',transform: 'scale(1.5)', cursor: 'pointer' }} />
       </div>
       <Modal
         title={null}

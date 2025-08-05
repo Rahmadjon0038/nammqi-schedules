@@ -46,7 +46,7 @@ export const CustomMenu = styled.div`
   .menu {
     font-size: 26px;
     cursor: pointer;
-    color: var(--color);
+    color: var(--tableTitleColor);
   }
 
   @media (min-width: 600px) {

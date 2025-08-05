@@ -82,9 +82,8 @@ function Navbar() {
             </Settings>
 
             <span className='dark_icon' onClick={replaseThema}>
-              {dark ? <MdDarkMode className='arrows' fontSize={28} /> : <CiLight  className='arrows' fontSize={28} />}
+              {dark ? <MdDarkMode  fontSize={28} /> : <CiLight  fontSize={28} />}
             </span>
-
           </div>
         </ModalMenuContent>
       </Modal>

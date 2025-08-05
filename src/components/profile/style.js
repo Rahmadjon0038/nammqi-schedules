@@ -19,6 +19,17 @@ export const ImgContainer = styled.div`
   p{
     color: var(--tableTitleColor);
   }
+  .icons-arrow{
+     color: var(--tableTitleColor);
+  }
+  @media (max-width: 600px) {
+  p{
+    color: var(--color);
+  }
+  .icons-arrow{
+    color: var(--color);
+  }
+  }
 
   @media (max-width: 600px) {
     img {

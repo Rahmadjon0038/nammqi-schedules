@@ -15,7 +15,9 @@ export const Wrapper = styled.div`
   font-family: Arial, sans-serif;
   align-items: center;
   justify-content: space-between;
-
+  background-color: var(--tableHeaderBg);
+  border-radius: 9px;
+  
   .wrapchild{
   display: flex;
   gap: 20px;
@@ -42,6 +44,9 @@ export const SelectBox = styled.p`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  
+
   &:hover {
     background-color: var(--hoverColor);
   }
