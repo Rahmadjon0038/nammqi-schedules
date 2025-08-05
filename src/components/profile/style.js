@@ -16,6 +16,9 @@ export const ImgContainer = styled.div`
     border: 1px solid;
     border-radius: 50%;
   }
+  p{
+    color: var(--tableTitleColor);
+  }
 
   @media (max-width: 600px) {
     img {
@@ -245,6 +248,7 @@ export const DeleteAccount = styled.button`
     width: 100%;
     margin-left: 0;
     padding: 8px;
+    margin-top: 2px;
     
   }
 `;

@@ -6,6 +6,7 @@ export const ModalContent = styled.div`
         text-align: center;
         font-size: 30px;
         margin-bottom: 10px;
+        color: var(--color);
     }
     p{
         font-size: 22px;
@@ -27,18 +28,24 @@ export const ModalContent = styled.div`
       color: var(--color);
       outline: none;
       border-radius: 5px;
+       &:focus {
+       border-color: var(--tableIconColor);
+       outline: none;
+       background-color: var(--tableOddbg);
+  }
 
     }
+    
     button{
       padding: 12px 60px;
       margin: 0 auto;
       margin-top: 20px;
-      background-color: var(--navColor);
+      background-color: var(--tableHeaderBg);
       display: block;
       border: none;
       border-radius: 5px;
       font-weight: bold;
-      color: var(--color);
+      color: var(--tableTitleColor);
       cursor: pointer;
     }
 

@@ -46,8 +46,8 @@ function Buildings() {
         });
     };
 
-    if(isLoading){
-        return <Loader/>
+    if (isLoading) {
+        return <Loader />
     }
 
     return (
@@ -55,47 +55,47 @@ function Buildings() {
             {role == 'admin' && <FormWrapper>
                 <Form onSubmit={handleSumbit} >
                     <Input required onChange={addBuldingChange} value={addBuilding.name} name="name" type="text" placeholder="Bino nomini kiriting" />
-                    <Input required onChange={addBuldingChange} value={addBuilding.address}  name="address" type="text" placeholder="Bino addresini kiriting" />
+                    <Input required onChange={addBuldingChange} value={addBuilding.address} name="address" type="text" placeholder="Bino addresini kiriting" />
                     <Button>Qo'shish</Button>
                 </Form>
             </FormWrapper>}
-           
-           <StychkiTable>
-             
-            <Table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Nomi</th>
-                        <th>Joylashuvi</th>
-                        <th>Ko'rish</th>
-                    </tr>
-                </thead>
-                {data?.buildings?.map((item, index) => (
-                    <tbody key={index}>
+
+            <StychkiTable>
+
+                <Table>
+                    <thead>
                         <tr>
-                            <td>
-                                <span className="icon">
-                                    <FaRegCopy onClick={() => copytext(item.id)} className="copy" />
-                                    <span id="copybox">{item?.id}</span>
-                                </span>
-                            </td>
-                            <td>{item.name}</td>
-                            <td>
-                                <span className="icon">
-                                    <FaLocationDot />{item.address}
-                                </span>
-                            </td>
-                            <td className="nmap">
-                                <Link href={`/buildings/${item?.id}`}><span><FaEye className="aye"/></span></Link>
-                            </td>
+                            <th>id</th>
+                            <th>Nomi</th>
+                            <th>Joylashuvi</th>
+                            <th>Ko'rish</th>
                         </tr>
+                    </thead>
+                    <tbody >
+                        {data?.buildings?.map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <span className="icon">
+                                        <FaRegCopy onClick={() => copytext(item.id)} className="copy" />
+                                        <span id="copybox">{item?.id}</span>
+                                    </span>
+                                </td>
+                                <td>{item.name}</td>
+                                <td>
+                                    <span className="icon">
+                                        <FaLocationDot className="map"/>{item.address}
+                                    </span>
+                                </td>
+                                <td className="nmap">
+                                    <Link href={`/buildings/${item?.id}`}><span><FaEye className="aye" /></span></Link>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
-                ))}
 
-            </Table>
+                </Table>
 
-           </StychkiTable>
+            </StychkiTable>
         </TableContainer >
     )
 }

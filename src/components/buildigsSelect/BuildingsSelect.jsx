@@ -32,7 +32,7 @@ const BuildingsSelect = () => {
           )}
         >
           <div style={{ marginTop: '5px', cursor: 'pointer' }}>
-            <IoIosArrowDown />
+            <IoIosArrowDown className='arrows'/>
           </div>
         </Dropdown>
       </Space>

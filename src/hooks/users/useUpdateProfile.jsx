@@ -253,7 +253,6 @@ export const useUpdateAuditorium = (auditoriumId) => {
 
 
 const DeleteAditoriums = async (id) => {
-    console.log(id, 'test')
     const respense = await instance.delete(`/api/db/auditoriums/buildingID/${id}`)
     return respense.data
 }

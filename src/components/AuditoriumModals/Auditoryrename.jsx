@@ -13,15 +13,20 @@ import {
   DisplayField,
   FieldRow
 } from './style';
-import { useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
+import { useDeleteAuditorium, useUpdateAuditorium } from '@/hooks/users/useUpdateProfile';
 import { useAuth } from '@/context/authContext';
 import useMedia from 'use-media';
 
 function UpdateAuditoriumModal({ open, onClose, auditorium }) {
   const upDateMutation = useUpdateAuditorium();
   const { role } = useAuth();
+  const deleteMuation = useDeleteAuditorium()
 
   const [editMode, setEditMode] = useState(false);
+
+  const deleteAuditoryId = (id) => {
+    deleteMuation.mutate(id)
+  }
 
   const [form, setForm] = useState({
     name: auditorium.name || '',
@@ -186,6 +191,7 @@ function UpdateAuditoriumModal({ open, onClose, auditorium }) {
               </UpdateButton>}
               <DeleteButton onClick={onClose}>Yopish</DeleteButton>
             </ButtonGroup>
+            <DeleteButton type='button' onClick={() => deleteAuditoryId(auditorium?.id)}>Auditoriyani o'chirish</DeleteButton>
           </Form>
         </Custommodal>
       </Box>

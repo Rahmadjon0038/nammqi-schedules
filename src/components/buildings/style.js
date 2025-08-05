@@ -9,6 +9,7 @@ export const TableContainer = styled.div`
 export const StychkiTable = styled.div`
   width: 100%;
   overflow: auto;
+  border-radius: 6px;
 `;
 
 export const Table = styled.table`
@@ -16,20 +17,29 @@ export const Table = styled.table`
   width: 100%;
   min-width: 800px;
 
+
   tr {
-    border: 1px solid var(--tableBorder);
+    border: 1px solid var(--hoverColor);
+
   }
+ tbody tr:nth-child(even) {
+  background-color: var(--tableOddbg);
+}
+
 
   th,
   td {
     text-align: left;
     padding: 20px;
     font-size: 18px;
+
   }
 
   th {
-    background-color: var(--navColor);
+    background-color: var(--tableHeaderBg);
+    color: var(--tableTitleColor);
   }
+ 
 
   .nmap {
     text-align: center;
@@ -39,23 +49,29 @@ export const Table = styled.table`
   }
 
   .nmap .aye {
-    color: var(--color);
+    color: var(--tableIconColor);
   }
 
   .icon {
     display: flex;
     align-items: center;
     gap: 20px;
+    
   }
+.map{
+    color: var(--tableIconColor);
 
+}
   .copy {
     cursor: pointer;
+    color: var(--tableIconColor);
   }
 
   .nmap {
     text-align: left;
     display: flex;
     justify-content: start;
+
   }
 
   #copybox {
@@ -135,8 +151,9 @@ export const Input = styled.input`
   border: 1px solid var(--borderColor);
 
   &:focus {
-    border-color: #3b82f6;
+    border-color: var(--tableIconColor);
     outline: none;
+    background-color: var(--tableOddbg);
   }
 
   @media (max-width: 768px) {

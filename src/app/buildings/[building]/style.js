@@ -37,12 +37,11 @@ export const Title = styled.h1`
 
 export const Info = styled.div`
   line-height: 1.6;
-  background-color: var(--bg);
-  border: 1px solid var(--borderColor);
-  box-shadow: 0 4px 8px var(--shadow);
+  background-color: var(--tableHeaderBg);
   padding: 30px;
   border-radius: 10px;
   max-width: 50%;
+  color: var(--tableTitleColor);
 
   .edit {
     display: flex;
@@ -125,8 +124,8 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #3498db;
-    background-color: var(--hoverColor);
+    border-color: #10B981;
+    background-color: var(--tableOddbg);
   }
 
   @media (max-width: 768px) {

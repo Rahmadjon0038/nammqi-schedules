@@ -1,10 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import { IoMdLogIn } from "react-icons/io";
 import { CustomModal, ModalContent } from './style';
 import { useLogin } from '@/hooks/useLogin';
 import { useAuth } from '@/context/authContext';
-import { useRouter } from 'next/navigation';
 
 function Login() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +26,6 @@ function Login() {
     const { name, value } = e.target;
     setLogindata({ ...loginData, [name]: value })
   }
-
   const { refetch } = useAuth()
   function handleSumbit(e) {
     e.preventDefault()
@@ -42,8 +39,8 @@ function Login() {
 
   return (
     <div>
-      <button onClick={showModal} className='login'>
-        Tizimga kirish <span><IoMdLogIn fontSize={30} color='green' /></span>
+      <button style={{ display: 'flex', alignItems: 'center', gap: '10px',color:`var(--color)` }} onClick={showModal} className='login'>
+        Tizimga kirish
       </button>
       <CustomModal
         closable={{ 'aria-label': 'Custom Close Button' }}

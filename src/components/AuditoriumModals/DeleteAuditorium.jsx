@@ -13,6 +13,7 @@ const GlobalModalStyle = createGlobalStyle`
     border-radius: 12px;
     padding: 24px;
     border: 1px solid var(--borderColor) !important;
+    
   }
 
   .trash{
@@ -71,8 +72,7 @@ const ConfirmDeleteButton = styled.button`
   }
 `;
 
-const GenericModalDelteAudirotiums = ({ building }) => {
-  const deleteAuditoriumsMuation = useDeleteAuditoriums()
+const DeleteAufitoriId = ({ building }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -83,23 +83,25 @@ const GenericModalDelteAudirotiums = ({ building }) => {
     setIsModalOpen(false);
   };
   const deleteAuditoiums = (id) => {
-    deleteAuditoriumsMuation.mutate(id)
+    console.log(id, 'salom')
   }
-
 
   return (
     <>
       <GlobalModalStyle />
-      <FilterButtons onClick={showModal}><FaTrash className='trash' />Barcha auditoriyalarni o'chirish</FilterButtons>
+      <FilterButtons type='button' onClick={showModal}><FaTrash className='trash' /> Auditoriyani o'chirish</FilterButtons>
       <Modal
         title={null}
         open={isModalOpen}
         footer={null}
         onCancel={handleCancel}
-        closable={false}>
-        <Title>Auditoriyalarni o‘chirish</Title>
+        closable={false}
+         style={{ zIndex: 1100 }}
+        >
+        
+        <Title>Auditoriyani o‘chirish</Title>
         <Description>
-          Siz barcha Auditoriyani o'chirmoqchimisiz
+          Siz bu Auditoriyani o'chirmoqchimisiz
         </Description>
         <ButtonWrapper>
           <CancelButton onClick={handleCancel}>Bekor qilish</CancelButton>
@@ -110,4 +112,4 @@ const GenericModalDelteAudirotiums = ({ building }) => {
   );
 };
 
-export default GenericModalDelteAudirotiums;
+export default DeleteAufitoriId;

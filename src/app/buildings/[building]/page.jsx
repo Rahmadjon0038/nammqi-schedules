@@ -49,7 +49,7 @@ function Page() {
         if (val.trim() === '') {
             setSearch('');
         } else {
-            setSearch(val); // valni bevosita uzatamiz
+            setSearch(val);
         }
     };
 
@@ -112,7 +112,7 @@ function Page() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: isWide ? '90%' :'50%',
+        width: isWide ? '90%' : '50%',
         bgcolor: 'transparent',
         maxHeight: '90vh',    // ekran balandligining 90% dan oshmasin
         overflowY: 'auto',
@@ -122,19 +122,20 @@ function Page() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    if (isLoading) return <Wrapper>Yuklanmoqda...</Wrapper>;
-    if (error) return <Wrapper>Xatolik yuz berdi!</Wrapper>;
-
     const addAllAuiditoriums = (e) => {
-        const file = e.target.files[0]; // Faylni olayapmiz
+        const file = e.target.files[0];
         if (!file) {
             console.log("Fayl tanlanmagan");
             return;
         }
         const formData = new FormData();
         formData.append("file", file);
-        allAuiditoriumsMutaton.mutate(formData)
+        // allAuiditoriumsMutaton.mutate(formData)
     };
+
+    if (isLoading) return <Wrapper>Yuklanmoqda...</Wrapper>;
+    if (error) return <Wrapper>Xatolik yuz berdi!</Wrapper>;
+
 
     return (
         <>
@@ -207,7 +208,7 @@ function Page() {
                         <FilterButtons><FaPlusCircle />Qo'shish</FilterButtons>
                     </CreateAuditoriumModal>}
 
-                    {role == 'admin' && < FilterButtons > <FaTable className='exel' />Exel orqali qo'shish <input onChange={addAllAuiditoriums} className='xls' type="file" /></FilterButtons>}
+                    {role == 'admin' && < FilterButtons > <FaTable className='exel' />Exel orqali qo'shish <input onChange={(e) => addAllAuiditoriums(e)} className='xls' type="file" /></FilterButtons>}
 
                     {role == 'admin' && <GenericModalDelteAudirotiums building={building} />}
                 </FilterItem>

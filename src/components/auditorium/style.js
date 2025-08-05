@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const PagesizeAndTitle = styled.div`
+color: var(--textColor);
 `;
 
 export const Select = styled.select`
@@ -29,7 +30,8 @@ export const Select = styled.select`
 `;
 
 export const Title = styled.h2`
-  color: var(--color);
+ color: var(--textColor);
+
   font-size: 24px;
 
   @media (max-width: 768px) {
@@ -47,7 +49,7 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 20px; 
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -67,7 +69,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Info = styled.div`
-  background-color: var(--bg);
+  background-color: var(--tableHeaderBg);
+  
   border: 1px solid var(--borderColor);
   padding: 16px;
   border-radius: 8px;
@@ -81,7 +84,8 @@ export const Info = styled.div`
 
   h3 {
     margin-bottom: 10px;
-    color: var(--color);
+      color: var(--tableTitleColor);
+
     text-align: center;
 
     @media (max-width: 768px) {
@@ -95,7 +99,8 @@ export const Info = styled.div`
 
   p {
     margin-top: 8px;
-    color: var(--color);
+      color: var(--tableTitleColor);
+
     text-align: center;
 
     @media (max-width: 768px) {
@@ -134,9 +139,7 @@ export const Crud = styled.div`
 `;
 
 export const Filter = styled.div`
-  background-color: var(--bg);
-  box-shadow: 0 0 10px var(--shadow);
-  border: 1px solid var(--borderColor);
+  background-color: var(--tableHeaderBg);
   padding: 10px;
   margin-top: 30px;
   margin-bottom: 40px;
@@ -144,9 +147,9 @@ export const Filter = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 10px;
 
   @media (max-width: 768px) {
-    justify-content: center;
     gap: 10px;
   }
 `;
@@ -209,6 +212,7 @@ export const FilterInput = styled.input`
   padding: 10px 20px;
   font-size: 16px;
   color: white;
+  color: var(--color);
 
   @media (max-width: 768px) {
     font-size: 14px;

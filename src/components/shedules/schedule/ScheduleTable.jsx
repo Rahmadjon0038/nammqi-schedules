@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { useGetschedules } from '@/hooks/addBildings'
 import { StyledTable, TableWrapper, Td, Th } from './style'
@@ -5,6 +6,7 @@ import Loader from '@/components/loader/Loader'
 import ViewLessonodal from './ViewModal'
 import Addlesson from './Addlesson'
 import { useGetAuditorium } from '@/hooks/users/useUpdateProfile'
+import { useAuth } from '@/context/authContext'
 
 const daysOfWeek = [
   { eng: 'Monday', uz: 'Dushanba' },
@@ -18,6 +20,7 @@ const daysOfWeek = [
 const lessonSlots = [1, 2, 3, 4, 5, 6]
 
 function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate }) {
+  const { role } = useAuth()
   const { data: schedule, isLoading, error } = useGetschedules({
     buildingID,
     shift,
@@ -27,8 +30,6 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
   })
 
   const { data: Auditurium } = useGetAuditorium(schedule?.buildingID);
-
-
   const auditoriumsSet = new Set()
   schedule && schedule?.days && Object.values(schedule?.days).forEach((day) => {
     Object.values(day).forEach((lesson) => {
@@ -74,13 +75,13 @@ function ScheduleByAuditorium({ buildingID, shift, weekType, startDate, endDate 
               <Td><strong>{auditorium.name}</strong></Td>
               {daysOfWeek.map(({ eng }) =>
                 lessonSlots.map((slot) => {
-                  const lesson = getLesson(eng, slot, auditorium.name) // faqat name yoki id orqali solishtirish
+                  const lesson = getLesson(eng, slot, auditorium.name)
                   return (
                     <Td key={`${eng}-${slot}-${auditorium.id}`}>
                       {lesson ? (
                         <ViewLessonodal schedule={{ day: eng, slot, auditorium, lesson }} />
                       ) : (
-                        <Addlesson data={auditorium} />
+                        role === "admin" ? <Addlesson data={auditorium} />  :"----"
                       )}
                     </Td>
                   )

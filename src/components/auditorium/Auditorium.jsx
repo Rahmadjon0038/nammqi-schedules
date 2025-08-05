@@ -106,14 +106,16 @@ function Auditorium({ building, filter, search, setSearch }) {
                                 '& .MuiPaginationItem-root': {
                                     color: 'white',
                                     borderColor: 'white',
-                                    backgroundColor: '#3f3e3e',
+                                    backgroundColor: 'var(--tableHeaderBg)',
                                 },
                                 '& .Mui-selected': {
-                                    backgroundColor: '#333',
-                                    color: 'white',
+                                    backgroundColor: 'var(--tableOddbg)',
+                                    color: 'var(--color)',
                                     borderColor: 'white',
                                     '&:hover': {
-                                        backgroundColor: '#363333',
+                                        backgroundColor: 'var(--tableHeaderBg)',
+                                        color: 'white',
+
                                     },
                                 },
                                 '& .MuiPaginationItem-ellipsis': {

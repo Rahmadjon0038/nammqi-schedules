@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
-import React, { useState, useRef } from 'react'
-import { BurgerMenu, Container, CustomMenu, Nav, Settings } from './style.js'
+import React, { useState } from 'react'
+import { Container, CustomMenu, GlobalModalStyle, Nav, Settings, ModalMenuContent } from './style.js'
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
 import { toggleTheme } from '../darkmode.jsx'
@@ -10,15 +10,18 @@ import Login from '../login/Login.jsx'
 import UserProfile from '../profile/UserProfile.jsx';
 import BuildinsSelect from '../buildigsSelect/BuildingsSelect.jsx';
 import { useRouter } from 'next/navigation.js';
-import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { Modal } from 'antd';
+import { IoMdMenu } from "react-icons/io";
+
 function Navbar() {
-  const { role, userMeData } = useAuth();
+  const { role } = useAuth();
   const [dark, setDark] = useState(true);
-  const [hiddenNav, setHiddenNav] = useState(true);
-  const menuRef = useRef(null);
   const router = useRouter()
 
-  const [openMenu, setOpenMenu] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => setIsModalOpen(true);
+  const handleCancel = () => setIsModalOpen(false);
 
   const replaseThema = () => {
     setDark(!dark);
@@ -27,76 +30,66 @@ function Navbar() {
 
   return (
     <Container>
+      <h1 onClick={() => router.push('/')}>Schedule</h1>
 
-      <h1 onClick={() => router.push('/')} >Schedu<span>le</span></h1>
+      {/* Desktop nav */}
       <Nav>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Link className='link' href={'/buildings'}>
-            <span className={hiddenNav ? 'name' : ''}>Binolar </span>
-          </Link>
+        <div className="nav-group">
+          <Link className='link' href={'/buildings'}>Binolar</Link>
           <BuildinsSelect />
         </div>
-
-        <Link className='link' href={'/schedule'}>
-          <span className={hiddenNav ? 'name' : ''}>Dars jadvali</span>
-        </Link>
-
-        {role == 'admin' && <Link className='link' href={'/users'}>
-          <span className={hiddenNav ? 'name' : ''}>Foydalanuvchilar</span>
-        </Link>}
+        <Link className='link' href={'/schedule'}>Dars jadvali</Link>
+        {role === 'admin' && <Link className='link' href={'/users'}>Foydalanuvchilar</Link>}
 
         <Settings>
-
-          {role === 'guest' ? (
-            <Login />
-          ) : (
-            <div className='info' ref={menuRef} style={{ position: 'relative' }}>
-              <UserProfile />
-            </div>
-          )}
+          {role === 'guest' ? <Login /> : <UserProfile />}
         </Settings>
+
         <span className='dark_icon' onClick={replaseThema}>
-          {dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}
+          {dark ? <MdDarkMode className='arrows' fontSize={28} /> : <CiLight className='arrows' fontSize={28} />}
         </span>
       </Nav>
 
-      <CustomMenu onClick={() => setOpenMenu(!openMenu)}> <IoMdMenu className='menu' />
+      {/* Burger icon */}
+      <CustomMenu>
+        <IoMdMenu onClick={showModal} className="menu" />
+      </CustomMenu>
 
-        {openMenu && <BurgerMenu>
-          <IoMdClose className='menu' onClick={() => setOpenMenu(!openMenu)} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Link className='link' href={'/buildings'}>
-              <span className={hiddenNav ? 'name' : ''}>Binolar </span>
-            </Link>
+      {/* Mobile modal */}
+      <Modal
+        title={null}
+        open={isModalOpen}
+        footer={null}
+        onCancel={handleCancel}
+        closable={false}
+        centered
+      >
+        <ModalMenuContent>
+          <div className="nav-group">
+            <Link className='link' href={'/buildings'} onClick={handleCancel}>Binolar</Link>
             <BuildinsSelect />
           </div>
 
-          <Link className='link' href={'/schedule'}>
-            <span className={hiddenNav ? 'name' : ''}>Dars jadvali</span>
-          </Link>
+          <Link className='link' href={'/schedule'} onClick={handleCancel}>Dars jadvali</Link>
 
-          {role == 'admin' && <Link className='link' href={'/users'}>
-            <span className={hiddenNav ? 'name' : ''}>Foydalanuvchilar</span>
-          </Link>}
+          {role === 'admin' && (
+            <Link className='link' href={'/users'} onClick={handleCancel}>Foydalanuvchilar</Link>
+          )}
 
-          <Settings>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+            <Settings>
+              {role === 'guest' ? <Login /> : <UserProfile />}
+            </Settings>
 
-            {role === 'guest' ? (
-              <Login />
-            ) : (
-              <div className='info' ref={menuRef} style={{ position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
-                <UserProfile />
-                <span className='dark_icon' onClick={replaseThema}>
-                  {dark ? <MdDarkMode fontSize={30} /> : <CiLight fontSize={30} />}
-                </span>
-              </div>
-            )}
+            <span className='dark_icon' onClick={replaseThema}>
+              {dark ? <MdDarkMode className='arrows' fontSize={28} /> : <CiLight  className='arrows' fontSize={28} />}
+            </span>
 
-          </Settings>
+          </div>
+        </ModalMenuContent>
+      </Modal>
 
-        </BurgerMenu>}
-
-      </CustomMenu>
+      <GlobalModalStyle />
     </Container>
   );
 }

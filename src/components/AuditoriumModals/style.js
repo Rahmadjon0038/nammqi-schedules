@@ -57,6 +57,8 @@ export const Input = styled.input`
   border: 1px solid var(--borderColor);
   background-color: transparent;
   color: var(--color);
+  width: 100%;
+  margin-top: 4px;
 
   &:focus {
     outline: none;

@@ -41,7 +41,7 @@ const Input = styled.input`
   padding: 12px;
   border: 1px solid ${props => (props.error ? 'red' : '#666')};
   border-radius: 8px;
-  background-color: var(--bg2);
+  background-color: var(--bg);
   color: var(--color);
   font-size: 15px;
   width: 100%;
@@ -54,9 +54,9 @@ const Input = styled.input`
 
 const Select = styled.select`
   padding: 12px;
-  border: 1px solid ${props => (props.error ? 'red' : '#666')};
+  border: 1px solid var(--borderColor);
   border-radius: 8px;
-  background-color: var(--bg2);
+  background-color: var(--bg);
   color: var(--color);
   font-size: 15px;
   width: 100%;
@@ -99,7 +99,7 @@ const Textarea = styled.textarea`
   padding: 12px;
   border: 1px solid #666;
   border-radius: 8px;
-  background-color: var(--bg2);
+  background-color: var(--bg);
   color: var(--color);
   font-size: 15px;
   min-height: 100px;

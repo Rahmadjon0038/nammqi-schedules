@@ -46,7 +46,6 @@ export const StychkiTable = styled.div`
   width: 100%;
   overflow: auto;
   border-radius: 6px;
-  border: 1px solid var(--borderColor);
 
   /* Mobile */
   @media (max-width: 600px) {
@@ -61,6 +60,9 @@ export const Table = styled.table`
   tr {
     border: 1px solid var(--hoverColor);
   }
+ tbody tr:nth-child(even) {
+  background-color: var(--tableOddbg);
+}
 
   th,
   td {
@@ -70,7 +72,8 @@ export const Table = styled.table`
   }
 
   th {
-    background-color: var(--navColor);
+    background-color: var(--tableHeaderBg);
+    color: var(--tableTitleColor);
   }
 
   /* Tablet */
